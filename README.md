@@ -95,7 +95,7 @@ UrbanEase follows a normalized relational database design optimized for:
 
 ### Entity Relationship Diagram (ERD)
 
-#### Interactive Visual ERD (Rendered by GitHub)
+#### Visual ERD
 
 ```mermaid
 erDiagram
@@ -344,20 +344,6 @@ erDiagram
 - `FK` = Foreign Key  
 - `UK` = Unique Key
 - `"text"` = Constraint or description
-
-**Export Visual Diagram:**
-```bash
-# Install Mermaid CLI globally (one time)
-npm install -g @mermaid-js/mermaid-cli
-
-# Generate PNG from Mermaid file
-mmdc -i docs/erd_diagram.mmd -o docs/erd_diagram.png
-
-# Generate SVG (scalable)
-mmdc -i docs/erd_diagram.mmd -o docs/erd_diagram.svg
-
-# Or view/edit online at: https://mermaid.live/
-```
 
 ---
 
