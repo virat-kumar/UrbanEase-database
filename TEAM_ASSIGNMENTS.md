@@ -230,10 +230,11 @@ All your files are organized by your name. Simply look for folders or files with
 
 ### What Each Person Must Complete
 
-Every team member must create **6 database components**:
+Every team member is responsible for **3 tables** and must create **6 database components**:
 
 | Component | Count | Description |
 |-----------|-------|-------------|
+| **Tables (Assigned)** | 3 | Your module's database tables (see your assignments) |
 | **Complex Queries** | 3 | SQL queries with JOINs, aggregations, or subqueries |
 | **Stored Procedure** | 1 | Business logic procedure with parameters |
 | **Function** | 1 | Reusable calculation or validation function |
