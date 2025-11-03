@@ -1,423 +1,526 @@
-# UrbanEase Database
+# 🛍️ UrbanEase Database Project
 
-## Overview
-UrbanEase is a comprehensive e-commerce database system built on **MySQL 8.0+**. This database manages all aspects of an online retail platform including user management, product catalog, inventory, shopping cart, orders, payments, and customer reviews.
+> A comprehensive e-commerce database system for modern online retail platforms
 
-## Database Schema
-The database `urbanease_shop` consists of **18 interconnected tables** organized into logical modules.
+**Welcome to the UrbanEase Database Repository!** This is a college project where we're building a production-ready MySQL database for an e-commerce platform. This README will help you understand the project, find your assignments, and get started with development.
 
 ---
 
-## Table Structure
+## 📚 Table of Contents
 
-### 1. Accounts & User Management
-
-#### **Users**
-Stores customer and user account information.
-- **Primary Key**: `user_id` (BIGINT, AUTO_INCREMENT)
-- **Unique Constraint**: `email`
-- **Key Fields**:
-  - `email` - User's email address (max 320 chars)
-  - `password_hash` - Encrypted password (VARBINARY)
-  - `full_name` - User's full name
-  - `phone` - Contact number
-  - `is_active` - Account status flag (BOOLEAN)
-  - `created_at`, `updated_at` - Auto-updating timestamps
-
-#### **Roles**
-Defines user roles (Admin, Customer, Manager, etc.).
-- **Primary Key**: `role_id` (INT, AUTO_INCREMENT)
-- **Unique Constraint**: `role_name`
-
-#### **UserRoles**
-Many-to-many relationship between Users and Roles.
-- **Composite Primary Key**: (`user_id`, `role_id`)
-- **Foreign Keys**: References `Users` and `Roles`
-
-#### **Addresses**
-Stores shipping and billing addresses for users.
-- **Primary Key**: `address_id` (BIGINT, IDENTITY)
-- **Foreign Key**: `user_id` → `Users`
-- **Key Fields**:
-  - `label` - Address type (Home/Office)
-  - `line1`, `line2` - Street address
-  - `city`, `state_region`, `postal_code`, `country_code`
-  - `is_default` - Default address flag
+- [Project Overview](#-project-overview)
+- [Quick Start](#-quick-start)
+- [Team Structure](#-team-structure)
+- [Your Responsibilities](#-your-responsibilities)
+- [Repository Structure](#-repository-structure)
+- [Database Architecture](#-database-architecture)
+- [Getting Started Guide](#-getting-started-guide)
+- [Development Workflow](#-development-workflow)
+- [Technical Documentation](#-technical-documentation)
+- [Resources & Help](#-resources--help)
 
 ---
 
-### 2. Product Catalog
+## 🎯 Project Overview
 
-#### **Categories**
-Hierarchical product categories with parent-child relationships.
-- **Primary Key**: `category_id` (BIGINT, IDENTITY)
-- **Foreign Key**: `parent_id` → `Categories` (self-reference)
-- **Unique Constraint**: `slug`
+**UrbanEase** is a full-featured e-commerce database that handles:
+- 👥 User Management & Authentication
+- 📦 Product Catalog with Categories & Images
+- 🏭 Inventory Management across Multiple Warehouses
+- 🛒 Shopping Cart & Promotional Coupons
+- 📋 Order Processing & Fulfillment
+- 💳 Payment Processing
+- ⭐ Customer Reviews & Ratings
 
-#### **Products**
-Main product information.
-- **Primary Key**: `product_id` (BIGINT, IDENTITY)
-- **Foreign Key**: `category_id` → `Categories`
-- **Key Fields**:
-  - `title` - Product name
-  - `description` - Detailed description
-  - `brand` - Brand name
-  - `is_active` - Product availability status
-
-#### **ProductImages**
-Multiple images per product.
-- **Primary Key**: `image_id` (BIGINT, IDENTITY)
-- **Foreign Key**: `product_id` → `Products`
-- **Key Fields**:
-  - `url` - Image URL (max 512 chars)
-  - `alt_text` - Accessibility text
-  - `sort_order` - Display order
-
----
-
-### 3. Variants & Inventory
-
-#### **ProductVariants**
-Different variations of products (size, color, etc.).
-- **Primary Key**: `variant_id` (BIGINT, AUTO_INCREMENT)
-- **Foreign Key**: `product_id` → `Products`
-- **Unique Constraint**: `sku`
-- **Key Fields**:
-  - `sku` - Stock Keeping Unit
-  - `attributes_json` - Variant attributes in native JSON format (e.g., `{"size":"M","color":"Black"}`)
-  - `price` - Variant price (DECIMAL 12,2)
-  - `currency` - Currency code (default: 'USD')
-  - `is_active` - Availability flag (BOOLEAN)
-
-#### **Warehouses**
-Physical warehouse locations.
-- **Primary Key**: `warehouse_id` (BIGINT, AUTO_INCREMENT)
-- **Unique Constraint**: `code`
-- **Key Fields**:
-  - `name` - Warehouse name
-  - `code` - Warehouse code
-  - `city`, `state_region`, `country_code`
-
-#### **Inventory**
-Stock levels per warehouse and variant.
-- **Composite Primary Key**: (`warehouse_id`, `variant_id`)
-- **Foreign Keys**: References `Warehouses` and `ProductVariants`
-- **Key Fields**:
-  - `on_hand` - Available quantity (CHECK >= 0)
-  - `reserved` - Reserved quantity (CHECK >= 0)
-
----
-
-### 4. Shopping Cart & Discounts
-
-#### **Carts**
-User shopping carts (supports guest carts with NULL user_id).
-- **Primary Key**: `cart_id` (BIGINT, IDENTITY)
-- **Foreign Key**: `user_id` → `Users` (nullable for guest users)
-
-#### **CartItems**
-Items in shopping carts.
-- **Primary Key**: `cart_item_id` (BIGINT, IDENTITY)
-- **Foreign Keys**: References `Carts` and `ProductVariants`
-- **Key Fields**:
-  - `qty` - Quantity (CHECK > 0)
-  - `unit_price` - Price at time of adding to cart
-
-#### **Coupons**
-Discount coupon management.
-- **Primary Key**: `coupon_id` (BIGINT, IDENTITY)
-- **Unique Constraint**: `code`
-- **Key Fields**:
-  - `code` - Coupon code
-  - `type` - Discount type ('PERCENT' or 'AMOUNT')
-  - `value` - Discount value
-  - `starts_at`, `expires_at` - Validity period
-  - `min_subtotal` - Minimum order amount
-  - `is_active` - Active status
-
----
-
-### 5. Orders & Fulfillment
-
-#### **Orders**
-Customer orders with comprehensive pricing.
-- **Primary Key**: `order_id` (BIGINT, IDENTITY)
-- **Foreign Keys**:
-  - `user_id` → `Users`
-  - `coupon_id` → `Coupons`
-  - `shipping_address_id` → `Addresses`
-  - `billing_address_id` → `Addresses`
-- **Key Fields**:
-  - `status` - Order status ('PENDING', 'PAID', 'CANCELLED', 'FULFILLED', 'REFUNDED')
-  - `subtotal_amount` - Items total
-  - `discount_amount` - Applied discount
-  - `shipping_amount` - Shipping cost
-  - `tax_amount` - Tax amount
-  - `grand_total_amount` - **Computed column** (persisted)
-
-#### **OrderItems**
-Individual line items in orders.
-- **Primary Key**: `order_item_id` (BIGINT, IDENTITY)
-- **Foreign Keys**: References `Orders` and `ProductVariants`
-- **Key Fields**:
-  - `qty` - Quantity ordered
-  - `unit_price` - Price at time of order
-  - `tax_amount` - Item tax
-  - `discount_amount` - Item-level discount
-
-#### **Shipments**
-Shipping and delivery tracking.
-- **Primary Key**: `shipment_id` (BIGINT, IDENTITY)
-- **Foreign Keys**: References `Orders` and `Warehouses`
-- **Key Fields**:
-  - `carrier` - Shipping carrier
-  - `tracking_no` - Tracking number
-  - `status` - Shipment status ('CREATED', 'PICKED', 'IN_TRANSIT', 'DELIVERED', 'CANCELLED')
-  - `shipped_at`, `delivered_at` - Timestamps
-
----
-
-### 6. Payments & Reviews
-
-#### **Payments**
-Payment transaction records.
-- **Primary Key**: `payment_id` (BIGINT, IDENTITY)
-- **Foreign Key**: `order_id` → `Orders`
-- **Key Fields**:
-  - `provider` - Payment gateway (Stripe, PayPal, etc.)
-  - `provider_ref` - External transaction reference
-  - `amount` - Payment amount
-  - `status` - Payment status ('INITIATED', 'AUTHORIZED', 'CAPTURED', 'FAILED', 'REFUNDED')
-  - `paid_at` - Payment timestamp
-
-#### **Reviews**
-Product reviews and ratings.
-- **Primary Key**: `review_id` (BIGINT, IDENTITY)
-- **Foreign Keys**: References `Products` and `Users`
-- **Unique Constraint**: (`product_id`, `user_id`) - One review per user per product
-- **Key Fields**:
-  - `rating` - Star rating (1-5)
-  - `title` - Review title
-  - `body` - Review text
-
----
-
-## Indexes
-
-Performance optimization indexes have been created on frequently queried columns:
-
-```sql
-IX_Variant_Product   -- ProductVariants.product_id
-IX_Product_Category  -- Products.category_id
-IX_Inventory_Variant -- Inventory.variant_id
-IX_Order_User        -- Orders.user_id
-IX_OrderItems_Order  -- OrderItems.order_id
-IX_CartItems_Cart    -- CartItems.cart_id
-IX_Payments_Order    -- Payments.order_id
-```
-
----
-
-## Entity Relationships
-
-### Key Relationships:
-- **Users** → Multiple **Addresses** (1:N)
-- **Users** ↔ **Roles** (M:N through UserRoles)
-- **Categories** → Self-referencing for hierarchy
-- **Products** → Multiple **ProductVariants** (1:N)
-- **Products** → Multiple **ProductImages** (1:N)
-- **ProductVariants** → **Inventory** at multiple Warehouses (1:N)
-- **Users** → **Carts** → **CartItems** (1:1:N)
-- **Users** → Multiple **Orders** (1:N)
-- **Orders** → **OrderItems** (1:N)
-- **Orders** → **Shipments** (1:N)
-- **Orders** → **Payments** (1:N)
-- **Products** ↔ **Users** through **Reviews** (M:N)
-
----
-
-## Data Integrity Features
-
-### Check Constraints:
-- Price fields: `>= 0`
-- Quantities: `> 0` for ordered items, `>= 0` for inventory
-- Ratings: `BETWEEN 1 AND 5`
-- Status fields: Restricted to predefined values
-
-### Computed Columns:
-- `Orders.grand_total_amount` - Automatically calculated using `GENERATED ALWAYS AS` and stored
-
-### Default Values:
-- Timestamps: `UTC_TIMESTAMP()` with auto-update on modification
-- Boolean flags: `DEFAULT TRUE` or `DEFAULT FALSE`
-- Currency: `DEFAULT 'USD'`
-- Status indicators: `DEFAULT TRUE` for active states
-
----
-
-## Files Structure
-
-```
-UrbanEase-database/
-├── table_schema.sql       # Complete table structure with indexes
-├── queries/               # [To be added] Complex SQL queries
-├── procedures/            # [To be added] Stored procedures
-├── functions/             # [To be added] User-defined functions
-├── triggers/              # [To be added] Database triggers
-└── README.md             # This file
-```
-
----
-
-## Complex Queries
-*This section will contain complex queries for common business operations*
-
-### Planned Queries:
-- [ ] Product search with filtering and sorting
-- [ ] Sales reports by period, category, or product
-- [ ] Inventory status and low-stock alerts
-- [ ] User order history with detailed breakdowns
-- [ ] Revenue analytics and trending products
-- [ ] Cart abandonment tracking
-- [ ] Customer lifetime value (CLV) calculation
-- [ ] Average order value (AOV) by segment
-
----
-
-## Stored Procedures
-*This section will contain stored procedures for business logic*
-
-### Planned Procedures:
-- [ ] `sp_CreateOrder` - Complete order creation workflow
-- [ ] `sp_ProcessPayment` - Payment processing logic
-- [ ] `sp_UpdateInventory` - Inventory management
-- [ ] `sp_ApplyCoupon` - Coupon validation and application
-- [ ] `sp_GenerateInvoice` - Invoice generation
-- [ ] `sp_CancelOrder` - Order cancellation with refund
-- [ ] `sp_ShipOrder` - Shipment creation and tracking
-- [ ] `sp_CheckoutCart` - Convert cart to order
-
----
-
-## Functions
-*This section will contain user-defined functions*
-
-### Planned Functions:
-- [ ] `fn_CalculateCartTotal` - Calculate cart grand total
-- [ ] `fn_GetAvailableInventory` - Get available stock (on_hand - reserved)
-- [ ] `fn_ValidateCoupon` - Validate coupon eligibility
-- [ ] `fn_CalculateShipping` - Shipping cost calculation
-- [ ] `fn_CalculateTax` - Tax calculation by region
-- [ ] `fn_GetProductRating` - Calculate average product rating
-- [ ] `fn_GetUserRewardPoints` - Calculate loyalty points
-
----
-
-## Triggers
-*This section will contain database triggers*
-
-### Planned Triggers:
-- [ ] `tr_UpdateInventoryOnOrder` - Reserve inventory when order is placed
-- [ ] `tr_UpdateInventoryOnShipment` - Deduct inventory when shipped
-- [ ] `tr_UpdateTimestamps` - Auto-update `updated_at` fields
-- [ ] `tr_ValidateOrderTotal` - Ensure order totals are correct
-- [ ] `tr_PreventNegativeInventory` - Prevent overselling
-- [ ] `tr_LogPriceChanges` - Audit trail for price modifications
-- [ ] `tr_UpdateOrderStatus` - Cascade status changes
-- [ ] `tr_EnforceOneDefaultAddress` - Ensure only one default address per user
-
----
-
-## Database Design Principles
-
-1. **Normalization**: Database is normalized to 3NF to reduce redundancy
-2. **Performance**: Strategic indexes on foreign keys and frequently queried columns
-3. **Data Integrity**: Comprehensive constraints, foreign keys, and check constraints (MySQL 8.0.16+)
-4. **Scalability**: Uses BIGINT for high-volume tables (users, products, orders)
-5. **Flexibility**: Native JSON data type for dynamic attributes (ProductVariants.attributes_json)
-6. **Audit Trail**: Auto-updating timestamps with ON UPDATE UTC_TIMESTAMP() on most tables
-7. **Multi-currency Support**: Currency field in ProductVariants
-8. **Guest Checkout**: Nullable user_id in Carts for guest users
-9. **InnoDB Engine**: ACID compliance, foreign key support, and row-level locking
-
----
-
-## Technology Stack
-
+### Key Statistics
 - **Database**: MySQL 8.0+
-- **Storage Engine**: InnoDB
-- **Character Set**: utf8mb4
-- **Collation**: utf8mb4_unicode_ci (international character support)
-- **Timestamp**: DATETIME with UTC (UTC_TIMESTAMP())
+- **Tables**: 18 interconnected tables
+- **Team Members**: 6 people
+- **Components**: Queries, Procedures, Functions, Triggers
+- **Files Created**: 58+ placeholder files ready for development
 
 ---
 
-## Installation
+## 🚀 Quick Start
 
-1. **Prerequisites**: MySQL 8.0 or later
+### Prerequisites
+- **MySQL 8.0 or later** installed
+- **MySQL Workbench** (recommended) or command-line access
+- **Git** for version control
 
-2. **Using MySQL Workbench**:
-   - Open MySQL Workbench
-   - Connect to your MySQL server
-   - Open `table_schema.sql`
-   - Execute the script (it will create the database and all tables)
-
-3. **Using Command Line**:
+### Clone the Repository
 ```bash
+git clone https://github.com/virat-kumar/UrbanEase-database.git
+cd UrbanEase-database
+```
+
+### Set Up the Database
+```bash
+# Using MySQL Workbench:
+# 1. Open MySQL Workbench
+# 2. Connect to your MySQL server
+# 3. Open table_schema.sql
+# 4. Execute the script
+
+# OR using command line:
 mysql -u root -p < table_schema.sql
 ```
 
-4. **Verify Installation**:
+### Verify Installation
 ```sql
 USE urbanease_shop;
 SHOW TABLES;
+-- You should see all 18 tables listed
 ```
 
-You should see all 18 tables listed.
+---
+
+## 👥 Team Structure
+
+Our team of **6 members** is organized into functional modules:
+
+| Team Member | Module | Tables |
+|-------------|--------|--------|
+| **Bajwa, Achint Kaur** | User Management & Authentication | Users, Roles, UserRoles |
+| **Khapekar, Pooja** | Product Catalog | Categories, Products, ProductImages |
+| **Kumar, Virat** | Inventory Management | ProductVariants, Warehouses, Inventory |
+| **Min, La Yaung** | Shopping Cart & Promotions | Carts, CartItems, Coupons |
+| **Tiwari, Sneha** | Order Management | Orders, OrderItems, Shipments |
+| **Velarde Sosa, Diana** | Payments & Reviews | Addresses, Payments, Reviews |
+
+📖 **See [TEAM_ASSIGNMENTS.md](TEAM_ASSIGNMENTS.md) for detailed task breakdown**
 
 ---
 
-## Future Enhancements
+## 📋 Your Responsibilities
 
-- [ ] Add full-text search capabilities for products
-- [ ] Implement table partitioning for Orders (by date)
-- [ ] Add audit tables for compliance
-- [ ] Create views for common queries
-- [ ] Implement row-level security
-- [ ] Add support for wishlists
-- [ ] Implement product recommendations
-- [ ] Add support for product bundles/kits
-- [ ] Implement multi-warehouse routing logic
-- [ ] Add customer support ticket system
+Each team member is responsible for creating:
+
+### ✅ Your Deliverables (per person):
+
+1. **3 Complex Queries** - SQL queries demonstrating complex operations on your tables
+2. **1 Stored Procedure** - A procedure that performs business logic
+3. **1 Function** - A reusable function for calculations or checks
+4. **1 Trigger** - An automatic action on table events
+
+### 📂 Where to Find Your Files
+
+All placeholder files are already created and organized by your name:
+
+```
+your_name/
+├── queries/your_name/           # 3 query files here
+├── procedures/sp_yourname_*.sql # 1 procedure file
+├── functions/fn_yourname_*.sql  # 1 function file
+├── triggers/tr_yourname_*.sql   # 1 trigger file
+└── tables/your_name/            # 3 table files (for reference)
+```
+
+**Example for Kumar, Virat:**
+- `queries/kumar_virat/` - Contains 3 query placeholders
+- `procedures/sp_kumar_update_inventory.sql`
+- `functions/fn_kumar_get_available_stock.sql`
+- `triggers/tr_kumar_prevent_negative_inventory.sql`
+- `tables/kumar_virat/` - Contains table creation scripts
 
 ---
 
-## Contributing
+## 📁 Repository Structure
 
-When adding new components to this database:
-1. Follow the existing naming conventions
-2. Add appropriate indexes for foreign keys
-3. Include check constraints for data validation
-4. Document all procedures and functions
-5. Update this README with new additions
+```
+UrbanEase-database/
+│
+├── 📄 README.md                    # This file - Project overview
+├── 📄 TEAM_ASSIGNMENTS.md         # Detailed team assignments & progress
+├── 📄 PROJECT_STRUCTURE.md        # Complete file organization guide
+├── 📄 table_schema.sql            # Complete database schema (18 tables)
+│
+├── 📁 tables/                     # Individual table creation files
+│   ├── bajwa_achint_kaur/         # 3 tables
+│   ├── khapekar_pooja/            # 3 tables
+│   ├── kumar_virat/               # 3 tables
+│   ├── min_la_yaung/              # 3 tables
+│   ├── tiwari_sneha/              # 3 tables
+│   └── velarde_sosa_diana/        # 3 tables
+│
+├── 📁 queries/                    # Complex SQL queries
+│   ├── bajwa_achint_kaur/         # 3 queries
+│   ├── khapekar_pooja/            # 3 queries
+│   ├── kumar_virat/               # 3 queries
+│   ├── min_la_yaung/              # 3 queries
+│   ├── tiwari_sneha/              # 3 queries
+│   └── velarde_sosa_diana/        # 3 queries
+│
+├── 📁 procedures/                 # Stored procedures (6 files)
+│   ├── sp_bajwa_manage_user_roles.sql
+│   ├── sp_khapekar_manage_product.sql
+│   ├── sp_kumar_update_inventory.sql
+│   ├── sp_min_checkout_cart.sql
+│   ├── sp_tiwari_create_shipment.sql
+│   └── sp_velarde_process_payment.sql
+│
+├── 📁 functions/                  # User-defined functions (6 files)
+│   ├── fn_bajwa_check_user_role.sql
+│   ├── fn_khapekar_get_product_image_count.sql
+│   ├── fn_kumar_get_available_stock.sql
+│   ├── fn_min_calculate_cart_total.sql
+│   ├── fn_tiwari_get_order_item_count.sql
+│   └── fn_velarde_get_product_rating.sql
+│
+└── 📁 triggers/                   # Database triggers (6 files)
+    ├── tr_bajwa_audit_user_changes.sql
+    ├── tr_khapekar_validate_product.sql
+    ├── tr_kumar_prevent_negative_inventory.sql
+    ├── tr_min_update_cart_timestamp.sql
+    ├── tr_tiwari_update_order_status.sql
+    └── tr_velarde_validate_review.sql
+```
 
 ---
 
-## License
+## 🏗️ Database Architecture
 
-[Specify your license here]
+### Database: `urbanease_shop`
+
+The database consists of **18 tables** organized into **6 logical modules**:
+
+#### 1️⃣ User Management (Bajwa, Achint Kaur)
+- **Users** - Customer/admin accounts
+- **Roles** - Application roles (Admin, Customer, etc.)
+- **UserRoles** - Many-to-many link
+
+#### 2️⃣ Product Catalog (Khapekar, Pooja)
+- **Categories** - Hierarchical product categories
+- **Products** - Product master data
+- **ProductImages** - Product images with sort order
+
+#### 3️⃣ Inventory Management (Kumar, Virat)
+- **ProductVariants** - Sellable SKUs with pricing
+- **Warehouses** - Physical locations
+- **Inventory** - Stock levels per warehouse
+
+#### 4️⃣ Shopping Cart (Min, La Yaung)
+- **Carts** - Shopping carts (guest + registered)
+- **CartItems** - Items in carts
+- **Coupons** - Promotional codes
+
+#### 5️⃣ Order Management (Tiwari, Sneha)
+- **Orders** - Order headers with totals
+- **OrderItems** - Line items
+- **Shipments** - Fulfillment tracking
+
+#### 6️⃣ Payments & Reviews (Velarde Sosa, Diana)
+- **Addresses** - Shipping/billing addresses
+- **Payments** - Payment transactions
+- **Reviews** - Product reviews/ratings
+
+### Entity Relationship Diagram (Conceptual)
+
+```
+Users ──┬── Addresses
+        ├── UserRoles ── Roles
+        ├── Carts ── CartItems ── ProductVariants ── Products ── Categories
+        ├── Orders ──┬── OrderItems ── ProductVariants                ├── ProductImages
+        │            ├── Payments
+        │            └── Shipments ── Warehouses
+        └── Reviews ── Products
+
+ProductVariants ── Inventory ── Warehouses
+Orders ── Coupons
+```
 
 ---
 
-## Contact
+## 🎓 Getting Started Guide
 
-**Project**: UrbanEase E-commerce Database  
+### Step 1: Understand the Project
+1. Read this README completely
+2. Review [TEAM_ASSIGNMENTS.md](TEAM_ASSIGNMENTS.md) for your specific tasks
+3. Check [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) for file organization
+
+### Step 2: Set Up Your Environment
+1. Install MySQL 8.0+ and MySQL Workbench
+2. Clone the repository
+3. Run `table_schema.sql` to create the database
+4. Verify all 18 tables are created successfully
+
+### Step 3: Explore Your Tables
+1. Navigate to `tables/your_name/`
+2. Review your 3 table creation files
+3. Understand the table structure, relationships, and sample data
+4. Run the sample INSERT and SELECT queries to see how data flows
+
+### Step 4: Start with Queries
+**Queries are the easiest place to start!**
+
+1. Go to `queries/your_name/`
+2. Open `query1_*.sql`
+3. Read the header and TODO comments
+4. Replace the commented example with your actual query
+5. Test in MySQL Workbench
+6. Commit when working
+
+### Step 5: Build the Procedure
+1. Open `procedures/sp_yourname_*.sql`
+2. Understand the parameters and purpose
+3. Implement the logic step by step
+4. Test with different scenarios
+5. Add error handling
+
+### Step 6: Create the Function
+1. Open `functions/fn_yourname_*.sql`
+2. Implement the calculation/check logic
+3. Test the return value
+4. Use it in your queries to verify
+
+### Step 7: Implement the Trigger
+1. Open `triggers/tr_yourname_*.sql`
+2. Decide BEFORE vs AFTER and INSERT/UPDATE/DELETE
+3. Implement validation or automatic actions
+4. Test by performing operations on your tables
+
+### Step 8: Test Everything Together
+1. Create sample data in your tables
+2. Run your queries to verify results
+3. Call your procedure with test inputs
+4. Use your function in queries
+5. Trigger your trigger and verify it works
+
+---
+
+## 💻 Development Workflow
+
+### Working with Git
+
+```bash
+# 1. Pull latest changes
+git pull origin main
+
+# 2. Work on your files
+# Edit your queries, procedures, functions, triggers
+
+# 3. Test your code in MySQL Workbench
+# Make sure everything works!
+
+# 4. Stage your changes
+git add queries/your_name/
+git add procedures/sp_yourname_*.sql
+git add functions/fn_yourname_*.sql
+git add triggers/tr_yourname_*.sql
+
+# 5. Commit with descriptive message
+git commit -m "feat: add inventory queries for low stock alerts"
+
+# 6. Push to repository
+git push origin main
+```
+
+### Commit Message Guidelines
+
+Use descriptive commit messages:
+- `feat: add user login history query`
+- `fix: correct inventory calculation in procedure`
+- `docs: update comments in function`
+- `test: add sample data for testing`
+
+### Code Quality Standards
+
+✅ **DO:**
+- Add comments explaining your logic
+- Use proper indentation (consistent spaces/tabs)
+- Test thoroughly before committing
+- Handle edge cases and errors
+- Use meaningful variable names
+
+❌ **DON'T:**
+- Modify `table_schema.sql` without team discussion
+- Commit broken or untested code
+- Use hardcoded values (use parameters)
+- Ignore errors or exceptions
+
+---
+
+## 📖 Technical Documentation
+
+### Database Features
+
+#### Data Types Used
+- **BIGINT** - High-volume IDs (users, orders, products)
+- **INT** - Standard IDs and quantities
+- **VARCHAR** - Text fields with length limits
+- **TEXT** - Long descriptions
+- **JSON** - Dynamic attributes (ProductVariants)
+- **DECIMAL(12,2)** - Monetary values
+- **BOOLEAN** - True/false flags
+- **DATETIME** - Timestamps with auto-update
+
+#### Constraints & Validation
+- **PRIMARY KEY** - Unique identifiers
+- **FOREIGN KEY** - Relationship enforcement
+- **UNIQUE** - Prevent duplicates (email, SKU, etc.)
+- **CHECK** - Value validation (price >= 0, rating 1-5)
+- **NOT NULL** - Required fields
+- **DEFAULT** - Default values
+
+#### Special Features
+- **AUTO_INCREMENT** - Automatic ID generation
+- **GENERATED COLUMNS** - Computed fields (grand_total)
+- **ON UPDATE UTC_TIMESTAMP()** - Auto-update timestamps
+- **JSON data type** - Flexible variant attributes
+- **InnoDB engine** - ACID compliance, foreign keys
+
+### Performance Optimization
+
+#### Indexes Created
+```sql
+IX_Variant_Product   -- Fast product variant lookups
+IX_Product_Category  -- Category filtering
+IX_Inventory_Variant -- Inventory checks
+IX_Order_User        -- User order history
+IX_OrderItems_Order  -- Order details
+IX_CartItems_Cart    -- Cart contents
+IX_Payments_Order    -- Payment history
+```
+
+### Common Queries Examples
+
+#### Get User's Active Orders
+```sql
+SELECT o.order_id, o.status, o.grand_total_amount, o.placed_at
+FROM Orders o
+WHERE o.user_id = 1 AND o.status IN ('PENDING', 'PAID', 'FULFILLED')
+ORDER BY o.placed_at DESC;
+```
+
+#### Check Product Availability
+```sql
+SELECT 
+    pv.sku,
+    w.name as warehouse,
+    (i.on_hand - i.reserved) as available
+FROM Inventory i
+JOIN ProductVariants pv ON i.variant_id = pv.variant_id
+JOIN Warehouses w ON i.warehouse_id = w.warehouse_id
+WHERE pv.sku = 'IPHONE15PRO-128GB-BLK';
+```
+
+#### Calculate Cart Total
+```sql
+SELECT 
+    c.cart_id,
+    SUM(ci.qty * ci.unit_price) as cart_total
+FROM Carts c
+JOIN CartItems ci ON c.cart_id = ci.cart_id
+WHERE c.cart_id = 1
+GROUP BY c.cart_id;
+```
+
+---
+
+## 🤝 Resources & Help
+
+### Documentation Files
+- **[TEAM_ASSIGNMENTS.md](TEAM_ASSIGNMENTS.md)** - Detailed task assignments and progress tracking
+- **[PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)** - Complete file organization guide
+
+### MySQL Resources
+- [MySQL 8.0 Documentation](https://dev.mysql.com/doc/refman/8.0/en/)
+- [MySQL Tutorial](https://www.mysqltutorial.org/)
+- [SQL Cheat Sheet](https://www.sqltutorial.org/sql-cheat-sheet/)
+
+### Need Help?
+1. **Check the placeholder files** - They contain examples and hints
+2. **Review table creation files** - Understand your table structure
+3. **Ask teammates** - Collaborate and help each other
+4. **Test frequently** - Small incremental changes are easier to debug
+
+### Important Notes
+
+⚠️ **IMPORTANT:**
+- **DO NOT** modify `table_schema.sql` individually - Discuss schema changes with the entire team
+- **COORDINATE** with teammates when your queries need data from their tables
+- **TEST** your code thoroughly before pushing to repository
+- **DOCUMENT** your work with comments and clear variable names
+
+💡 **TIP:**
+Start with queries first - they help you understand the data and relationships before building more complex procedures, functions, and triggers.
+
+---
+
+## 🎯 Project Goals
+
+### Learning Objectives
+- ✅ Understand relational database design and normalization
+- ✅ Master SQL query writing (JOINs, aggregations, subqueries)
+- ✅ Learn stored procedures and business logic implementation
+- ✅ Create reusable functions for calculations
+- ✅ Implement triggers for automatic data management
+- ✅ Practice version control and team collaboration
+- ✅ Build a production-ready database system
+
+### Project Success Criteria
+- ✅ All 18 tables created and populated with sample data
+- ✅ 18 complex queries (3 per person) - working and tested
+- ✅ 6 stored procedures (1 per person) - functional
+- ✅ 6 functions (1 per person) - returning correct results
+- ✅ 6 triggers (1 per person) - activating properly
+- ✅ Complete documentation and comments
+- ✅ All code committed to repository
+
+---
+
+## 📊 Project Status
+
+### Current Phase: **Development** 🚧
+
+| Component | Status | Files |
+|-----------|--------|-------|
+| Database Schema | ✅ Complete | 1/1 |
+| Documentation | ✅ Complete | 3/3 |
+| Table Placeholders | ✅ Created | 18/18 |
+| Query Placeholders | ✅ Created | 18/18 |
+| Procedure Placeholders | ✅ Created | 6/6 |
+| Function Placeholders | ✅ Created | 6/6 |
+| Trigger Placeholders | ✅ Created | 6/6 |
+| **Implementation** | 🔄 In Progress | TBD |
+
+**Track progress in [TEAM_ASSIGNMENTS.md](TEAM_ASSIGNMENTS.md)**
+
+---
+
+## 👨‍💻 Team Members
+
+- **Bajwa, Achint Kaur** - User Management Module
+- **Khapekar, Pooja** - Product Catalog Module
+- **Kumar, Virat** - Inventory Management Module  
+- **Min, La Yaung** - Shopping Cart Module
+- **Tiwari, Sneha** - Order Management Module
+- **Velarde Sosa, Diana** - Payments & Reviews Module
+
+---
+
+## 📝 License
+
+This is a college project created for educational purposes.
+
+---
+
+## 🙏 Acknowledgments
+
+This database schema follows industry best practices for e-commerce platforms and includes features commonly found in production-grade online retail systems.
+
+---
+
+## 📞 Contact & Support
+
+**Project Repository**: [https://github.com/virat-kumar/UrbanEase-database](https://github.com/virat-kumar/UrbanEase-database)  
 **Version**: 1.0  
 **Last Updated**: November 2025
 
 ---
 
-## Acknowledgments
+### 🚀 Let's Build Something Great Together!
 
-This database schema follows industry best practices for e-commerce platforms and includes features commonly found in production-grade online retail systems.
+Remember: This is a team project. Help each other, share knowledge, and don't hesitate to ask questions. We're all learning together! 💪
 
+**Happy Coding!** 🎉
