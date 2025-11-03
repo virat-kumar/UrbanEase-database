@@ -174,10 +174,14 @@ MODULE 1: USER MANAGEMENT & AUTHENTICATION
                                                                │ FK: variant_id      │
                                                                │     qty             │
                                                                │     unit_price      │
-═══════════════════════════════════════════════════════════════│     added_at        │
-MODULE 2: PRODUCT CATALOG                                      └──────────┬──────────┘
-═══════════════════════════════════════════════════════════════           │
-                                                                           │
+                                                               │     added_at        │
+                                                               └──────────┬──────────┘
+                                                                          │
+═══════════════════════════════════════════════════════════════════════════════════════
+MODULE 2: PRODUCT CATALOG
+═══════════════════════════════════════════════════════════════════════════════════════
+                                                                          │
+                                                                          │
      ┌─────────────────────┐                                              │
      │    Categories       │◄────────────── Self-Referencing (Hierarchy)  │
      │─────────────────────│                                              │
@@ -310,23 +314,23 @@ MODULE 5: ORDER MANAGEMENT & FULFILLMENT
      │─────────────────────│            │─────────────────────│
      │ PK: order_item_id   │            │ PK: shipment_id     │
      │ FK: order_id        │            │ FK: order_id        │
-     │ FK: variant_id      │◄───────────│ FK: warehouse_id    │◄──── Links to Warehouse
+     │ FK: variant_id      │            │ FK: warehouse_id    │◄──── Links to Warehouse
      │     qty             │            │     carrier         │
      │     unit_price      │            │     tracking_no     │
      │     tax_amount      │            │     status          │◄── 'CREATED','IN_TRANSIT', etc.
      │     discount_amount │            │     shipped_at      │
      └─────────────────────┘            │     delivered_at    │
                                         │     created_at      │
+                                        └──────────┬──────────┘
+                                                   │
+                                                   │ ∞
+                                                   │
+                                                   │ 1
+                                                   │
+                                        ┌──────────┴──────────┐
+                                        │   (Links to         │
+                                        │    Warehouses)      │
                                         └─────────────────────┘
-                                                       │
-                                                       │ ∞
-                                                       │
-                                                       │ 1
-                                                       │
-                                           ┌───────────┴──────────┐
-                                           │   (Links to          │
-                                           │    Warehouses)       │
-                                           └──────────────────────┘
 
 ═══════════════════════════════════════════════════════════════════════════════════════
 MODULE 6: PAYMENTS & REVIEWS
