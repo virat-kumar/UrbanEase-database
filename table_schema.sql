@@ -17,8 +17,8 @@ CREATE TABLE Users (
   full_name     VARCHAR(120) NOT NULL,
   phone         VARCHAR(32) NULL,
   is_active     BOOLEAN NOT NULL DEFAULT TRUE,
-  created_at    DATETIME NOT NULL DEFAULT UTC_TIMESTAMP(),
-  updated_at    DATETIME NOT NULL DEFAULT UTC_TIMESTAMP() ON UPDATE UTC_TIMESTAMP()
+  created_at    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE Roles (
@@ -29,7 +29,7 @@ CREATE TABLE Roles (
 CREATE TABLE UserRoles (
   user_id BIGINT NOT NULL,
   role_id INT NOT NULL,
-  assigned_at DATETIME NOT NULL DEFAULT UTC_TIMESTAMP(),
+  assigned_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (user_id, role_id),
   CONSTRAINT FK_UserRoles_User FOREIGN KEY (user_id) REFERENCES Users(user_id),
   CONSTRAINT FK_UserRoles_Role FOREIGN KEY (role_id) REFERENCES Roles(role_id)
@@ -48,8 +48,8 @@ CREATE TABLE Addresses (
   country_code CHAR(2)      NOT NULL,
   phone        VARCHAR(32)  NULL,
   is_default   BOOLEAN      NOT NULL DEFAULT FALSE,
-  created_at   DATETIME     NOT NULL DEFAULT UTC_TIMESTAMP(),
-  updated_at   DATETIME     NOT NULL DEFAULT UTC_TIMESTAMP() ON UPDATE UTC_TIMESTAMP(),
+  created_at   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT FK_Address_User FOREIGN KEY (user_id) REFERENCES Users(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -72,8 +72,8 @@ CREATE TABLE Products (
   description TEXT NULL,
   brand       VARCHAR(100) NULL,
   is_active   BOOLEAN NOT NULL DEFAULT TRUE,
-  created_at  DATETIME NOT NULL DEFAULT UTC_TIMESTAMP(),
-  updated_at  DATETIME NOT NULL DEFAULT UTC_TIMESTAMP() ON UPDATE UTC_TIMESTAMP(),
+  created_at  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT FK_Product_Category FOREIGN KEY (category_id) REFERENCES Categories(category_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -98,8 +98,8 @@ CREATE TABLE ProductVariants (
   price           DECIMAL(12,2) NOT NULL CHECK (price >= 0),
   currency        CHAR(3)       NOT NULL DEFAULT 'USD',
   is_active       BOOLEAN       NOT NULL DEFAULT TRUE,
-  created_at      DATETIME      NOT NULL DEFAULT UTC_TIMESTAMP(),
-  updated_at      DATETIME      NOT NULL DEFAULT UTC_TIMESTAMP() ON UPDATE UTC_TIMESTAMP(),
+  created_at      DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at      DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT FK_Variant_Product FOREIGN KEY (product_id) REFERENCES Products(product_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -129,8 +129,8 @@ CREATE TABLE Inventory (
 CREATE TABLE Carts (
   cart_id    BIGINT AUTO_INCREMENT PRIMARY KEY,
   user_id    BIGINT NULL,  -- allow guest carts if NULL (tracked externally)
-  created_at DATETIME NOT NULL DEFAULT UTC_TIMESTAMP(),
-  updated_at DATETIME NOT NULL DEFAULT UTC_TIMESTAMP() ON UPDATE UTC_TIMESTAMP(),
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT FK_Cart_User FOREIGN KEY (user_id) REFERENCES Users(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -140,7 +140,7 @@ CREATE TABLE CartItems (
   variant_id   BIGINT NOT NULL,
   qty          INT    NOT NULL CHECK (qty > 0),
   unit_price   DECIMAL(12,2) NOT NULL CHECK (unit_price >= 0),
-  added_at     DATETIME      NOT NULL DEFAULT UTC_TIMESTAMP(),
+  added_at     DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT FK_CI_Cart    FOREIGN KEY (cart_id)    REFERENCES Carts(cart_id),
   CONSTRAINT FK_CI_Variant FOREIGN KEY (variant_id) REFERENCES ProductVariants(variant_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -172,8 +172,8 @@ CREATE TABLE Orders (
   coupon_id           BIGINT NULL,
   shipping_address_id BIGINT NOT NULL,
   billing_address_id  BIGINT NOT NULL,
-  placed_at           DATETIME NOT NULL DEFAULT UTC_TIMESTAMP(),
-  updated_at          DATETIME NOT NULL DEFAULT UTC_TIMESTAMP() ON UPDATE UTC_TIMESTAMP(),
+  placed_at           DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at          DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT FK_Order_User     FOREIGN KEY (user_id)             REFERENCES Users(user_id),
   CONSTRAINT FK_Order_Coupon   FOREIGN KEY (coupon_id)           REFERENCES Coupons(coupon_id),
   CONSTRAINT FK_Order_ShipAdr  FOREIGN KEY (shipping_address_id) REFERENCES Addresses(address_id),
@@ -201,7 +201,7 @@ CREATE TABLE Shipments (
   status       VARCHAR(20) NOT NULL CHECK (status IN ('CREATED','PICKED','IN_TRANSIT','DELIVERED','CANCELLED')),
   shipped_at   DATETIME NULL,
   delivered_at DATETIME NULL,
-  created_at   DATETIME NOT NULL DEFAULT UTC_TIMESTAMP(),
+  created_at   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT FK_Ship_Order     FOREIGN KEY (order_id)     REFERENCES Orders(order_id),
   CONSTRAINT FK_Ship_Warehouse FOREIGN KEY (warehouse_id) REFERENCES Warehouses(warehouse_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -218,7 +218,7 @@ CREATE TABLE Payments (
   amount       DECIMAL(12,2) NOT NULL CHECK (amount >= 0),
   status       VARCHAR(20)   NOT NULL CHECK (status IN ('INITIATED','AUTHORIZED','CAPTURED','FAILED','REFUNDED')),
   paid_at      DATETIME      NULL,
-  created_at   DATETIME      NOT NULL DEFAULT UTC_TIMESTAMP(),
+  created_at   DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT FK_Payment_Order FOREIGN KEY (order_id) REFERENCES Orders(order_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -229,7 +229,7 @@ CREATE TABLE Reviews (
   rating     TINYINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
   title      VARCHAR(160) NULL,
   body       TEXT NULL,
-  created_at DATETIME NOT NULL DEFAULT UTC_TIMESTAMP(),
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT FK_Review_Product FOREIGN KEY (product_id) REFERENCES Products(product_id),
   CONSTRAINT FK_Review_User    FOREIGN KEY (user_id)    REFERENCES Users(user_id),
   CONSTRAINT UQ_Review_User_Product UNIQUE (product_id, user_id)
