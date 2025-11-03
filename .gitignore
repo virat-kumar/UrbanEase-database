@@ -17,3 +17,8 @@ Thumbs.db
 *.tmp
 *.log
 
+# Generated ERD Images (can be regenerated from erd_diagram.mmd)
+docs/erd_diagram.png
+docs/erd_diagram.svg
+docs/erd_diagram.pdf
+

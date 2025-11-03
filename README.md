@@ -95,7 +95,273 @@ UrbanEase follows a normalized relational database design optimized for:
 
 ### Entity Relationship Diagram (ERD)
 
-#### Complete ERD with Relationships and Cardinality
+#### Interactive Visual ERD (Rendered by GitHub)
+
+```mermaid
+erDiagram
+    %% ============================================
+    %% MODULE 1: USER MANAGEMENT & AUTHENTICATION
+    %% ============================================
+    
+    Users ||--o{ UserRoles : "has many"
+    Roles ||--o{ UserRoles : "assigned to"
+    Users ||--o{ Addresses : "has"
+    Users ||--o{ Carts : "owns"
+    Users ||--o{ Orders : "places"
+    Users ||--o{ Reviews : "writes"
+    
+    Users {
+        BIGINT user_id PK "Primary Key"
+        VARCHAR email UK "Unique, NOT NULL"
+        VARBINARY password_hash "NOT NULL"
+        VARCHAR full_name
+        VARCHAR phone
+        BOOLEAN is_active "DEFAULT TRUE"
+        DATETIME created_at
+        DATETIME updated_at
+    }
+    
+    Roles {
+        INT role_id PK "Primary Key"
+        VARCHAR role_name UK "Unique, NOT NULL"
+    }
+    
+    UserRoles {
+        BIGINT user_id PK,FK "Composite PK"
+        INT role_id PK,FK "Composite PK"
+        DATETIME assigned_at
+    }
+    
+    Addresses {
+        BIGINT address_id PK
+        BIGINT user_id FK
+        VARCHAR label "Home/Office"
+        VARCHAR name
+        VARCHAR line1
+        VARCHAR line2
+        VARCHAR city
+        VARCHAR state_region
+        VARCHAR postal_code
+        CHAR country_code "ISO 2-char"
+        VARCHAR phone
+        BOOLEAN is_default
+        DATETIME created_at
+        DATETIME updated_at
+    }
+    
+    %% ============================================
+    %% MODULE 2: PRODUCT CATALOG
+    %% ============================================
+    
+    Categories ||--o{ Categories : "parent-child"
+    Categories ||--o{ Products : "contains"
+    Products ||--o{ ProductImages : "has"
+    Products ||--o{ ProductVariants : "has variants"
+    Products ||--o{ Reviews : "receives"
+    
+    Categories {
+        BIGINT category_id PK
+        BIGINT parent_id FK "Self-reference"
+        VARCHAR name
+        VARCHAR slug UK "Unique, URL-friendly"
+    }
+    
+    Products {
+        BIGINT product_id PK
+        BIGINT category_id FK
+        VARCHAR title
+        TEXT description
+        VARCHAR brand
+        BOOLEAN is_active
+        DATETIME created_at
+        DATETIME updated_at
+    }
+    
+    ProductImages {
+        BIGINT image_id PK
+        BIGINT product_id FK
+        VARCHAR url
+        VARCHAR alt_text
+        INT sort_order
+    }
+    
+    %% ============================================
+    %% MODULE 3: INVENTORY MANAGEMENT
+    %% ============================================
+    
+    ProductVariants ||--o{ Inventory : "tracked in"
+    Warehouses ||--o{ Inventory : "stores"
+    ProductVariants ||--o{ CartItems : "in cart"
+    ProductVariants ||--o{ OrderItems : "ordered"
+    
+    ProductVariants {
+        BIGINT variant_id PK
+        BIGINT product_id FK
+        VARCHAR sku UK "Unique"
+        JSON attributes_json "size,color,etc"
+        DECIMAL price "CHECK >= 0"
+        CHAR currency "DEFAULT USD"
+        BOOLEAN is_active
+        DATETIME created_at
+        DATETIME updated_at
+    }
+    
+    Warehouses {
+        BIGINT warehouse_id PK
+        VARCHAR name
+        VARCHAR code UK "Unique"
+        VARCHAR city
+        VARCHAR state_region
+        CHAR country_code "ISO 2-char"
+    }
+    
+    Inventory {
+        BIGINT warehouse_id PK,FK "Composite PK"
+        BIGINT variant_id PK,FK "Composite PK"
+        INT on_hand "CHECK >= 0"
+        INT reserved "CHECK >= 0"
+    }
+    
+    %% ============================================
+    %% MODULE 4: SHOPPING CART & PROMOTIONS
+    %% ============================================
+    
+    Carts ||--o{ CartItems : "contains"
+    Coupons ||--o{ Orders : "applied to"
+    
+    Carts {
+        BIGINT cart_id PK
+        BIGINT user_id FK "NULL for guests"
+        DATETIME created_at
+        DATETIME updated_at
+    }
+    
+    CartItems {
+        BIGINT cart_item_id PK
+        BIGINT cart_id FK
+        BIGINT variant_id FK
+        INT qty "CHECK > 0"
+        DECIMAL unit_price
+        DATETIME added_at
+    }
+    
+    Coupons {
+        BIGINT coupon_id PK
+        VARCHAR code UK "Unique"
+        VARCHAR type "PERCENT or AMOUNT"
+        DECIMAL value "CHECK >= 0"
+        DATETIME starts_at
+        DATETIME expires_at
+        DECIMAL min_subtotal
+        BOOLEAN is_active
+    }
+    
+    %% ============================================
+    %% MODULE 5: ORDER MANAGEMENT & FULFILLMENT
+    %% ============================================
+    
+    Orders ||--o{ OrderItems : "contains"
+    Orders ||--o{ Payments : "paid via"
+    Orders ||--o{ Shipments : "fulfilled by"
+    Orders }o--|| Addresses : "ships to"
+    Orders }o--|| Addresses : "bills to"
+    Warehouses ||--o{ Shipments : "ships from"
+    
+    Orders {
+        BIGINT order_id PK
+        BIGINT user_id FK
+        VARCHAR status "PENDING,PAID,etc"
+        DECIMAL subtotal_amount
+        DECIMAL discount_amount
+        DECIMAL shipping_amount
+        DECIMAL tax_amount
+        DECIMAL grand_total "COMPUTED"
+        BIGINT coupon_id FK
+        BIGINT shipping_address_id FK
+        BIGINT billing_address_id FK
+        DATETIME placed_at
+        DATETIME updated_at
+    }
+    
+    OrderItems {
+        BIGINT order_item_id PK
+        BIGINT order_id FK
+        BIGINT variant_id FK
+        INT qty "CHECK > 0"
+        DECIMAL unit_price
+        DECIMAL tax_amount
+        DECIMAL discount_amount
+    }
+    
+    Shipments {
+        BIGINT shipment_id PK
+        BIGINT order_id FK
+        BIGINT warehouse_id FK
+        VARCHAR carrier
+        VARCHAR tracking_no
+        VARCHAR status "CREATED,IN_TRANSIT,etc"
+        DATETIME shipped_at
+        DATETIME delivered_at
+        DATETIME created_at
+    }
+    
+    %% ============================================
+    %% MODULE 6: PAYMENTS & REVIEWS
+    %% ============================================
+    
+    Payments {
+        BIGINT payment_id PK
+        BIGINT order_id FK
+        VARCHAR provider "Stripe,PayPal,etc"
+        VARCHAR provider_ref
+        DECIMAL amount
+        VARCHAR status "INITIATED,CAPTURED,etc"
+        DATETIME paid_at
+        DATETIME created_at
+    }
+    
+    Reviews {
+        BIGINT review_id PK
+        BIGINT product_id FK
+        BIGINT user_id FK
+        TINYINT rating "CHECK 1-5"
+        VARCHAR title
+        TEXT body
+        DATETIME created_at
+    }
+```
+
+> **📊 Interactive Diagram**: GitHub automatically renders the Mermaid diagram above. You can zoom and interact with it!
+
+**Mermaid Cardinality Notation:**
+- `||--o{` = One-to-Many (1:N) - One record on left relates to many on right
+- `||--||` = One-to-One (1:1) - Exactly one on each side
+- `}o--o{` = Many-to-Many (M:N) - Many on both sides (via junction table)
+- `}o--||` = Many-to-One (N:1) - Many on left relate to one on right
+
+**Legend:**
+- `PK` = Primary Key
+- `FK` = Foreign Key  
+- `UK` = Unique Key
+- `"text"` = Constraint or description
+
+**Export Visual Diagram:**
+```bash
+# Install Mermaid CLI globally (one time)
+npm install -g @mermaid-js/mermaid-cli
+
+# Generate PNG from Mermaid file
+mmdc -i docs/erd_diagram.mmd -o docs/erd_diagram.png
+
+# Generate SVG (scalable)
+mmdc -i docs/erd_diagram.mmd -o docs/erd_diagram.svg
+
+# Or view/edit online at: https://mermaid.live/
+```
+
+---
+
+#### Detailed ASCII ERD with Complete Information
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────────┐
