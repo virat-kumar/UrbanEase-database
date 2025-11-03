@@ -331,8 +331,6 @@ erDiagram
     }
 ```
 
-> **📊 Interactive Diagram**: GitHub automatically renders the Mermaid diagram above. You can zoom and interact with it!
-
 **Mermaid Cardinality Notation:**
 - `||--o{` = One-to-Many (1:N) - One record on left relates to many on right
 - `||--||` = One-to-One (1:1) - Exactly one on each side
