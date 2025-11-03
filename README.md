@@ -93,25 +93,319 @@ UrbanEase follows a normalized relational database design optimized for:
 - Scalability using BIGINT for high-volume tables
 - Flexibility with JSON fields for dynamic attributes
 
-### Conceptual Entity Relationship Diagram
+### Entity Relationship Diagram (ERD)
+
+#### Complete ERD with Relationships and Cardinality
 
 ```
-┌─────────┐      ┌──────────┐      ┌────────────┐
-│  Users  ├──────┤UserRoles │──────┤   Roles    │
-└────┬────┘      └──────────┘      └────────────┘
-     │
-     ├───── Addresses
-     │
-     ├───── Reviews ───── Products ──┬── Categories (hierarchical)
-     │                               ├── ProductImages
-     │                               └── ProductVariants ─┬── Inventory ── Warehouses
-     │                                                     │
-     └───── Carts ─── CartItems ─────────────────────────┘
-              │
-              └───── Orders ──┬── OrderItems ───────────────┘
-                              ├── Payments
-                              ├── Shipments ── Warehouses
-                              └── Coupons
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│                           URBANEASE E-COMMERCE DATABASE                              │
+│                          Entity Relationship Diagram (ERD)                           │
+└─────────────────────────────────────────────────────────────────────────────────────┘
+
+LEGEND:
+  PK = Primary Key
+  FK = Foreign Key
+  1 ─── 1   = One-to-One
+  1 ─── ∞   = One-to-Many
+  ∞ ─── ∞   = Many-to-Many (via junction table)
+
+═══════════════════════════════════════════════════════════════════════════════════════
+MODULE 1: USER MANAGEMENT & AUTHENTICATION
+═══════════════════════════════════════════════════════════════════════════════════════
+
+     ┌─────────────────────┐
+     │       Roles         │
+     │─────────────────────│
+     │ PK: role_id         │
+     │     role_name       │
+     └──────────┬──────────┘
+                │
+                │ 1
+                │
+                ∞
+     ┌─────────────────────┐
+     │     UserRoles       │◄────────────── Junction Table (Many-to-Many)
+     │─────────────────────│
+     │ PK: user_id, role_id│
+     │ FK: user_id         │
+     │ FK: role_id         │
+     │     assigned_at     │
+     └──────────┬──────────┘
+                │
+                │ ∞
+                │
+                │ 1
+     ┌─────────────────────┐
+     │       Users         │◄────────────── Core User Entity
+     │─────────────────────│
+     │ PK: user_id         │
+     │     email (UNIQUE)  │
+     │     password_hash   │
+     │     full_name       │
+     │     phone           │
+     │     is_active       │
+     │     created_at      │
+     │     updated_at      │
+     └──────────┬──────────┘
+                │
+                ├──────────────────────────────────────────────────────────┐
+                │                                                          │
+                │ 1                                                        │ 1
+                │                                                          │
+                ∞                                                          ∞
+     ┌─────────────────────┐                                   ┌─────────────────────┐
+     │     Addresses       │                                   │       Carts         │
+     │─────────────────────│                                   │─────────────────────│
+     │ PK: address_id      │                                   │ PK: cart_id         │
+     │ FK: user_id         │                                   │ FK: user_id (NULL)  │◄─ NULL for guest
+     │     label           │                                   │     created_at      │
+     │     name            │                                   │     updated_at      │
+     │     line1, line2    │                                   └──────────┬──────────┘
+     │     city            │                                              │
+     │     state_region    │                                              │ 1
+     │     postal_code     │                                              │
+     │     country_code    │                                              ∞
+     │     phone           │                                   ┌─────────────────────┐
+     │     is_default      │                                   │     CartItems       │
+     │     created_at      │                                   │─────────────────────│
+     │     updated_at      │                                   │ PK: cart_item_id    │
+     └─────────────────────┘                                   │ FK: cart_id         │
+                                                               │ FK: variant_id      │
+                                                               │     qty             │
+                                                               │     unit_price      │
+═══════════════════════════════════════════════════════════════│     added_at        │
+MODULE 2: PRODUCT CATALOG                                      └──────────┬──────────┘
+═══════════════════════════════════════════════════════════════           │
+                                                                           │
+     ┌─────────────────────┐                                              │
+     │    Categories       │◄────────────── Self-Referencing (Hierarchy)  │
+     │─────────────────────│                                              │
+     │ PK: category_id     │                                              │
+     │ FK: parent_id ──────┼─┐                                            │
+     │     name            │ │                                            │
+     │     slug (UNIQUE)   │ │                                            │
+     └──────────┬──────────┘ │                                            │
+                │            │                                            │
+                └────────────┘                                            │
+                │                                                         │
+                │ 1                                                       │
+                │                                                         │
+                ∞                                                         │
+     ┌─────────────────────┐                                             │
+     │      Products       │◄────────────── Main Product Entity          │
+     │─────────────────────│                                             │
+     │ PK: product_id      │                                             │
+     │ FK: category_id     │                                             │
+     │     title           │                                             │
+     │     description     │                                             │
+     │     brand           │                                             │
+     │     is_active       │                                             │
+     │     created_at      │                                             │
+     │     updated_at      │                                             │
+     └──────────┬──────────┘                                             │
+                │                                                         │
+                ├─────────────────────────────┐                          │
+                │                             │                          │
+                │ 1                           │ 1                        │
+                │                             │                          │
+                ∞                             ∞                          │
+     ┌─────────────────────┐       ┌─────────────────────┐              │
+     │  ProductImages      │       │  ProductVariants    │◄──────────── Sellable SKUs
+     │─────────────────────│       │─────────────────────│              │
+     │ PK: image_id        │       │ PK: variant_id      │              │
+     │ FK: product_id      │       │ FK: product_id      │              │
+     │     url             │       │     sku (UNIQUE)    │              │
+     │     alt_text        │       │     attributes_json │◄───── JSON: {"size":"M"}
+     │     sort_order      │       │     price           │              │
+     └─────────────────────┘       │     currency        │              │
+                                   │     is_active       │              │
+                                   │     created_at      │              │
+                                   │     updated_at      │              │
+                                   └──────────┬──────────┘              │
+                                              │                         │
+═══════════════════════════════════════════════════════════════════════════════════════
+MODULE 3: INVENTORY MANAGEMENT                │                         │
+═══════════════════════════════════════════════════════════════════════════════════════
+                                              │                         │
+                                              │ 1                       │
+                                              │                         │
+                                              ∞                         │
+                                   ┌─────────────────────┐              │
+                 ┌─────────────────┤     Inventory       │              │
+                 │                 │─────────────────────│              │
+                 │                 │ PK: warehouse_id,   │              │
+                 │                 │     variant_id      │              │
+                 │                 │ FK: warehouse_id    │              │
+                 │                 │ FK: variant_id      │◄─────────────┤─── Links to Cart
+                 │                 │     on_hand         │              │
+                 │                 │     reserved        │              │
+                 │                 └──────────┬──────────┘              │
+                 │                            │                         │
+                 │                            │ ∞                       │
+                 │ 1                          │                         │
+                 │                            │ 1                       │
+     ┌─────────────────────┐                 │                         │
+     │    Warehouses       │◄────────────────┘                         │
+     │─────────────────────│                                            │
+     │ PK: warehouse_id    │                                            │
+     │     name            │                                            │
+     │     code (UNIQUE)   │                                            │
+     │     city            │                                            │
+     │     state_region    │                                            │
+     │     country_code    │                                            │
+     └──────────┬──────────┘                                            │
+                │                                                       │
+                │                                                       │
+═══════════════════════════════════════════════════════════════════════════════════════
+MODULE 4: SHOPPING CART & PROMOTIONS (Continued from CartItems above)
+═══════════════════════════════════════════════════════════════════════════════════════
+                                                                        │
+     ┌─────────────────────┐                                           │
+     │      Coupons        │                                           │
+     │─────────────────────│                                           │
+     │ PK: coupon_id       │                                           │
+     │     code (UNIQUE)   │                                           │
+     │     type            │◄───── 'PERCENT' or 'AMOUNT'              │
+     │     value           │                                           │
+     │     starts_at       │                                           │
+     │     expires_at      │                                           │
+     │     min_subtotal    │                                           │
+     │     is_active       │                                           │
+     └──────────┬──────────┘                                           │
+                │                                                       │
+                │                                                       │
+═══════════════════════════════════════════════════════════════════════════════════════
+MODULE 5: ORDER MANAGEMENT & FULFILLMENT
+═══════════════════════════════════════════════════════════════════════════════════════
+                │                                                       │
+                │ 1                                                     │
+                │                                                       │
+                ∞                                                       │
+     ┌─────────────────────┐                                           │
+     │       Orders        │◄──────────────────────────────────────────┘
+     │─────────────────────│
+     │ PK: order_id        │
+     │ FK: user_id         │◄─────────────┐
+     │ FK: coupon_id       │◄─────────────┼──── Links to Coupons
+     │ FK: shipping_addr_id│◄─────────────┼──── Links to Addresses
+     │ FK: billing_addr_id │◄─────────────┼──── Links to Addresses
+     │     status          │◄── 'PENDING','PAID','FULFILLED', etc.
+     │     subtotal_amount │
+     │     discount_amount │
+     │     shipping_amount │
+     │     tax_amount      │
+     │     grand_total ────┼──── COMPUTED: subtotal - discount + shipping + tax
+     │     placed_at       │
+     │     updated_at      │
+     └──────────┬──────────┘
+                │
+                ├──────────────────────────────────────┐
+                │                                      │
+                │ 1                                    │ 1
+                │                                      │
+                ∞                                      ∞
+     ┌─────────────────────┐            ┌─────────────────────┐
+     │    OrderItems       │            │     Shipments       │
+     │─────────────────────│            │─────────────────────│
+     │ PK: order_item_id   │            │ PK: shipment_id     │
+     │ FK: order_id        │            │ FK: order_id        │
+     │ FK: variant_id      │◄───────────│ FK: warehouse_id    │◄──── Links to Warehouse
+     │     qty             │            │     carrier         │
+     │     unit_price      │            │     tracking_no     │
+     │     tax_amount      │            │     status          │◄── 'CREATED','IN_TRANSIT', etc.
+     │     discount_amount │            │     shipped_at      │
+     └─────────────────────┘            │     delivered_at    │
+                                        │     created_at      │
+                                        └─────────────────────┘
+                                                       │
+                                                       │ ∞
+                                                       │
+                                                       │ 1
+                                                       │
+                                           ┌───────────┴──────────┐
+                                           │   (Links to          │
+                                           │    Warehouses)       │
+                                           └──────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════════════
+MODULE 6: PAYMENTS & REVIEWS
+═══════════════════════════════════════════════════════════════════════════════════════
+
+     ┌─────────────────────┐
+     │      Payments       │
+     │─────────────────────│
+     │ PK: payment_id      │
+     │ FK: order_id        │◄──────────────── Links to Orders
+     │     provider        │◄──── 'Stripe','PayPal', etc.
+     │     provider_ref    │
+     │     amount          │
+     │     status          │◄──── 'INITIATED','CAPTURED','REFUNDED', etc.
+     │     paid_at         │
+     │     created_at      │
+     └─────────────────────┘
+
+
+     ┌─────────────────────┐
+     │      Reviews        │
+     │─────────────────────│
+     │ PK: review_id       │
+     │ FK: product_id      │◄──────────────── Links to Products
+     │ FK: user_id         │◄──────────────── Links to Users
+     │     rating          │◄──── CHECK: 1-5
+     │     title           │
+     │     body            │
+     │     created_at      │
+     │                     │
+     │ UNIQUE: (product_id,│◄──── One review per user per product
+     │         user_id)    │
+     └─────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════════════
+KEY RELATIONSHIP SUMMARY
+═══════════════════════════════════════════════════════════════════════════════════════
+
+1. Users ↔ Roles (Many-to-Many via UserRoles junction table)
+2. Users → Addresses (1:Many) - One user can have multiple addresses
+3. Users → Carts (1:Many) - One user can have multiple carts (guest carts have NULL user_id)
+4. Users → Orders (1:Many) - One user can place multiple orders
+5. Users → Reviews (1:Many) - One user can write multiple reviews
+
+6. Categories → Categories (1:Many) - Self-referencing for hierarchical structure
+7. Categories → Products (1:Many) - One category contains multiple products
+8. Products → ProductImages (1:Many) - One product can have multiple images
+9. Products → ProductVariants (1:Many) - One product has multiple sellable variants
+10. Products → Reviews (1:Many) - One product can have multiple reviews
+
+11. ProductVariants ↔ Warehouses (Many-to-Many via Inventory junction table)
+12. ProductVariants → CartItems (1:Many) - Variant can be in multiple carts
+13. ProductVariants → OrderItems (1:Many) - Variant can be ordered multiple times
+
+14. Carts → CartItems (1:Many) - One cart contains multiple items
+15. Coupons → Orders (1:Many) - One coupon can be used in multiple orders
+
+16. Orders → OrderItems (1:Many) - One order contains multiple items
+17. Orders → Payments (1:Many) - One order can have multiple payment attempts
+18. Orders → Shipments (1:Many) - One order can have multiple shipments
+19. Orders → Addresses (Many:1) - Each order references shipping and billing addresses
+
+20. Warehouses → Shipments (1:Many) - One warehouse fulfills multiple shipments
+
+═══════════════════════════════════════════════════════════════════════════════════════
+DESIGN HIGHLIGHTS
+═══════════════════════════════════════════════════════════════════════════════════════
+
+✓ Normalized to 3NF - Eliminates data redundancy
+✓ Foreign Key Constraints - Ensures referential integrity
+✓ Composite Keys - Used in junction tables (UserRoles, Inventory)
+✓ Self-Referencing - Categories support hierarchical structure
+✓ Computed Columns - grand_total_amount calculated automatically
+✓ Flexible Attributes - JSON field for variant attributes (size, color, etc.)
+✓ Guest Support - Carts allow NULL user_id for guest checkout
+✓ Audit Trail - created_at and updated_at on most tables
+✓ Status Tracking - Enum-like CHECK constraints for order/payment/shipment status
+✓ Multi-Warehouse - Supports distributed inventory across locations
+
 ```
 
 ---
