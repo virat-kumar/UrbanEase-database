@@ -482,24 +482,6 @@ git push origin main
 # 4. Update progress tracking (see below)
 ```
 
-### Recommended Order of Work
-
-**Week 1**: Setup + Queries
-- Day 1-2: Environment setup, understand tables
-- Day 3-4: Query 1
-- Day 5-6: Query 2
-- Day 7: Query 3
-
-**Week 2**: Procedures + Functions
-- Day 1-3: Stored Procedure
-- Day 4-5: Function
-- Day 6-7: Testing both together
-
-**Week 3**: Triggers + Testing
-- Day 1-2: Trigger
-- Day 3-4: Integration testing
-- Day 5-7: Bug fixes and documentation
-
 ---
 
 ## Working with Git
