@@ -131,7 +131,7 @@ Stores customer and administrator account information.
 | full_name | VARCHAR(120) | NOT NULL | User's full name |
 | phone | VARCHAR(32) | NULL | Contact number |
 | is_active | BOOLEAN | DEFAULT TRUE | Account status |
-| created_at | DATETIME | DEFAULT UTC_TIMESTAMP() | Creation timestamp |
+| created_at | DATETIME | DEFAULT CURRENT_TIMESTAMP | Creation timestamp |
 | updated_at | DATETIME | AUTO-UPDATE | Last modification |
 
 #### **Roles**
@@ -149,7 +149,7 @@ Many-to-many relationship between Users and Roles.
 |--------|------|-------------|-------------|
 | user_id | BIGINT | PRIMARY KEY (composite), FK → Users | User reference |
 | role_id | INT | PRIMARY KEY (composite), FK → Roles | Role reference |
-| assigned_at | DATETIME | DEFAULT UTC_TIMESTAMP() | Assignment date |
+| assigned_at | DATETIME | DEFAULT CURRENT_TIMESTAMP | Assignment date |
 
 ---
 
@@ -176,7 +176,7 @@ Master product information.
 | description | TEXT | NULL | Detailed description |
 | brand | VARCHAR(100) | NULL | Brand name |
 | is_active | BOOLEAN | DEFAULT TRUE | Availability status |
-| created_at | DATETIME | DEFAULT UTC_TIMESTAMP() | Creation date |
+| created_at | DATETIME | DEFAULT CURRENT_TIMESTAMP | Creation date |
 | updated_at | DATETIME | AUTO-UPDATE | Last modification |
 
 #### **ProductImages**
@@ -206,7 +206,7 @@ Sellable SKUs with pricing and attributes.
 | price | DECIMAL(12,2) | NOT NULL, CHECK ≥ 0 | Unit price |
 | currency | CHAR(3) | DEFAULT 'USD' | Currency code |
 | is_active | BOOLEAN | DEFAULT TRUE | Sales status |
-| created_at | DATETIME | DEFAULT UTC_TIMESTAMP() | Creation date |
+| created_at | DATETIME | DEFAULT CURRENT_TIMESTAMP | Creation date |
 | updated_at | DATETIME | AUTO-UPDATE | Last modification |
 
 **JSON Example**: `{"size":"M","color":"Black"}`
@@ -246,7 +246,7 @@ Shopping carts for registered users and guests.
 |--------|------|-------------|-------------|
 | cart_id | BIGINT | PRIMARY KEY, AUTO_INCREMENT | Cart identifier |
 | user_id | BIGINT | NULL, FK → Users | User reference (NULL for guests) |
-| created_at | DATETIME | DEFAULT UTC_TIMESTAMP() | Creation date |
+| created_at | DATETIME | DEFAULT CURRENT_TIMESTAMP | Creation date |
 | updated_at | DATETIME | AUTO-UPDATE | Last modification |
 
 #### **CartItems**
@@ -259,7 +259,7 @@ Line items within carts.
 | variant_id | BIGINT | NOT NULL, FK → ProductVariants | Product variant |
 | qty | INT | NOT NULL, CHECK > 0 | Quantity |
 | unit_price | DECIMAL(12,2) | NOT NULL, CHECK ≥ 0 | Price at add time |
-| added_at | DATETIME | DEFAULT UTC_TIMESTAMP() | Added timestamp |
+| added_at | DATETIME | DEFAULT CURRENT_TIMESTAMP | Added timestamp |
 
 #### **Coupons**
 Promotional discount codes.
@@ -295,7 +295,7 @@ Order headers with comprehensive pricing.
 | coupon_id | BIGINT | NULL, FK → Coupons | Applied coupon |
 | shipping_address_id | BIGINT | NOT NULL, FK → Addresses | Shipping address |
 | billing_address_id | BIGINT | NOT NULL, FK → Addresses | Billing address |
-| placed_at | DATETIME | DEFAULT UTC_TIMESTAMP() | Order date |
+| placed_at | DATETIME | DEFAULT CURRENT_TIMESTAMP | Order date |
 | updated_at | DATETIME | AUTO-UPDATE | Last update |
 
 **Status Values**: PENDING, PAID, CANCELLED, FULFILLED, REFUNDED
@@ -328,7 +328,7 @@ Fulfillment and delivery tracking.
 | status | VARCHAR(20) | CHECK IN (values) | Shipment status |
 | shipped_at | DATETIME | NULL | Ship date |
 | delivered_at | DATETIME | NULL | Delivery date |
-| created_at | DATETIME | DEFAULT UTC_TIMESTAMP() | Creation date |
+| created_at | DATETIME | DEFAULT CURRENT_TIMESTAMP | Creation date |
 
 **Status Values**: CREATED, PICKED, IN_TRANSIT, DELIVERED, CANCELLED
 
@@ -353,7 +353,7 @@ User shipping and billing addresses.
 | country_code | CHAR(2) | NOT NULL | Country code (ISO) |
 | phone | VARCHAR(32) | NULL | Contact phone |
 | is_default | BOOLEAN | DEFAULT FALSE | Default address flag |
-| created_at | DATETIME | DEFAULT UTC_TIMESTAMP() | Creation date |
+| created_at | DATETIME | DEFAULT CURRENT_TIMESTAMP | Creation date |
 | updated_at | DATETIME | AUTO-UPDATE | Last modification |
 
 #### **Payments**
@@ -368,7 +368,7 @@ Payment transaction records.
 | amount | DECIMAL(12,2) | NOT NULL, CHECK ≥ 0 | Payment amount |
 | status | VARCHAR(20) | CHECK IN (values) | Payment status |
 | paid_at | DATETIME | NULL | Payment timestamp |
-| created_at | DATETIME | DEFAULT UTC_TIMESTAMP() | Creation date |
+| created_at | DATETIME | DEFAULT CURRENT_TIMESTAMP | Creation date |
 
 **Status Values**: INITIATED, AUTHORIZED, CAPTURED, FAILED, REFUNDED
 
@@ -383,7 +383,7 @@ Product reviews and ratings.
 | rating | TINYINT | NOT NULL, CHECK 1-5 | Star rating |
 | title | VARCHAR(160) | NULL | Review title |
 | body | TEXT | NULL | Review text |
-| created_at | DATETIME | DEFAULT UTC_TIMESTAMP() | Review date |
+| created_at | DATETIME | DEFAULT CURRENT_TIMESTAMP | Review date |
 
 **Unique Constraint**: (product_id, user_id) - One review per user per product
 
@@ -523,7 +523,7 @@ Additional indexes on:
 
 ### 6. Auditability
 - created_at timestamps on all tables
-- updated_at with automatic updates (ON UPDATE UTC_TIMESTAMP)
+- updated_at with automatic updates (ON UPDATE CURRENT_TIMESTAMP)
 - Immutable order history
 - Payment transaction trail
 
