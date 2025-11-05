@@ -103,21 +103,3 @@ INSERT INTO ProductVariants (product_id, sku, attributes_json, price, currency, 
   (25, 'WATER-BOTTLE-32OZ-BLU', '{"capacity":"32 oz","color":"Blue"}', 24.99, 'USD', TRUE),
   (25, 'WATER-BOTTLE-32OZ-BLK', '{"capacity":"32 oz","color":"Black"}', 24.99, 'USD', TRUE);
 
--- Verification Query
-SELECT COUNT(*) as total_variants FROM ProductVariants;
-
--- View variants by price range
-SELECT 
-  sku,
-  price,
-  currency,
-  attributes_json,
-  CASE 
-    WHEN price < 50 THEN 'Budget'
-    WHEN price BETWEEN 50 AND 200 THEN 'Mid-Range'
-    WHEN price BETWEEN 200 AND 500 THEN 'Premium'
-    ELSE 'Luxury'
-  END as price_category
-FROM ProductVariants
-ORDER BY price DESC;
-
