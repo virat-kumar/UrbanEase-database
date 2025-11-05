@@ -784,14 +784,20 @@ Mark items as complete when you've:
 4. Committed to Git
 
 #### Bajwa, Achint Kaur
-- [ ] Query 1: User Login History
-- [ ] Query 2: Users by Role
-- [ ] Query 3: Active Users with Roles
-- [ ] Procedure: Manage User Roles
-- [ ] Function: Check User Role
-- [ ] Trigger: Audit User Changes
+- [x] **Table Sample Data: Users (50 entries)**
+- [x] **Table Sample Data: Roles (50 entries)**
+- [x] **Table Sample Data: UserRoles (50 entries)**
+- [x] Query 1: User Login History
+- [x] Query 2: Users by Role
+- [x] Query 3: Active Users with Roles
+- [x] Procedure: Manage User Roles
+- [x] Function: Check User Role
+- [x] Trigger: Audit User Changes
 
 #### Khapekar, Pooja
+- [x] **Table Sample Data: Categories (50 entries)**
+- [x] **Table Sample Data: Products (50 entries)**
+- [x] **Table Sample Data: ProductImages (50 entries)**
 - [ ] Query 1: Products by Category
 - [ ] Query 2: Category Hierarchy
 - [ ] Query 3: Products Without Images
@@ -827,6 +833,9 @@ Mark items as complete when you've:
 - [ ] Trigger: Update Order Status
 
 #### Velarde Sosa, Diana
+- [x] **Table Sample Data: Addresses (50 entries)**
+- [x] **Table Sample Data: Payments (50 entries)**
+- [x] **Table Sample Data: Reviews (50 entries)**
 - [ ] Query 1: Payment Status
 - [ ] Query 2: User Addresses
 - [ ] Query 3: Product Reviews
@@ -841,15 +850,15 @@ Mark items as complete when you've:
 | Database Schema | ✅ Complete | 1/1 |
 | Documentation | ✅ Complete | 3/3 |
 | Table Placeholders | ✅ Created | 18/18 |
-| **Table Sample Data** | 🔄 In Progress | 3/18 |
+| **Table Sample Data** | 🔄 In Progress | 15/18 |
 | Query Placeholders | ✅ Created | 18/18 |
 | Procedure Placeholders | ✅ Created | 6/6 |
 | Function Placeholders | ✅ Created | 6/6 |
 | Trigger Placeholders | ✅ Created | 6/6 |
-| **Queries Implemented** | 🔄 In Progress | 6/18 |
-| **Procedures Implemented** | 🔄 In Progress | 2/6 |
-| **Functions Implemented** | 🔄 In Progress | 2/6 |
-| **Triggers Implemented** | 🔄 In Progress | 2/6 |
+| **Queries Implemented** | 🔄 In Progress | 9/18 |
+| **Procedures Implemented** | 🔄 In Progress | 3/6 |
+| **Functions Implemented** | 🔄 In Progress | 3/6 |
+| **Triggers Implemented** | 🔄 In Progress | 3/6 |
 
 ---
 
