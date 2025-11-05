@@ -808,7 +808,7 @@ Mark items as complete when you've:
 - [x] **Query 3: Variant Pricing** (Multi-warehouse value analysis with ABC classification)
 - [x] **Procedure: Update Inventory** (7 operations with validation and transaction management)
 - [x] **Function: Get Available Stock** (Real-time stock queries with 3 utility functions)
-- [ ] Trigger: Prevent Negative Inventory
+- [x] **Trigger: Prevent Negative Inventory** (3 triggers enforcing business rules and data integrity)
 
 #### Min, La Yaung
 - [ ] Query 1: Active Carts
@@ -849,7 +849,7 @@ Mark items as complete when you've:
 | **Queries Implemented** | 🔄 In Progress | 3/18 |
 | **Procedures Implemented** | 🔄 In Progress | 1/6 |
 | **Functions Implemented** | 🔄 In Progress | 1/6 |
-| **Triggers Implemented** | 🔄 In Progress | 0/6 |
+| **Triggers Implemented** | 🔄 In Progress | 1/6 |
 
 ---
 
