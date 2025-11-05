@@ -806,7 +806,7 @@ Mark items as complete when you've:
 - [x] **Query 1: Inventory Status** (Comprehensive dashboard with 6-level classification)
 - [x] **Query 2: Low Stock Alert** (Priority-ranked with reorder recommendations)
 - [x] **Query 3: Variant Pricing** (Multi-warehouse value analysis with ABC classification)
-- [ ] Procedure: Update Inventory
+- [x] **Procedure: Update Inventory** (7 operations with validation and transaction management)
 - [ ] Function: Get Available Stock
 - [ ] Trigger: Prevent Negative Inventory
 
@@ -847,7 +847,7 @@ Mark items as complete when you've:
 | Function Placeholders | ✅ Created | 6/6 |
 | Trigger Placeholders | ✅ Created | 6/6 |
 | **Queries Implemented** | 🔄 In Progress | 3/18 |
-| **Procedures Implemented** | 🔄 In Progress | 0/6 |
+| **Procedures Implemented** | 🔄 In Progress | 1/6 |
 | **Functions Implemented** | 🔄 In Progress | 0/6 |
 | **Triggers Implemented** | 🔄 In Progress | 0/6 |
 
