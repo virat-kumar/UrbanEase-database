@@ -57,11 +57,9 @@ INSERT INTO Users (email, password_hash, full_name, phone) VALUES
   ('rachel@gmail.com',  UNHEX(SHA2('password18', 256)), 'Rachel Scott', '+1-555-1919'),
   ('steve@gmail.com',   UNHEX(SHA2('password19', 256)), 'Steve Parker', '+1-555-2021'),
   ('tina@gmail.com',    UNHEX(SHA2('password20', 256)), 'Tina Lewis', '+1-555-2121'),
-  ('ursula@gmail.com', UNHEX(SHA2('password21', 256)), 'Ursula Green', '+1-555-2222'),
-  ('victor@gmail.com', UNHEX(SHA2('password22', 256)), 'Victor Nguyen', '+1-555-2323');
-
-
-
+  ('ursula@gmail.com',  UNHEX(SHA2('password21', 256)), 'Ursula Green', '+1-555-2222'),
+  ('victor@gmail.com',  UNHEX(SHA2('password22', 256)), 'Victor Nguyen', '+1-555-2323');
+  
 
 -- Added values into categories table 
 INSERT INTO Categories (parent_id, name, slug) VALUES
@@ -70,7 +68,7 @@ INSERT INTO Categories (parent_id, name, slug) VALUES
   (1, 'Laptops', 'laptops'),
   (1, 'Accessories', 'accessories'),
   (NULL, 'Home Appliances', 'home-appliances'),
-   (NULL, 'Furniture', 'furniture'),
+  (NULL, 'Furniture', 'furniture'),
   (6, 'Living Room', 'living-room'),
   (6, 'Bedroom', 'bedroom'),
   (6, 'Office', 'office'),
@@ -111,7 +109,9 @@ INSERT INTO Products (category_id, title, description, brand) VALUES
   (17, 'Matte Lipstick', 'Long-lasting matte lipstick', 'Maybelline'),
   (19, 'Yoga Mat Pro', 'Eco-friendly 6mm yoga mat', 'Lululemon'),
   (20, 'Camping Tent 4P', '4-person waterproof tent', 'Coleman'),
-  (1, 'Sony Bravia 55”', '4K OLED Smart TV', 'Sony');
+  (1, 'Sony Bravia 55”', '4K OLED Smart TV', 'Sony'),
+  (22, 'The Great Gatsby', 'Classic novel by F. Scott Fitzgerald', 'Penguin'),
+  (22, '1984', 'Dystopian novel by George Orwell', 'Harvill Secker');
 
 
 -- Added values into productvariants table
@@ -141,6 +141,31 @@ INSERT INTO ProductVariants (product_id, sku, attributes_json, price, currency) 
   (21, 'SKU-GATSBY-PB', '{"format":"Paperback"}', 12.99, 'USD'),
   (22, 'SKU-1984-HC', '{"format":"Hardcover"}', 19.99, 'USD');
 
+ -- Added sample values into carts table
+INSERT INTO Carts (user_id) VALUES
+  (1),
+  (2),
+  (3),
+  (NULL),
+  (4),
+  (NULL),
+  (5),
+  (NULL),
+  (NULL),
+  (NULL),
+  (6),
+  (7),
+  (8),
+  (9),
+  (10),
+  (NULL),
+  (11),
+  (12),
+  (13),
+  (NULL),
+  (14),
+  (15);
+
 -- Added sample values to cart items table
 INSERT INTO CartItems (cart_id, variant_id, qty, unit_price) VALUES 
   (1, 1, 2, 999.99),
@@ -166,31 +191,7 @@ INSERT INTO CartItems (cart_id, variant_id, qty, unit_price) VALUES
   (19, 21, 1, 12.99),
   (20, 22, 1, 19.99);
   
-  -- Added sample values into carts table
-INSERT INTO Carts (user_id) VALUES
-  (1),
-  (2),
-  (3),
-  (NULL),
-  (4),
-  (NULL),
-  (5),
-  (NULL),
-  (NULL),
-  (NULL),
-  (6),
-  (7),
-  (8),
-  (9),
-  (10),
-  (NULL),
-  (11),
-  (12),
-  (13),
-  (NULL),
-  (14),
-  (15);
-
+ 
 -- Added sample values into Coupons table
 INSERT INTO Coupons (code, type, value, starts_at, expires_at, min_subtotal, is_active) VALUES 
   ('SAVE10', 'PERCENT', 10.00, '2024-01-01', '2024-12-31', 50.00, TRUE),
@@ -215,7 +216,16 @@ INSERT INTO Coupons (code, type, value, starts_at, expires_at, min_subtotal, is_
   ('BIRTHDAY25', 'PERCENT', 25.00, '2024-01-01', '2025-01-01', NULL, TRUE),
   ('THANKYOU10', 'PERCENT', 10.00, '2024-01-01', '2025-12-31', NULL, TRUE),
   ('CLEARANCE50', 'AMOUNT', 50.00, '2024-07-01', '2024-09-30', 150.00, FALSE);
-
   
 -- Viewing sample values in cart items table
 select * from CartItems;
+
+-- ⚠️ Drops tables if they already exist (removes all data and structure)
+DROP TABLE IF EXISTS CartItems;
+DROP TABLE IF EXISTS ProductVariants;
+DROP TABLE IF EXISTS Products;
+DROP TABLE IF EXISTS Categories;
+DROP TABLE IF EXISTS Carts;
+DROP TABLE IF EXISTS Coupons;
+DROP TABLE IF EXISTS Users;
+
