@@ -34,6 +34,29 @@ CREATE INDEX IX_Reviews_User ON Reviews(user_id);
 -- Verify table creation
 DESC Reviews;
 
+INSERT INTO Reviews (product_id, user_id, rating, title, body)
+VALUES
+(1, 1, 5, 'Excellent Product', 'Really loved this! Exceeded my expectations.'),
+(2, 2, 4, 'Good Quality', 'The product works well, happy with my purchase.'),
+(3, 3, 3, 'Average', 'It is okay, does the job but nothing special.'),
+(4, 4, 2, 'Not great', 'Had some issues, expected better quality.'),
+(5, 5, 1, 'Very Disappointed', 'Did not meet my expectations at all.'),
+(1, 2, 4, 'Pretty Good', 'Overall satisfied, minor improvements needed.'),
+(2, 3, 5, 'Loved it', 'Fantastic! Would recommend to friends.'),
+(3, 4, 3, 'Decent', 'It works, but there are better options.'),
+(4, 5, 2, 'Could be better', 'Some parts feel cheap, quality is low.'),
+(5, 1, 5, 'Perfect', 'Exactly what I wanted, very happy!'),
+(6, 2, 4, 'Good Value', 'Worth the price, solid product.'),
+(7, 3, 3, 'Average Experience', 'Nothing special, but functional.'),
+(8, 4, 2, 'Disappointed', 'Not as described, quality below expectation.'),
+(9, 5, 1, 'Terrible', 'Broke within days, very unhappy.'),
+(10, 1, 5, 'Highly Recommend', 'Excellent product, great quality.'),
+(6, 3, 4, 'Works well', 'Satisfied with the purchase overall.'),
+(7, 4, 3, 'Okay', 'Meets basic needs, nothing more.'),
+(8, 2, 2, 'Poor Quality', 'Would not buy again.'),
+(9, 1, 1, 'Do not buy', 'Extremely disappointing, avoid this product.'),
+(10, 5, 5, 'Fantastic', 'Exceeded all expectations, love it!');
+
 -- Example: Insert sample reviews
 /*
 INSERT INTO Reviews (product_id, user_id, rating, title, body) VALUES 
