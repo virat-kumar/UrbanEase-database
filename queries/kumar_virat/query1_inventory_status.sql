@@ -49,12 +49,12 @@ SELECT
     
     -- Stock Health Classification
     CASE 
-        WHEN (i.on_hand - i.reserved) = 0 THEN '🔴 OUT OF STOCK'
-        WHEN (i.on_hand - i.reserved) < 10 THEN '🟠 CRITICAL LOW'
-        WHEN (i.on_hand - i.reserved) < 50 THEN '🟡 LOW STOCK'
-        WHEN (i.on_hand - i.reserved) < 100 THEN '🟢 MEDIUM STOCK'
-        WHEN (i.on_hand - i.reserved) < 200 THEN '🔵 HEALTHY STOCK'
-        ELSE '✅ HIGH STOCK'
+        WHEN (i.on_hand - i.reserved) = 0 THEN 'OUT OF STOCK'
+        WHEN (i.on_hand - i.reserved) < 10 THEN 'CRITICAL LOW'
+        WHEN (i.on_hand - i.reserved) < 50 THEN 'LOW STOCK'
+        WHEN (i.on_hand - i.reserved) < 100 THEN 'MEDIUM STOCK'
+        WHEN (i.on_hand - i.reserved) < 200 THEN 'HEALTHY STOCK'
+        ELSE 'HIGH STOCK'
     END AS stock_status,
     
     -- Action Required Flag

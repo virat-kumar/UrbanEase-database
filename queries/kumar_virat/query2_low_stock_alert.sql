@@ -37,11 +37,11 @@ SELECT
     
     -- Alert Level
     CASE 
-        WHEN (i.on_hand - i.reserved) = 0 THEN '🚨 CRITICAL'
-        WHEN (i.on_hand - i.reserved) <= 5 THEN '⚠️  URGENT'
-        WHEN (i.on_hand - i.reserved) <= 10 THEN '⚡ WARNING'
-        WHEN (i.on_hand - i.reserved) <= 25 THEN '📊 WATCH'
-        ELSE '✓ OK'
+        WHEN (i.on_hand - i.reserved) = 0 THEN 'CRITICAL'
+        WHEN (i.on_hand - i.reserved) <= 5 THEN 'URGENT'
+        WHEN (i.on_hand - i.reserved) <= 10 THEN 'WARNING'
+        WHEN (i.on_hand - i.reserved) <= 25 THEN 'WATCH'
+        ELSE 'OK'
     END AS alert_level,
     
     -- Product Details

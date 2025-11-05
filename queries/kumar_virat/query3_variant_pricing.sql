@@ -59,11 +59,11 @@ SELECT
     
     -- Business Intelligence Classifications
     CASE 
-        WHEN pv.price < 50 THEN '💰 Budget ($0-$49)'
-        WHEN pv.price < 200 THEN '💵 Mid-Range ($50-$199)'
-        WHEN pv.price < 500 THEN '💳 Premium ($200-$499)'
-        WHEN pv.price < 1000 THEN '💎 Luxury ($500-$999)'
-        ELSE '👑 Ultra-Luxury ($1000+)'
+        WHEN pv.price < 50 THEN 'Budget ($0-$49)'
+        WHEN pv.price < 200 THEN 'Mid-Range ($50-$199)'
+        WHEN pv.price < 500 THEN 'Premium ($200-$499)'
+        WHEN pv.price < 1000 THEN 'Luxury ($500-$999)'
+        ELSE 'Ultra-Luxury ($1000+)'
     END AS price_tier,
     
     -- Inventory Value Classification
@@ -77,11 +77,11 @@ SELECT
     
     -- Stock Health by Value
     CASE 
-        WHEN SUM(i.on_hand - i.reserved) = 0 THEN '❌ Out of Stock'
-        WHEN SUM(i.on_hand - i.reserved) < 20 THEN '⚠️ Low Stock - High Risk'
-        WHEN SUM(i.on_hand - i.reserved) < 100 THEN '⚡ Moderate Stock'
-        WHEN SUM(i.on_hand - i.reserved) < 300 THEN '✅ Healthy Stock'
-        ELSE '📈 Overstocked - Consider Promotion'
+        WHEN SUM(i.on_hand - i.reserved) = 0 THEN 'Out of Stock'
+        WHEN SUM(i.on_hand - i.reserved) < 20 THEN 'Low Stock - High Risk'
+        WHEN SUM(i.on_hand - i.reserved) < 100 THEN 'Moderate Stock'
+        WHEN SUM(i.on_hand - i.reserved) < 300 THEN 'Healthy Stock'
+        ELSE 'Overstocked - Consider Promotion'
     END AS stock_health_by_value,
     
     -- Turnover Potential (Reserved / On Hand ratio)
