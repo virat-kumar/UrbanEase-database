@@ -1,6 +1,6 @@
 -- =============================================
 -- Author: Min, La Yaung
--- Create date: [Date]
+-- Create date: 11/03/2025
 -- Description: Create Carts Table
 -- Module: Shopping Cart & Promotions
 -- Note: user_id can be NULL for guest carts
@@ -13,11 +13,12 @@ USE urbanease_shop;
 
 CREATE TABLE Carts (
   cart_id    BIGINT AUTO_INCREMENT PRIMARY KEY,
-  user_id    BIGINT NULL,  -- allow guest carts if NULL (tracked externally)
-  created_at DATETIME NOT NULL DEFAULT UTC_TIMESTAMP(),
-  updated_at DATETIME NOT NULL DEFAULT UTC_TIMESTAMP() ON UPDATE UTC_TIMESTAMP(),
+  user_id    BIGINT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT FK_Cart_User FOREIGN KEY (user_id) REFERENCES Users(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 -- Add comments to document table purpose
 ALTER TABLE Carts COMMENT = 'Shopping carts for registered users and guests';
@@ -28,21 +29,20 @@ CREATE INDEX IX_Cart_User ON Carts(user_id);
 -- Verify table creation
 DESC Carts;
 
--- Example: Insert sample carts
-/*
--- Cart for registered user (user_id = 2)
-INSERT INTO Carts (user_id) VALUES (2);
+-- Added sample values into carts table
+INSERT INTO Carts (user_id) VALUES
+  (1),
+  (2),
+  (3),
+  (NULL),
+  (4),
+  (NULL),
+  (5),
+  (NULL),
+  (NULL),
+  (NULL);
 
--- Guest cart (NULL user_id)
-INSERT INTO Carts (user_id) VALUES (NULL);
-*/
+-- Viewing sample values in carts table
+select * from Carts;
 
--- Example: Query to see active carts
--- SELECT 
---   c.cart_id,
---   CASE WHEN c.user_id IS NULL THEN 'Guest' ELSE u.email END as customer,
---   c.created_at,
---   c.updated_at
--- FROM Carts c
--- LEFT JOIN Users u ON c.user_id = u.user_id;
 

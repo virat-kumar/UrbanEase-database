@@ -1,6 +1,6 @@
 -- =============================================
 -- Author: Min, La Yaung
--- Create date: [Date]
+-- Create date: 11/03/2025
 -- Description: Create Coupons Table
 -- Module: Shopping Cart & Promotions
 -- =============================================
@@ -30,22 +30,12 @@ CREATE INDEX IX_Coupon_Code ON Coupons(code);
 -- Verify table creation
 DESC Coupons;
 
--- Example: Insert sample coupons
-/*
+-- Added sample values into Coupons table
 INSERT INTO Coupons (code, type, value, starts_at, expires_at, min_subtotal, is_active) VALUES 
   ('SAVE10', 'PERCENT', 10.00, '2024-01-01', '2024-12-31', 50.00, TRUE),
   ('FREESHIP', 'AMOUNT', 15.00, '2024-01-01', '2024-06-30', 100.00, TRUE),
   ('WELCOME20', 'PERCENT', 20.00, '2024-01-01', '2024-12-31', NULL, TRUE),
   ('FLASH50', 'AMOUNT', 50.00, '2024-11-01', '2024-11-30', 200.00, TRUE);
-*/
-
--- Example: Query to see active coupons
--- SELECT 
---   code,
---   CONCAT(value, CASE WHEN type = 'PERCENT' THEN '%' ELSE ' USD' END) as discount,
---   min_subtotal,
---   expires_at
--- FROM Coupons
--- WHERE is_active = TRUE 
---   AND (expires_at IS NULL OR expires_at > UTC_TIMESTAMP());
-
+  
+-- Viewing sample values in Coupons table
+select * from Carts;
