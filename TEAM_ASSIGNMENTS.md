@@ -811,12 +811,12 @@ Mark items as complete when you've:
 - [x] **Trigger: Prevent Negative Inventory** (3 triggers enforcing business rules and data integrity)
 
 #### Min, La Yaung
-- [ ] Query 1: Active Carts
-- [ ] Query 2: Abandoned Carts
-- [ ] Query 3: Coupon Usage
-- [ ] Procedure: Checkout Cart
-- [ ] Function: Calculate Cart Total
-- [ ] Trigger: Update Cart Timestamp
+- [x] Query 1: Active Carts
+- [x] Query 2: Abandoned Carts
+- [x] Query 3: Coupon Usage
+- [x] Procedure: Checkout Cart
+- [x] Function: Calculate Cart Total
+- [x] Trigger: Update Cart Timestamp
 
 #### Tiwari, Sneha
 - [ ] Query 1: Order Summary
@@ -846,10 +846,10 @@ Mark items as complete when you've:
 | Procedure Placeholders | ✅ Created | 6/6 |
 | Function Placeholders | ✅ Created | 6/6 |
 | Trigger Placeholders | ✅ Created | 6/6 |
-| **Queries Implemented** | 🔄 In Progress | 3/18 |
-| **Procedures Implemented** | 🔄 In Progress | 1/6 |
-| **Functions Implemented** | 🔄 In Progress | 1/6 |
-| **Triggers Implemented** | 🔄 In Progress | 1/6 |
+| **Queries Implemented** | 🔄 In Progress | 6/18 |
+| **Procedures Implemented** | 🔄 In Progress | 2/6 |
+| **Functions Implemented** | 🔄 In Progress | 2/6 |
+| **Triggers Implemented** | 🔄 In Progress | 2/6 |
 
 ---
 
