@@ -256,11 +256,6 @@ INSERT INTO Categories (parent_id, name, slug) VALUES
 (30, 'Surveillance Cameras', 'surveillance-cameras'),
 (30, 'Fire Safety Equipment', 'fire-safety-equipment');
 
-SELECT 
-child.name AS subcategory,
-parent.name AS parent_category
-FROM Categories child
-LEFT JOIN Categories parent ON child.parent_id = parent.category_id;  
 
 SELECT * FROM Categories;
 
