@@ -49,6 +49,8 @@ INSERT INTO Categories (parent_id, name, slug) VALUES
 -- FROM Categories child
 -- LEFT JOIN Categories parent ON child.parent_id = parent.category_id;
 
+
+/* Sample Values Created by Pooja */
 -- Actual query with values
 
 
