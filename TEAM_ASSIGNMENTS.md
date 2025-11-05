@@ -800,9 +800,12 @@ Mark items as complete when you've:
 - [ ] Trigger: Validate Product
 
 #### Kumar, Virat
-- [ ] Query 1: Inventory Status
-- [ ] Query 2: Low Stock Alert
-- [ ] Query 3: Variant Pricing
+- [x] **Table Sample Data: Warehouses (50 entries)**
+- [x] **Table Sample Data: ProductVariants (50 entries)**
+- [x] **Table Sample Data: Inventory (50 entries)**
+- [x] **Query 1: Inventory Status** (Comprehensive dashboard with 6-level classification)
+- [x] **Query 2: Low Stock Alert** (Priority-ranked with reorder recommendations)
+- [x] **Query 3: Variant Pricing** (Multi-warehouse value analysis with ABC classification)
 - [ ] Procedure: Update Inventory
 - [ ] Function: Get Available Stock
 - [ ] Trigger: Prevent Negative Inventory
@@ -838,11 +841,12 @@ Mark items as complete when you've:
 | Database Schema | ✅ Complete | 1/1 |
 | Documentation | ✅ Complete | 3/3 |
 | Table Placeholders | ✅ Created | 18/18 |
+| **Table Sample Data** | 🔄 In Progress | 3/18 |
 | Query Placeholders | ✅ Created | 18/18 |
 | Procedure Placeholders | ✅ Created | 6/6 |
 | Function Placeholders | ✅ Created | 6/6 |
 | Trigger Placeholders | ✅ Created | 6/6 |
-| **Queries Implemented** | 🔄 In Progress | 0/18 |
+| **Queries Implemented** | 🔄 In Progress | 3/18 |
 | **Procedures Implemented** | 🔄 In Progress | 0/6 |
 | **Functions Implemented** | 🔄 In Progress | 0/6 |
 | **Triggers Implemented** | 🔄 In Progress | 0/6 |
