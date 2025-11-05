@@ -130,9 +130,6 @@ INSERT INTO Products (category_id, title, description, brand, is_active) VALUES
 -- 30. Safety & Security
 (30, 'Smart Doorbell Camera', 'Wi-Fi enabled video doorbell with motion detection', 'Ring', TRUE);
 
-SELECT p.title, p.brand, c.name as category, p.is_active
- FROM Products p
- LEFT JOIN Categories c ON p.category_id = c.category_id;
 
 SELECT * FROM products;
 
