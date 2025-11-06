@@ -1,6 +1,6 @@
 -- =============================================
 -- Author: Tiwari, Sneha
--- Create date: 11-1-2025
+-- Create date: [Date]
 -- Description: Create Orders Table
 -- Module: Order Management & Fulfillment
 -- Note: Requires Users, Coupons, and Addresses tables to exist first
