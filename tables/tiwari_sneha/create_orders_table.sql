@@ -51,7 +51,7 @@ VALUES
   (3, 'Home', 'Demo User', '789 Elm St', 'Plano', 'TX', '75074', 'US', '5555555555', 1, NOW(), NOW());
 
 
--- Example: Insert sample order
+-- Example: Sample order
 INSERT INTO Orders (
   user_id, status,
   subtotal_amount, discount_amount, shipping_amount, tax_amount,
@@ -72,3 +72,15 @@ INSERT INTO Orders (
   (3, 'PAID',       875.00,  75.00,  0.00,  65.00, 1, 1, 1),
   (1, 'FULFILLED',  220.00,   0.00,  5.00,  18.00, NULL, 2, 2),
   (2, 'PAID',       640.00,  20.00,  8.00,  45.00, NULL, 3, 3);
+
+
+-- Example: Query to see orders with user info
+SELECT 
+o.order_id,
+u.email,
+o.status,
+o.grand_total_amount,
+o.placed_at
+FROM Orders o
+JOIN Users u ON o.user_id = u.user_id
+ORDER BY o.placed_at DESC;
