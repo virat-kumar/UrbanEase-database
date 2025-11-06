@@ -56,6 +56,16 @@ VALUES
 (8, 2, 2, 'Poor Quality', 'Would not buy again.'),
 (9, 1, 1, 'Do not buy', 'Extremely disappointing, avoid this product.'),
 (10, 5, 5, 'Fantastic', 'Exceeded all expectations, love it!');
+(1, 3, 4, 'Solid Choice', 'Product performs well and meets expectations.'),
+(2, 4, 3, 'Just Okay', 'It’s fine, but could be improved in design.'),
+(3, 5, 5, 'Amazing!', 'Works perfectly. I will buy again.'),
+(4, 1, 4, 'Very Good', 'Met most of my needs, reliable quality.'),
+(5, 2, 2, 'Not Worth It', 'Stopped working after a week. Disappointed.'),
+(6, 4, 5, 'Excellent Value', 'High quality for the price, very pleased.'),
+(7, 5, 3, 'Average', 'It does what it says, nothing exceptional.'),
+(8, 1, 4, 'Good Overall', 'Nice build and functionality. Recommended.'),
+(9, 2, 1, 'Terrible Experience', 'Arrived damaged, poor support.'),
+(10, 3, 5, 'Fantastic Product', 'Best purchase this year! Worth every penny.');
 
 -- Example: Insert sample reviews
 /*
