@@ -55,6 +55,16 @@ VALUES
 (8, 'Stripe', 'STR44455', 90.50, 'INITIATED', NULL),
 (9, 'Square', 'SQ55566', 40.00, 'CAPTURED', '2025-11-03 16:10:00'),
 (10, 'PayPal', 'PP66677', 85.75, 'AUTHORIZED', '2025-11-04 12:30:00');
+(11, 'Stripe', 'STR77788', 99.99, 'CAPTURED', '2025-11-05 09:10:00'),
+(12, 'PayPal', 'PP88899', 45.00, 'AUTHORIZED', '2025-11-05 10:30:00'),
+(13, 'Square', 'SQ10101', 67.25, 'INITIATED', NULL),
+(14, 'Stripe', 'STR20202', 89.75, 'CAPTURED', '2025-11-05 11:45:00'),
+(15, 'PayPal', 'PP30303', 120.50, 'FAILED', NULL),
+(16, 'Stripe', 'STR40404', 200.00, 'CAPTURED', '2025-11-05 13:00:00'),
+(17, 'Square', 'SQ50505', 34.99, 'AUTHORIZED', '2025-11-05 14:20:00'),
+(18, 'Stripe', 'STR60606', 150.00, 'REFUNDED', '2025-11-05 15:30:00'),
+(19, 'PayPal', 'PP70707', 180.25, 'CAPTURED', '2025-11-05 16:40:00'),
+(20, 'Square', 'SQ80808', 75.00, 'INITIATED', NULL);
 
 -- Example: Insert sample payments
 /*
