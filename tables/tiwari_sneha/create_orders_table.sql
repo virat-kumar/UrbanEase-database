@@ -47,7 +47,7 @@ INSERT INTO Addresses (
 )
 VALUES
   (1, 'Home', 'Sneha Tiwari', '123 Main St', 'Dallas', 'TX', '75001', 'US', '1234567890', 1, NOW(), NOW()),
-  (2, 'Office', 'Ritik Jaiswal', '456 Park Ave', 'Richardson', 'TX', '75080', 'US', '9876543210', 0, NOW(), NOW()),
+  (2, 'Office', 'David Joe', '456 Park Ave', 'Richardson', 'TX', '75080', 'US', '9876543210', 0, NOW(), NOW()),
   (3, 'Home', 'Demo User', '789 Elm St', 'Plano', 'TX', '75074', 'US', '5555555555', 1, NOW(), NOW());
 
 
