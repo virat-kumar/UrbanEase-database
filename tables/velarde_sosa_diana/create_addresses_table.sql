@@ -60,18 +60,16 @@ VALUES
 (3, 'Office', 'Carol Lee', '741 Birch St', 'Suite 7', 'Miami', 'FL', '33103', 'US', '305-555-6780', FALSE),
 (4, 'Shipping', 'Emma Brown', '852 Cedar Ave', NULL, 'Seattle', 'WA', '98103', 'US', '206-555-7891', FALSE),
 (5, 'Vacation', 'Grace Miller', '963 Pine Ln', NULL, 'Aspen', 'CO', '81611', 'US', '970-555-8901', FALSE);
-
-
 (6, 'Home', 'Kate Turner', '741 Oakwood Dr', NULL, 'Portland', 'OR', '97201', 'US', '503-555-1111', TRUE),
 (6, 'Office', 'Kate Turner', '159 River Rd', 'Suite 12', 'Portland', 'OR', '97202', 'US', '503-555-2222', FALSE),
 (7, 'Home', 'Leo Martinez', '852 Highland Ave', NULL, 'Atlanta', 'GA', '30301', 'US', '404-555-3333', TRUE),
 (7, 'Billing', 'Leo Martinez', '963 Hilltop St', NULL, 'Atlanta', 'GA', '30302', 'US', '404-555-4444', FALSE),
 (8, 'Home', 'Mia Anderson', '147 Forest Ln', NULL, 'Boston', 'MA', '02108', 'US', '617-555-5555', TRUE),
 (8, 'Office', 'Mia Anderson', '258 Beacon St', 'Floor 4', 'Boston', 'MA', '02109', 'US', '617-555-6666', FALSE),
-(9, 'Home', 'Mason White', '369 Brookside Rd', NULL, 'San Diego', 'CA', '92101', 'US', '619-555-7777', TRUE),
-(9, 'Vacation', 'Mason White', '753 Ocean View Blvd', 'Unit 5', 'La Jolla', 'CA', '92037', 'US', '858-555-8888', FALSE),
-(10, 'Home', 'Isabella Taylor', '951 Sunset Blvd', NULL, 'Los Angeles', 'CA', '90001', 'US', '213-555-9999', TRUE),
-(10, 'Office', 'Isabella Taylor', '654 Vine St', 'Suite 300', 'Los Angeles', 'CA', '90002', 'US', '213-555-0000', FALSE);
+(9, 'Home', 'Nina Clark', '369 Brookside Rd', NULL, 'San Diego', 'CA', '92101', 'US', '619-555-7777', TRUE),
+(9, 'Vacation', 'Nina Clark', '753 Ocean View Blvd', 'Unit 5', 'La Jolla', 'CA', '92037', 'US', '858-555-8888', FALSE),
+(10, 'Home', 'Oliver Hall', '951 Sunset Blvd', NULL, 'Los Angeles', 'CA', '90001', 'US', '213-555-9999', TRUE),
+(10, 'Office', 'Oliver Hall', '654 Vine St', 'Suite 300', 'Los Angeles', 'CA', '90002', 'US', '213-555-0000', FALSE);
 
 -- Example: Insert sample addresses
 /*
