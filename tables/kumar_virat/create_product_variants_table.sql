@@ -1,105 +1,128 @@
 -- =============================================
 -- Author: Kumar, Virat
--- Create date: [Date]
--- Description: Create ProductVariants Table
--- Module: Product Variants & Inventory Management
+-- Create date: November 2025
+-- Description: Sample Data for ProductVariants Table (35 entries)
+-- Module: Inventory Management
 -- Note: Requires Products table to exist first
 -- =============================================
 
 USE urbanease_shop;
 
--- Drop table if exists (for development only)
--- DROP TABLE IF EXISTS ProductVariants;
+-- Insert 35 product variants with different SKUs, attributes, and pricing
+INSERT INTO ProductVariants (product_id, sku, attributes_json, price, currency, is_active, created_at) VALUES
+-- Product 1: MacBook Pro variants
+(1, 'MBP16-M3-16-512-SG', '{"color":"Space Gray","memory":"16GB","storage":"512GB"}', 2499.00, 'USD', TRUE, '2024-01-10 10:00:00'),
+(1, 'MBP16-M3-32-1TB-SIL', '{"color":"Silver","memory":"32GB","storage":"1TB"}', 3299.00, 'USD', TRUE, '2024-01-10 10:00:00'),
 
-CREATE TABLE ProductVariants (
-  variant_id      BIGINT AUTO_INCREMENT PRIMARY KEY,
-  product_id      BIGINT       NOT NULL,
-  sku             VARCHAR(64)  NOT NULL UNIQUE,
-  attributes_json JSON NULL,  -- {"size":"M","color":"Black"}
-  price           DECIMAL(12,2) NOT NULL CHECK (price >= 0),
-  currency        CHAR(3)       NOT NULL DEFAULT 'USD',
-  is_active       BOOLEAN       NOT NULL DEFAULT TRUE,
-  created_at      DATETIME      NOT NULL DEFAULT UTC_TIMESTAMP(),
-  updated_at      DATETIME      NOT NULL DEFAULT UTC_TIMESTAMP() ON UPDATE UTC_TIMESTAMP(),
-  CONSTRAINT FK_Variant_Product FOREIGN KEY (product_id) REFERENCES Products(product_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- Product 2: iPhone variants
+(2, 'IPH15PM-256-BLU', '{"color":"Blue Titanium","storage":"256GB"}', 1199.00, 'USD', TRUE, '2024-01-15 11:30:00'),
+(2, 'IPH15PM-512-NAT', '{"color":"Natural Titanium","storage":"512GB"}', 1399.00, 'USD', TRUE, '2024-01-15 11:30:00'),
 
--- Add comments to document table purpose
-ALTER TABLE ProductVariants COMMENT = 'Sellable product variants with SKU, price, and attributes';
+-- Product 3: T-Shirt variants
+(3, 'TSHIRT-M-BLK', '{"size":"M","color":"Black"}', 29.99, 'USD', TRUE, '2024-02-01 09:15:00'),
+(3, 'TSHIRT-L-BLU', '{"size":"L","color":"Blue"}', 29.99, 'USD', TRUE, '2024-02-01 09:15:00'),
 
--- Create index for product lookups
-CREATE INDEX IX_Variant_Product ON ProductVariants(product_id);
+-- Product 4: Dress variants
+(4, 'DRESS-S-FLO', '{"size":"S","pattern":"Floral"}', 79.99, 'USD', TRUE, '2024-02-10 14:20:00'),
+(4, 'DRESS-M-FLO', '{"size":"M","pattern":"Floral"}', 79.99, 'USD', TRUE, '2024-02-10 14:20:00'),
 
--- Verify table creation
-DESC ProductVariants;
+-- Product 5: Sofa
+(5, 'SOFA-3SEAT-GRY', '{"seats":"3","color":"Grey"}', 899.00, 'USD', TRUE, '2024-02-20 10:45:00'),
 
--- =============================================
--- Sample Data: 50 Product Variant Entries
--- Note: Assumes Products with IDs 1-25 exist
--- =============================================
+-- Product 6: Wall Art
+(6, 'WALLART-24X36-ABS', '{"size":"24x36","style":"Abstract"}', 149.99, 'USD', TRUE, '2024-03-01 13:30:00'),
 
-INSERT INTO ProductVariants (product_id, sku, attributes_json, price, currency, is_active) VALUES 
-  -- Electronics - Smartphones (Product IDs 1-3)
-  (1, 'IPHONE15-128GB-BLK', '{"storage":"128GB","color":"Black"}', 799.99, 'USD', TRUE),
-  (1, 'IPHONE15-256GB-BLK', '{"storage":"256GB","color":"Black"}', 899.99, 'USD', TRUE),
-  (1, 'IPHONE15-128GB-SLV', '{"storage":"128GB","color":"Silver"}', 799.99, 'USD', TRUE),
-  (2, 'GALAXYS24-128GB-GRY', '{"storage":"128GB","color":"Gray"}', 749.99, 'USD', TRUE),
-  (2, 'GALAXYS24-256GB-BLK', '{"storage":"256GB","color":"Black"}', 849.99, 'USD', TRUE),
-  (3, 'PIXEL8-128GB-WHT', '{"storage":"128GB","color":"White"}', 599.99, 'USD', TRUE),
-  (3, 'PIXEL8-256GB-BLK', '{"storage":"256GB","color":"Black"}', 699.99, 'USD', TRUE),
-  
-  -- Electronics - Laptops (Product IDs 4-6)
-  (4, 'MACBOOK-AIR-M3-8GB-256GB', '{"processor":"M3","ram":"8GB","storage":"256GB"}', 1299.00, 'USD', TRUE),
-  (4, 'MACBOOK-AIR-M3-16GB-512GB', '{"processor":"M3","ram":"16GB","storage":"512GB"}', 1599.00, 'USD', TRUE),
-  (5, 'DELL-XPS13-I7-16GB-512GB', '{"processor":"Intel i7","ram":"16GB","storage":"512GB"}', 1399.00, 'USD', TRUE),
-  (5, 'DELL-XPS13-I5-8GB-256GB', '{"processor":"Intel i5","ram":"8GB","storage":"256GB"}', 999.00, 'USD', TRUE),
-  (6, 'LENOVO-T14-I7-32GB-1TB', '{"processor":"Intel i7","ram":"32GB","storage":"1TB"}', 1799.00, 'USD', TRUE),
-  
-  -- Electronics - Accessories (Product IDs 7-9)
-  (7, 'AIRPODS-PRO2-WHT', '{"generation":"2nd","color":"White"}', 249.99, 'USD', TRUE),
-  (7, 'AIRPODS-PRO2-BLK', '{"generation":"2nd","color":"Black"}', 249.99, 'USD', TRUE),
-  (8, 'LOGITECH-MX3S-BLK', '{"type":"Wireless Mouse","color":"Black"}', 99.99, 'USD', TRUE),
-  (8, 'LOGITECH-MX3S-WHT', '{"type":"Wireless Mouse","color":"White"}', 99.99, 'USD', TRUE),
-  (9, 'SAMSUNG-T7-1TB-BLU', '{"type":"Portable SSD","capacity":"1TB","color":"Blue"}', 129.99, 'USD', TRUE),
-  (9, 'SAMSUNG-T7-2TB-BLK', '{"type":"Portable SSD","capacity":"2TB","color":"Black"}', 199.99, 'USD', TRUE),
-  
-  -- Home Appliances (Product IDs 10-12)
-  (10, 'DYSON-V15-STD', '{"model":"V15 Detect","kit":"Standard"}', 749.99, 'USD', TRUE),
-  (10, 'DYSON-V15-PRO', '{"model":"V15 Detect","kit":"Professional"}', 849.99, 'USD', TRUE),
-  (11, 'INSTANTPOT-DUO-6QT', '{"capacity":"6 Quart","type":"7-in-1"}', 129.99, 'USD', TRUE),
-  (11, 'INSTANTPOT-DUO-8QT', '{"capacity":"8 Quart","type":"7-in-1"}', 159.99, 'USD', TRUE),
-  (12, 'NINJA-BLENDER-1000W-BLK', '{"power":"1000W","color":"Black"}', 89.99, 'USD', TRUE),
-  
-  -- Clothing - Tops (Product IDs 13-15)
-  (13, 'NIKE-TSHIRT-M-BLK', '{"brand":"Nike","size":"M","color":"Black"}', 29.99, 'USD', TRUE),
-  (13, 'NIKE-TSHIRT-L-BLK', '{"brand":"Nike","size":"L","color":"Black"}', 29.99, 'USD', TRUE),
-  (13, 'NIKE-TSHIRT-M-WHT', '{"brand":"Nike","size":"M","color":"White"}', 29.99, 'USD', TRUE),
-  (14, 'ADIDAS-HOODIE-M-GRY', '{"brand":"Adidas","size":"M","color":"Gray"}', 59.99, 'USD', TRUE),
-  (14, 'ADIDAS-HOODIE-L-BLK', '{"brand":"Adidas","size":"L","color":"Black"}', 59.99, 'USD', TRUE),
-  (15, 'POLO-SHIRT-M-BLU', '{"type":"Polo","size":"M","color":"Blue"}', 45.00, 'USD', TRUE),
-  (15, 'POLO-SHIRT-L-WHT', '{"type":"Polo","size":"L","color":"White"}', 45.00, 'USD', TRUE),
-  
-  -- Clothing - Bottoms (Product IDs 16-18)
-  (16, 'LEVIS-JEANS-32-BLU', '{"brand":"Levis","size":"32","color":"Blue"}', 79.99, 'USD', TRUE),
-  (16, 'LEVIS-JEANS-34-BLK', '{"brand":"Levis","size":"34","color":"Black"}', 79.99, 'USD', TRUE),
-  (17, 'NIKE-SHORTS-M-BLK', '{"brand":"Nike","size":"M","color":"Black"}', 34.99, 'USD', TRUE),
-  (17, 'NIKE-SHORTS-L-GRY', '{"brand":"Nike","size":"L","color":"Gray"}', 34.99, 'USD', TRUE),
-  (18, 'CHINOS-32-KHK', '{"type":"Chinos","size":"32","color":"Khaki"}', 54.99, 'USD', TRUE),
-  
-  -- Footwear (Product IDs 19-21)
-  (19, 'NIKE-AIRMAX-10-BLK', '{"brand":"Nike","model":"Air Max","size":"10","color":"Black"}', 139.99, 'USD', TRUE),
-  (19, 'NIKE-AIRMAX-11-WHT', '{"brand":"Nike","model":"Air Max","size":"11","color":"White"}', 139.99, 'USD', TRUE),
-  (20, 'ADIDAS-ULTRABOOST-10-GRY', '{"brand":"Adidas","model":"Ultraboost","size":"10","color":"Gray"}', 189.99, 'USD', TRUE),
-  (20, 'ADIDAS-ULTRABOOST-11-BLK', '{"brand":"Adidas","model":"Ultraboost","size":"11","color":"Black"}', 189.99, 'USD', TRUE),
-  (21, 'VANS-OLDSKOOL-9-BLK', '{"brand":"Vans","model":"Old Skool","size":"9","color":"Black"}', 69.99, 'USD', TRUE),
-  
-  -- Sports & Fitness (Product IDs 22-25)
-  (22, 'YOGA-MAT-5MM-PUR', '{"thickness":"5mm","color":"Purple"}', 29.99, 'USD', TRUE),
-  (22, 'YOGA-MAT-5MM-BLU', '{"thickness":"5mm","color":"Blue"}', 29.99, 'USD', TRUE),
-  (23, 'DUMBELL-SET-20LB', '{"weight":"20 lbs","type":"Set of 2"}', 49.99, 'USD', TRUE),
-  (23, 'DUMBELL-SET-30LB', '{"weight":"30 lbs","type":"Set of 2"}', 69.99, 'USD', TRUE),
-  (24, 'RESISTANCE-BANDS-LIGHT', '{"resistance":"Light","color":"Yellow"}', 19.99, 'USD', TRUE),
-  (24, 'RESISTANCE-BANDS-HEAVY', '{"resistance":"Heavy","color":"Black"}', 24.99, 'USD', TRUE),
-  (25, 'WATER-BOTTLE-32OZ-BLU', '{"capacity":"32 oz","color":"Blue"}', 24.99, 'USD', TRUE),
-  (25, 'WATER-BOTTLE-32OZ-BLK', '{"capacity":"32 oz","color":"Black"}', 24.99, 'USD', TRUE);
+-- Product 7: Face Serum
+(7, 'SERUM-VITC-30ML', '{"volume":"30ml","type":"Vitamin C"}', 24.99, 'USD', TRUE, '2024-03-10 08:50:00'),
 
+-- Product 8: Shampoo
+(8, 'SHAMP-ARGAN-385ML', '{"volume":"385ml","ingredient":"Argan Oil"}', 12.99, 'USD', TRUE, '2024-03-15 15:10:00'),
+
+-- Product 9: Multivitamin
+(9, 'MULTIVIT-100CT', '{"count":"100 tablets","type":"Adult"}', 19.99, 'USD', TRUE, '2024-04-01 10:20:00'),
+
+-- Product 10: Dumbbells
+(10, 'DUMBBELL-ADJ-52LB', '{"weight":"5-52.5 lbs","type":"Adjustable"}', 349.99, 'USD', TRUE, '2024-04-10 12:35:00'),
+
+-- Product 11: Tent
+(11, 'TENT-4P-BLU', '{"capacity":"4 person","color":"Blue"}', 189.99, 'USD', TRUE, '2024-04-20 09:40:00'),
+
+-- Product 12: Shorts
+(12, 'SHORT-M-BLK', '{"size":"M","color":"Black"}', 39.99, 'USD', TRUE, '2024-05-01 14:15:00'),
+(12, 'SHORT-L-NAV', '{"size":"L","color":"Navy"}', 39.99, 'USD', TRUE, '2024-05-01 14:15:00'),
+
+-- Product 13: Board Game
+(13, 'CATAN-BASE-EN', '{"edition":"Base Game","language":"English"}', 44.99, 'USD', TRUE, '2024-05-10 11:25:00'),
+
+-- Product 14: Action Figure
+(14, 'ACTION-SPDR-12IN', '{"character":"Spider-Man","size":"12 inch"}', 34.99, 'USD', TRUE, '2024-05-20 16:30:00'),
+
+-- Product 15: Phone Mount
+(15, 'CARMNT-MAG-BLK', '{"type":"Magnetic","color":"Black"}', 24.99, 'USD', TRUE, '2024-06-01 10:05:00'),
+
+-- Product 16: Gloves
+(16, 'GLOVE-L-BLK', '{"size":"L","material":"Leather","color":"Black"}', 79.99, 'USD', TRUE, '2024-06-10 13:45:00'),
+
+-- Product 17: Novel
+(17, 'BOOK-MYST-PB', '{"format":"Paperback","genre":"Mystery"}', 14.99, 'USD', TRUE, '2024-06-20 09:30:00'),
+
+-- Product 18: Journal
+(18, 'JRNL-LTH-BRN-200', '{"material":"Leather","color":"Brown","pages":"200"}', 29.99, 'USD', TRUE, '2024-07-01 15:20:00'),
+
+-- Product 19: Trail Mix
+(19, 'SNACK-TRLMX-12OZ', '{"weight":"12 oz","type":"Organic"}', 8.99, 'USD', TRUE, '2024-07-10 08:55:00'),
+
+-- Product 20: Yogurt
+(20, 'YOGURT-GRK-6PK', '{"count":"6 pack","protein":"High"}', 6.99, 'USD', TRUE, '2024-07-20 12:10:00'),
+
+-- Product 21: Onesie
+(21, 'BABY-ONES-3M-3PK', '{"size":"3 months","count":"3 pack"}', 19.99, 'USD', TRUE, '2024-08-01 10:35:00'),
+
+-- Product 22: Wipes
+(22, 'WIPES-BABY-500CT', '{"count":"500","type":"Sensitive"}', 12.99, 'USD', TRUE, '2024-08-10 14:50:00'),
+
+-- Product 23: Necklace
+(23, 'NECKL-GLD-PEND', '{"material":"18K Gold Plated","style":"Pendant"}', 89.99, 'USD', TRUE, '2024-08-20 11:15:00'),
+
+-- Product 24: Earrings
+(24, 'EARR-SIL-CZ', '{"material":"Sterling Silver","stone":"Cubic Zirconia"}', 49.99, 'USD', TRUE, '2024-09-01 16:25:00'),
+
+-- Product 25: Oxford Shoes
+(25, 'SHOE-OXF-10-BRN', '{"size":"10","color":"Brown","material":"Leather"}', 129.99, 'USD', TRUE, '2024-09-10 09:40:00'),
+
+-- Product 26: High Heels
+(26, 'HEEL-8-BLK', '{"size":"8","color":"Black","heel":"3 inch"}', 89.99, 'USD', TRUE, '2024-09-20 13:55:00'),
+
+-- Product 27: Dog Food
+(27, 'DOGFD-15KG-GF', '{"weight":"15kg","type":"Grain Free"}', 59.99, 'USD', TRUE, '2024-10-01 10:30:00'),
+
+-- Product 28: Cat Tree
+(28, 'CATTREE-3LVL-BEI', '{"levels":"3","color":"Beige"}', 79.99, 'USD', TRUE, '2024-10-10 15:45:00'),
+
+-- Product 29: Recliner
+(29, 'RECL-LTH-BRN', '{"material":"Leather","color":"Brown"}', 699.00, 'USD', TRUE, '2024-10-20 08:20:00'),
+
+-- Product 30: Bed Frame
+(30, 'BED-QUEEN-WOOD', '{"size":"Queen","material":"Wood"}', 399.00, 'USD', TRUE, '2024-11-01 12:40:00'),
+
+-- Product 31: Printer
+(31, 'PRNT-HP-WIFI-COL', '{"brand":"HP","connectivity":"WiFi","color":"Yes"}', 199.99, 'USD', TRUE, '2024-11-05 09:50:00'),
+
+-- Product 32: Desk Organizer
+(32, 'DESK-ORG-BAMB', '{"material":"Bamboo","compartments":"5"}', 34.99, 'USD', TRUE, '2024-11-07 14:05:00'),
+
+-- Product 33: Drill Kit
+(33, 'DRILL-20V-KIT', '{"voltage":"20V","battery":"2Ah","type":"Cordless"}', 149.99, 'USD', TRUE, '2024-11-08 11:30:00'),
+
+-- Product 34: Guitar
+(34, 'GUITAR-AC-NAT', '{"type":"Acoustic","color":"Natural","size":"Full"}', 299.99, 'USD', TRUE, '2024-11-09 16:15:00'),
+
+-- Product 35: Watercolor
+(35, 'PAINT-WC-36COL', '{"type":"Watercolor","colors":"36","quality":"Professional"}', 54.99, 'USD', TRUE, '2024-11-10 10:25:00');
+
+-- Verify inserted data
+SELECT COUNT(*) AS total_variants FROM ProductVariants;
+SELECT pv.sku, p.title, pv.price, pv.attributes_json
+FROM ProductVariants pv
+JOIN Products p ON pv.product_id = p.product_id
+LIMIT 10;

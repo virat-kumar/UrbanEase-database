@@ -1,89 +1,119 @@
 -- =============================================
 -- Author: Velarde Sosa, Diana
--- Create date: [Date]
--- Description: Create Addresses Table
--- Module: User Addresses, Payments & Reviews
+-- Create date: November 2025
+-- Description: Sample Data for Addresses Table (35 entries)
+-- Module: User Addresses
 -- Note: Requires Users table to exist first
 -- =============================================
 
 USE urbanease_shop;
 
--- Drop table if exists (for development only)
--- DROP TABLE IF EXISTS Addresses;
+-- Insert 35 user addresses (shipping and billing)
+INSERT INTO Addresses (user_id, label, name, line1, line2, city, state_region, postal_code, country_code, phone, is_default, created_at) VALUES
+-- User 2 addresses
+(2, 'Home', 'John Doe', '123 Main Street', 'Apt 4B', 'New York', 'New York', '10001', 'US', '+1-555-0102', TRUE, '2024-02-20 15:00:00'),
+(2, 'Office', 'John Doe', '456 Business Ave', 'Suite 200', 'New York', 'New York', '10002', 'US', '+1-555-0102', FALSE, '2024-03-10 10:30:00'),
 
-CREATE TABLE Addresses (
-  address_id   BIGINT AUTO_INCREMENT PRIMARY KEY,
-  user_id      BIGINT NOT NULL,
-  label        VARCHAR(40) NULL,     -- Home/Office
-  name         VARCHAR(120) NOT NULL,
-  line1        VARCHAR(160) NOT NULL,
-  line2        VARCHAR(160) NULL,
-  city         VARCHAR(80)  NOT NULL,
-  state_region VARCHAR(80)  NOT NULL,
-  postal_code  VARCHAR(20)  NOT NULL,
-  country_code CHAR(2)      NOT NULL,
-  phone        VARCHAR(32)  NULL,
-  is_default   BOOLEAN      NOT NULL DEFAULT FALSE,
-  created_at   DATETIME     NOT NULL DEFAULT UTC_TIMESTAMP(),
-  updated_at   DATETIME     NOT NULL DEFAULT UTC_TIMESTAMP() ON UPDATE UTC_TIMESTAMP(),
-  CONSTRAINT FK_Address_User FOREIGN KEY (user_id) REFERENCES Users(user_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- User 3 addresses
+(3, 'Home', 'Jane Smith', '789 Oak Drive', NULL, 'Los Angeles', 'California', '90001', 'US', '+1-555-0103', TRUE, '2024-02-21 11:00:00'),
 
--- Add comments to document table purpose
-ALTER TABLE Addresses COMMENT = 'User shipping and billing addresses';
+-- User 4 addresses
+(4, 'Home', 'Michael Brown', '321 Elm Street', 'Unit 12', 'Chicago', 'Illinois', '60601', 'US', '+1-555-0104', TRUE, '2024-03-05 17:15:00'),
 
--- Create index for user lookups
-CREATE INDEX IX_Address_User ON Addresses(user_id);
+-- User 5 addresses
+(5, 'Home', 'Emily Davis', '654 Pine Road', NULL, 'Houston', 'Texas', '77001', 'US', '+1-555-0105', TRUE, '2024-03-10 12:00:00'),
+(5, 'Work', 'Emily Davis', '987 Corporate Blvd', 'Floor 15', 'Houston', 'Texas', '77002', 'US', '+1-555-0105', FALSE, '2024-04-05 14:20:00'),
 
--- Verify table creation
-DESC Addresses;
+-- User 6 addresses
+(6, 'Home', 'David Wilson', '147 Maple Lane', NULL, 'Phoenix', 'Arizona', '85001', 'US', '+1-555-0106', TRUE, '2024-03-15 14:00:00'),
 
-INSERT INTO Addresses (user_id, label, name, line1, line2, city, state_region, postal_code, country_code, phone, is_default)
-VALUES
-(1, 'Home', 'Alice Johnson', '123 Maple St', NULL, 'Springfield', 'IL', '62701', 'US', '217-555-0123', TRUE),
-(1, 'Office', 'Alice Johnson', '456 Oak Ave', 'Suite 200', 'Springfield', 'IL', '62702', 'US', '217-555-0456', FALSE),
-(2, 'Home', 'Bob Smith', '789 Pine Rd', NULL, 'Austin', 'TX', '73301', 'US', '512-555-0678', TRUE),
-(2, 'Vacation', 'Bob Smith', '321 Beach Dr', 'Apt 5', 'Galveston', 'TX', '77550', 'US', '409-555-0890', FALSE),
-(3, 'Home', 'Carol Lee', '987 Cedar Blvd', NULL, 'Miami', 'FL', '33101', 'US', '305-555-1234', TRUE),
-(3, 'Office', 'Carol Lee', '654 Palm St', 'Floor 3', 'Miami', 'FL', '33102', 'US', '305-555-5678', FALSE),
-(4, 'Home', 'Emma Brown', '246 Elm St', NULL, 'Seattle', 'WA', '98101', 'US', '206-555-1357', TRUE),
-(4, 'Office', 'Emma Brown', '135 Birch Ave', 'Suite 101', 'Seattle', 'WA', '98102', 'US', '206-555-2468', FALSE),
-(5, 'Home', 'Grace Miller', '369 Willow Ln', NULL, 'Denver', 'CO', '80201', 'US', '303-555-3579', TRUE),
-(5, 'Office', 'Grace Miller', '258 Aspen Rd', 'Suite 10', 'Denver', 'CO', '80202', 'US', '303-555-4680', FALSE),
-(1, 'Billing', 'Alice Johnson', '147 Spruce St', NULL, 'Springfield', 'IL', '62703', 'US', '217-555-6789', FALSE),
-(2, 'Office', 'Bob Smith', '753 Oak Dr', 'Building B', 'Austin', 'TX', '73302', 'US', '512-555-9012', FALSE),
-(3, 'Vacation', 'Carol Lee', '852 Ocean Blvd', 'Unit 12', 'Key West', 'FL', '33040', 'US', '305-555-2345', FALSE),
-(4, 'Vacation', 'Emma Brown', '159 Lakeview Rd', NULL, 'Olympia', 'WA', '98501', 'US', '360-555-3456', FALSE),
-(5, 'Billing', 'Grace Miller', '357 Cherry St', NULL, 'Boulder', 'CO', '80301', 'US', '303-555-4567', FALSE),
-(1, 'Shipping', 'Alice Johnson', '951 Pine St', NULL, 'Springfield', 'IL', '62704', 'US', '217-555-7890', FALSE),
-(2, 'Home', 'Bob Smith', '369 Maple Ave', NULL, 'Austin', 'TX', '73303', 'US', '512-555-5670', FALSE),
-(3, 'Office', 'Carol Lee', '741 Birch St', 'Suite 7', 'Miami', 'FL', '33103', 'US', '305-555-6780', FALSE),
-(4, 'Shipping', 'Emma Brown', '852 Cedar Ave', NULL, 'Seattle', 'WA', '98103', 'US', '206-555-7891', FALSE),
-(5, 'Vacation', 'Grace Miller', '963 Pine Ln', NULL, 'Aspen', 'CO', '81611', 'US', '970-555-8901', FALSE);
-(6, 'Home', 'Kate Turner', '741 Oakwood Dr', NULL, 'Portland', 'OR', '97201', 'US', '503-555-1111', TRUE),
-(6, 'Office', 'Kate Turner', '159 River Rd', 'Suite 12', 'Portland', 'OR', '97202', 'US', '503-555-2222', FALSE),
-(7, 'Home', 'Leo Martinez', '852 Highland Ave', NULL, 'Atlanta', 'GA', '30301', 'US', '404-555-3333', TRUE),
-(7, 'Billing', 'Leo Martinez', '963 Hilltop St', NULL, 'Atlanta', 'GA', '30302', 'US', '404-555-4444', FALSE),
-(8, 'Home', 'Mia Anderson', '147 Forest Ln', NULL, 'Boston', 'MA', '02108', 'US', '617-555-5555', TRUE),
-(8, 'Office', 'Mia Anderson', '258 Beacon St', 'Floor 4', 'Boston', 'MA', '02109', 'US', '617-555-6666', FALSE),
-(9, 'Home', 'Nina Clark', '369 Brookside Rd', NULL, 'San Diego', 'CA', '92101', 'US', '619-555-7777', TRUE),
-(9, 'Vacation', 'Nina Clark', '753 Ocean View Blvd', 'Unit 5', 'La Jolla', 'CA', '92037', 'US', '858-555-8888', FALSE),
-(10, 'Home', 'Oliver Hall', '951 Sunset Blvd', NULL, 'Los Angeles', 'CA', '90001', 'US', '213-555-9999', TRUE),
-(10, 'Office', 'Oliver Hall', '654 Vine St', 'Suite 300', 'Los Angeles', 'CA', '90002', 'US', '213-555-0000', FALSE);
+-- User 7 addresses
+(7, 'Home', 'Sarah Martinez', '258 Cedar Avenue', 'Apt 8C', 'Philadelphia', 'Pennsylvania', '19101', 'US', '+1-555-0107', TRUE, '2024-04-01 09:30:00'),
 
--- Example: Insert sample addresses
-/*
-INSERT INTO Addresses (user_id, label, name, line1, line2, city, state_region, postal_code, country_code, phone, is_default) VALUES 
-  (2, 'Home', 'John Doe', '123 Main Street', 'Apt 4B', 'New York', 'NY', '10001', 'US', '+1-555-1234', TRUE),
-  (2, 'Office', 'John Doe', '456 Business Ave', 'Suite 200', 'New York', 'NY', '10002', 'US', '+1-555-5678', FALSE);
-*/
+-- User 8 addresses
+(8, 'Home', 'James Anderson', '369 Birch Street', NULL, 'San Antonio', 'Texas', '78201', 'US', '+1-555-0108', TRUE, '2024-04-05 16:00:00'),
 
--- Example: Query to see user addresses
--- SELECT 
---   u.email,
---   a.label,
---   CONCAT(a.line1, ', ', a.city, ', ', a.state_region, ' ', a.postal_code) as full_address,
---   a.is_default
--- FROM Addresses a
--- JOIN Users u ON a.user_id = u.user_id;
+-- User 9 addresses
+(9, 'Home', 'Lisa Taylor', '741 Willow Court', 'Unit 5A', 'San Diego', 'California', '92101', 'US', '+1-555-0109', TRUE, '2024-04-12 11:15:00'),
 
+-- User 10 addresses
+(10, 'Home', 'Robert Thomas', '852 Spruce Way', NULL, 'Dallas', 'Texas', '75201', 'US', '+1-555-0110', TRUE, '2024-04-20 13:30:00'),
+
+-- User 11 addresses
+(11, 'Home', 'Jennifer Jackson', '963 Ash Boulevard', 'Apt 3D', 'San Jose', 'California', '95101', 'US', '+1-555-0111', TRUE, '2024-05-01 10:45:00'),
+
+-- User 12 addresses
+(12, 'Home', 'William White', '159 Poplar Street', NULL, 'Austin', 'Texas', '73301', 'US', '+1-555-0112', TRUE, '2024-05-08 15:00:00'),
+
+-- User 13 addresses
+(13, 'Home', 'Mary Harris', '357 Cypress Drive', 'Suite 10', 'Jacksonville', 'Florida', '32099', 'US', '+1-555-0113', TRUE, '2024-05-15 12:20:00'),
+
+-- User 14 addresses
+(14, 'Home', 'Charles Martin', '486 Redwood Lane', NULL, 'Fort Worth', 'Texas', '76101', 'US', '+1-555-0114', TRUE, '2024-05-22 17:10:00'),
+
+-- User 15 addresses
+(15, 'Home', 'Patricia Thompson', '597 Hickory Road', 'Apt 7B', 'Columbus', 'Ohio', '43004', 'US', '+1-555-0115', TRUE, '2024-06-01 09:40:00'),
+
+-- User 16 addresses
+(16, 'Home', 'Daniel Garcia', '618 Magnolia Street', NULL, 'Charlotte', 'North Carolina', '28202', 'US', '+1-555-0116', TRUE, '2024-06-10 14:00:00'),
+
+-- User 17 addresses
+(17, 'Home', 'Linda Martinez', '729 Sycamore Avenue', 'Unit 2C', 'Seattle', 'Washington', '98101', 'US', '+1-555-0117', TRUE, '2024-06-18 11:30:00'),
+
+-- User 18 addresses
+(18, 'Home', 'Joseph Robinson', '840 Walnut Court', NULL, 'Denver', 'Colorado', '80014', 'US', '+1-555-0118', TRUE, '2024-06-25 16:20:00'),
+
+-- User 19 addresses
+(19, 'Home', 'Barbara Clark', '951 Chestnut Way', 'Apt 9A', 'Boston', 'Massachusetts', '02101', 'US', '+1-555-0119', TRUE, '2024-07-02 10:00:00'),
+
+-- User 20 addresses
+(20, 'Home', 'Thomas Rodriguez', '162 Beech Boulevard', NULL, 'Detroit', 'Michigan', '48201', 'US', '+1-555-0120', TRUE, '2024-07-10 15:30:00'),
+
+-- User 21 addresses
+(21, 'Home', 'Susan Lewis', '273 Palm Drive', 'Suite 5', 'Portland', 'Oregon', '97201', 'US', '+1-555-0121', TRUE, '2024-07-18 12:45:00'),
+
+-- User 22 addresses
+(22, 'Home', 'Christopher Lee', '384 Fir Street', NULL, 'Las Vegas', 'Nevada', '89101', 'US', '+1-555-0122', TRUE, '2024-07-25 17:00:00'),
+
+-- User 23 addresses
+(23, 'Home', 'Jessica Walker', '495 Juniper Lane', 'Apt 6D', 'Miami', 'Florida', '33101', 'US', '+1-555-0123', TRUE, '2024-08-01 09:20:00'),
+
+-- User 24 addresses
+(24, 'Home', 'Matthew Hall', '516 Hemlock Road', NULL, 'Atlanta', 'Georgia', '30303', 'US', '+1-555-0124', TRUE, '2024-08-08 14:40:00'),
+
+-- User 25 addresses
+(25, 'Home', 'Karen Allen', '627 Laurel Avenue', 'Unit 11B', 'Minneapolis', 'Minnesota', '55401', 'US', '+1-555-0125', TRUE, '2024-08-15 11:10:00'),
+
+-- User 26 addresses
+(26, 'Home', 'Mark Young', '738 Dogwood Court', NULL, 'Orlando', 'Florida', '32801', 'US', '+1-555-0126', TRUE, '2024-08-22 16:50:00'),
+
+-- User 27 addresses
+(27, 'Home', 'Nancy Hernandez', '849 Cottonwood Way', 'Apt 4A', 'San Francisco', 'California', '94102', 'US', '+1-555-0127', TRUE, '2024-09-01 10:30:00'),
+
+-- User 28 addresses
+(28, 'Home', 'Paul King', '950 Alder Boulevard', NULL, 'Tampa', 'Florida', '33601', 'US', '+1-555-0128', TRUE, '2024-09-10 15:15:00'),
+
+-- User 29 addresses
+(29, 'Home', 'Betty Wright', '161 Sequoia Street', 'Suite 8', 'Sacramento', 'California', '94203', 'US', '+1-555-0129', TRUE, '2024-09-18 12:35:00'),
+
+-- User 30 addresses
+(30, 'Home', 'Steven Lopez', '272 Eucalyptus Drive', NULL, 'Kansas City', 'Missouri', '64101', 'US', '+1-555-0130', TRUE, '2024-09-25 17:50:00'),
+
+-- Additional addresses for users with multiple
+(10, 'Parents House', 'Robert Thomas', '555 Family Lane', NULL, 'Dallas', 'Texas', '75202', 'US', '+1-555-0110', FALSE, '2024-06-15 10:00:00'),
+(15, 'Vacation Home', 'Patricia Thompson', '777 Beach Road', NULL, 'Miami', 'Florida', '33139', 'US', '+1-555-0115', FALSE, '2024-07-20 14:30:00'),
+(20, 'Office', 'Thomas Rodriguez', '888 Work Plaza', 'Floor 22', 'Detroit', 'Michigan', '48202', 'US', '+1-555-0120', FALSE, '2024-08-10 11:45:00'),
+(25, 'Shipping Address', 'Karen Allen', '999 Delivery Lane', 'Warehouse B', 'Minneapolis', 'Minnesota', '55402', 'US', '+1-555-0125', FALSE, '2024-09-05 16:20:00'),
+(30, 'Billing Address', 'Steven Lopez', '111 Payment Street', NULL, 'Kansas City', 'Missouri', '64102', 'US', '+1-555-0130', FALSE, '2024-10-01 09:30:00');
+
+-- Verify inserted data
+SELECT COUNT(*) AS total_addresses FROM Addresses;
+SELECT 
+    a.address_id,
+    u.full_name,
+    a.label,
+    CONCAT(a.line1, ', ', a.city, ', ', a.state_region, ' ', a.postal_code) AS full_address,
+    a.is_default
+FROM Addresses a
+JOIN Users u ON a.user_id = u.user_id
+LIMIT 10;

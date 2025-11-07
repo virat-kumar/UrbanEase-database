@@ -1,37 +1,45 @@
 -- =============================================
 -- Author: Bajwa, Achint Kaur
--- Create date: [Date]
--- Description: Create Roles Table
+-- Create date: November 2025
+-- Description: Sample Data for Roles Table (30 entries)
 -- Module: User Management & Authentication
 -- =============================================
 
 USE urbanease_shop;
 
--- Drop table if exists (for development only)
--- DROP TABLE IF EXISTS Roles;
+-- Insert 30 different role types for the application
+INSERT INTO Roles (role_name) VALUES
+('SuperAdmin'),
+('Admin'),
+('Manager'),
+('Customer'),
+('VIPCustomer'),
+('WarehouseManager'),
+('InventoryClerk'),
+('ShippingCoordinator'),
+('CustomerSupport'),
+('SalesAgent'),
+('MarketingManager'),
+('ContentCreator'),
+('ProductManager'),
+('CategoryManager'),
+('PricingAnalyst'),
+('OrderProcessor'),
+('ReturnsSpecialist'),
+('QualityAssurance'),
+('DataAnalyst'),
+('FinanceManager'),
+('Accountant'),
+('PaymentProcessor'),
+('SecurityOfficer'),
+('ComplianceOfficer'),
+('Auditor'),
+('Developer'),
+('SystemAdministrator'),
+('VendorManager'),
+('SupplyChainManager'),
+('Guest');
 
-CREATE TABLE Roles (
-  role_id   INT AUTO_INCREMENT PRIMARY KEY,
-  role_name VARCHAR(64) NOT NULL UNIQUE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Add comments to document table purpose
-ALTER TABLE Roles COMMENT = 'Application roles (Admin, Customer, Manager, etc.)';
-
--- Verify table creation
-DESC Roles;
-
--- Example: Insert default roles
-/*
-INSERT INTO Roles (role_name) 
-VALUES 
-  ('Admin'),
-  ('Customer'),
-  ('Manager'),
-  ('Operations'),
-  ('Support');
-*/
-
--- Example: Query to verify data
--- SELECT * FROM Roles;
-
+-- Verify inserted data
+SELECT COUNT(*) AS total_roles FROM Roles;
+SELECT * FROM Roles ORDER BY role_id;

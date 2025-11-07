@@ -1,136 +1,54 @@
 -- =============================================
 -- Author: Khapekar, Pooja
--- Create date: [Date]
--- Description: Create Products Table
+-- Create date: November 2025
+-- Description: Sample Data for Products Table (35 entries)
 -- Module: Product Catalog
 -- Note: Requires Categories table to exist first
 -- =============================================
 
 USE urbanease_shop;
 
--- Drop table if exists (for development only)
--- DROP TABLE IF EXISTS Products;
+-- Insert 35 diverse products across different categories
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at) VALUES
+(31, 'MacBook Pro 16" M3', 'Powerful laptop for professionals with M3 chip, 16GB RAM, 512GB SSD', 'Apple', TRUE, '2024-01-10 10:00:00'),
+(32, 'iPhone 15 Pro Max', 'Latest flagship smartphone with A17 Pro chip and titanium design', 'Apple', TRUE, '2024-01-15 11:30:00'),
+(33, 'Premium Cotton T-Shirt', 'Comfortable 100% organic cotton t-shirt for men', 'Nike', TRUE, '2024-02-01 09:15:00'),
+(34, 'Summer Floral Dress', 'Elegant floral print dress perfect for summer occasions', 'Zara', TRUE, '2024-02-10 14:20:00'),
+(35, 'Modern Sofa Set', 'Contemporary 3-seater sofa with premium fabric upholstery', 'IKEA', TRUE, '2024-02-20 10:45:00'),
+(36, 'Decorative Wall Art', 'Hand-painted canvas art for living room decoration', 'HomeStyle', TRUE, '2024-03-01 13:30:00'),
+(37, 'Vitamin C Face Serum', 'Brightening serum with 20% vitamin C for radiant skin', 'The Ordinary', TRUE, '2024-03-10 08:50:00'),
+(38, 'Argan Oil Shampoo', 'Nourishing shampoo for damaged and dry hair', 'OGX', TRUE, '2024-03-15 15:10:00'),
+(39, 'Multivitamin Complex', 'Daily multivitamin supplement with essential nutrients', 'Nature Made', TRUE, '2024-04-01 10:20:00'),
+(40, 'Adjustable Dumbbell Set', 'Space-saving adjustable dumbbells 5-52.5 lbs', 'Bowflex', TRUE, '2024-04-10 12:35:00'),
+(41, 'Camping Tent 4-Person', 'Waterproof family camping tent with easy setup', 'Coleman', TRUE, '2024-04-20 09:40:00'),
+(42, 'Running Shorts Men', 'Lightweight moisture-wicking running shorts', 'Under Armour', TRUE, '2024-05-01 14:15:00'),
+(43, 'Strategy Board Game', 'Award-winning strategy game for 2-4 players', 'Catan', TRUE, '2024-05-10 11:25:00'),
+(44, 'Superhero Action Figure', 'Collectible 12-inch articulated action figure', 'Marvel', TRUE, '2024-05-20 16:30:00'),
+(45, 'Car Phone Mount', 'Universal magnetic phone holder for car dashboard', 'iOttie', TRUE, '2024-06-01 10:05:00'),
+(46, 'Motorcycle Gloves', 'Protective leather gloves for riders', 'Alpinestars', TRUE, '2024-06-10 13:45:00'),
+(47, 'Mystery Novel Collection', 'Bestselling mystery thriller paperback book', 'Penguin Books', TRUE, '2024-06-20 09:30:00'),
+(48, 'Leather Journal', 'Handcrafted leather-bound journal with 200 pages', 'Moleskine', TRUE, '2024-07-01 15:20:00'),
+(49, 'Organic Trail Mix', 'Healthy snack mix with nuts, seeds and dried fruits', 'Nature Valley', TRUE, '2024-07-10 08:55:00'),
+(50, 'Greek Yogurt Pack', 'High-protein probiotic yogurt 6-pack', 'Chobani', TRUE, '2024-07-20 12:10:00'),
+(51, 'Baby Onesie 3-Pack', 'Soft cotton baby bodysuits in assorted colors', 'Gerber', TRUE, '2024-08-01 10:35:00'),
+(52, 'Baby Wipes Sensitive', 'Hypoallergenic fragrance-free baby wipes 500 count', 'Pampers', TRUE, '2024-08-10 14:50:00'),
+(53, 'Gold Pendant Necklace', 'Elegant 18K gold plated pendant with chain', 'Swarovski', TRUE, '2024-08-20 11:15:00'),
+(54, 'Diamond Stud Earrings', 'Classic sterling silver earrings with cubic zirconia', 'Pandora', TRUE, '2024-09-01 16:25:00'),
+(55, 'Leather Oxford Shoes', 'Handcrafted genuine leather formal shoes for men', 'Clarks', TRUE, '2024-09-10 09:40:00'),
+(56, 'High Heel Pumps', 'Elegant pointed-toe pumps for women', 'Steve Madden', TRUE, '2024-09-20 13:55:00'),
+(57, 'Premium Dog Food 15kg', 'Grain-free natural dog food for all breeds', 'Blue Buffalo', TRUE, '2024-10-01 10:30:00'),
+(58, 'Cat Scratching Post', 'Multi-level cat tree with sisal scratching posts', 'Frisco', TRUE, '2024-10-10 15:45:00'),
+(59, 'Recliner Armchair', 'Comfortable leather recliner for living room', 'La-Z-Boy', TRUE, '2024-10-20 08:20:00'),
+(60, 'Queen Size Bed Frame', 'Solid wood platform bed with headboard', 'Zinus', TRUE, '2024-11-01 12:40:00'),
+(61, 'Wireless All-in-One Printer', 'Color printer with scanner and copier', 'HP', TRUE, '2024-11-05 09:50:00'),
+(62, 'Desk Organizer Set', 'Bamboo desktop organizer with multiple compartments', 'SimpleHouseware', TRUE, '2024-11-07 14:05:00'),
+(63, 'Cordless Drill Kit', '20V drill driver with battery and charger', 'DeWalt', TRUE, '2024-11-08 11:30:00'),
+(64, 'Acoustic Guitar Bundle', 'Full-size guitar with case, tuner and picks', 'Fender', TRUE, '2024-11-09 16:15:00'),
+(65, 'Watercolor Paint Set', 'Professional watercolor set with 36 colors', 'Winsor & Newton', TRUE, '2024-11-10 10:25:00');
 
-CREATE TABLE Products (
-  product_id  BIGINT AUTO_INCREMENT PRIMARY KEY,
-  category_id BIGINT NULL,
-  title       VARCHAR(200) NOT NULL,
-  description TEXT NULL,
-  brand       VARCHAR(100) NULL,
-  is_active   BOOLEAN NOT NULL DEFAULT TRUE,
-  created_at  DATETIME NOT NULL DEFAULT UTC_TIMESTAMP(),
-  updated_at  DATETIME NOT NULL DEFAULT UTC_TIMESTAMP() ON UPDATE UTC_TIMESTAMP(),
-  CONSTRAINT FK_Product_Category FOREIGN KEY (category_id) REFERENCES Categories(category_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Add comments to document table purpose
-ALTER TABLE Products COMMENT = 'Product master data (title, description, brand)';
-
--- Create index for category lookups
-CREATE INDEX IX_Product_Category ON Products(category_id);
-
--- Verify table creation
-DESC Products;
-
--- Example: Insert sample products
-/*
-INSERT INTO Products (category_id, title, description, brand, is_active) VALUES 
-  (1, 'MacBook Pro 16"', 'Powerful laptop for professionals', 'Apple', TRUE),
-  (2, 'iPhone 15 Pro', 'Latest flagship smartphone', 'Apple', TRUE),
-  (3, 'Wireless Mouse', 'Ergonomic wireless mouse', 'Logitech', TRUE);
-*/
-
--- Example: Query to see products with categories
--- SELECT p.title, p.brand, c.name as category, p.is_active
--- FROM Products p
--- LEFT JOIN Categories c ON p.category_id = c.category_id;
-
-/* Actual query created by Pooja */
-
-CREATE TABLE Products (
-  product_id  BIGINT AUTO_INCREMENT PRIMARY KEY,
-  category_id BIGINT NULL,
-  title       VARCHAR(200) NOT NULL,
-  description TEXT NULL,
-  brand       VARCHAR(100) NULL,
-  is_active   BOOLEAN NOT NULL DEFAULT TRUE,
-  created_at  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  CONSTRAINT FK_Product_Category FOREIGN KEY (category_id) REFERENCES Categories(category_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Add comments to document table purpose
-ALTER TABLE Products COMMENT = 'Product master data (title, description, brand)';
-
--- Create index for category lookups
-CREATE INDEX IX_Product_Category ON Products(category_id);
-
--- Verify table creation
-DESC Products;
-
-INSERT INTO Products (category_id, title, description, brand, is_active) VALUES
--- 1. Electronics
-(1, 'MacBook Pro 16"', 'Powerful laptop for professionals', 'Apple', TRUE),
--- 2. Clothing
-(2, 'Classic Denim Jacket', 'Stylish and durable denim jacket for all seasons', 'Levi’s', TRUE),
--- 3. Home & Garden
-(3, 'Indoor Plant Set', 'Three assorted air-purifying indoor plants', 'UrbanLeaf', TRUE),
--- 4. Beauty & Personal Care
-(4, 'Hydrating Face Serum', 'Vitamin C enriched lightweight serum', 'The Ordinary', TRUE),
--- 5. Health & Wellness
-(5, 'Yoga Mat Pro', 'Non-slip yoga mat for workouts and meditation', 'Lululemon', TRUE),
--- 6. Sports & Outdoors
-(6, 'Hiking Backpack 50L', 'Water-resistant outdoor hiking bag', 'Quechua', TRUE),
--- 7. Toys & Games
-(7, 'LEGO City Set', 'Creative building toy for kids aged 6+', 'LEGO', TRUE),
--- 8. Automotive
-(8, 'Car Vacuum Cleaner', 'Portable and rechargeable car vacuum', 'Armor All', TRUE),
--- 9. Books & Stationery
-(9, 'Hardcover Journal', 'Premium ruled journal notebook', 'Moleskine', TRUE),
--- 10. Groceries
-(10, 'Organic Green Tea Pack', '100% natural antioxidant-rich tea bags', 'Lipton', TRUE),
--- 11. Baby & Kids
-(11, 'Baby Diaper Pack', 'Ultra-soft leak-proof diapers', 'Pampers', TRUE),
--- 12. Jewelry & Accessories
-(12, 'Gold-Plated Necklace', 'Elegant minimal chain for daily wear', 'Tanishq', TRUE),
--- 13. Shoes & Footwear
-(13, 'Running Shoes', 'Breathable mesh running shoes', 'Nike', TRUE),
--- 14. Pet Supplies
-(14, 'Dog Food 10kg', 'Healthy dry food for adult dogs', 'Pedigree', TRUE),
--- 15. Furniture
-(15, 'Wooden Coffee Table', 'Contemporary design with oak finish', 'IKEA', TRUE),
--- 16. Office Supplies
-(16, 'Wireless Printer', 'Compact Wi-Fi printer with scanner', 'HP', TRUE),
--- 17. Tools & Hardware
-(17, 'Cordless Drill Set', '18V drill with accessories', 'Bosch', TRUE),
--- 18. Musical Instruments
-(18, 'Acoustic Guitar', 'Full-size 6-string beginner guitar', 'Yamaha', TRUE),
--- 19. Arts & Crafts
-(19, 'Acrylic Paint Kit', 'Set of 24 vibrant paint colors', 'Camlin', TRUE),
--- 20. Cameras & Photography
-(20, 'DSLR Camera', 'Professional camera with 24MP sensor', 'Canon', TRUE),
--- 21. Computers & Laptops
-(21, 'Gaming Laptop', 'High-performance gaming laptop with RTX GPU', 'ASUS', TRUE),
--- 22. Mobile Phones & Tablets
-(22, 'Samsung Galaxy S24', 'Flagship Android smartphone', 'Samsung', TRUE),
--- 23. Appliances
-(23, 'Smart Refrigerator', 'Double-door fridge with energy efficiency', 'LG', TRUE),
--- 24. Travel & Luggage
-(24, 'Hard Shell Suitcase', 'Lightweight spinner luggage 28-inch', 'American Tourister', TRUE),
--- 25. Movies & Entertainment
-(25, 'Blu-ray Movie Set', 'Collector’s edition of top-rated films', 'Universal', TRUE),
--- 26. Gaming
-(26, 'PlayStation 5', 'Next-gen gaming console', 'Sony', TRUE),
--- 27. Watches
-(27, 'Smartwatch Series 9', 'Health tracking and fitness features', 'Apple', TRUE),
--- 28. Kitchen & Dining
-(28, 'Non-Stick Cookware Set', 'Durable pots and pans for daily use', 'Tefal', TRUE),
--- 29. Seasonal & Holiday
-(29, 'Christmas LED Lights', 'Colorful decorative string lights', 'Philips', TRUE),
--- 30. Safety & Security
-(30, 'Smart Doorbell Camera', 'Wi-Fi enabled video doorbell with motion detection', 'Ring', TRUE);
-
-
-SELECT * FROM products;
-
-
+-- Verify inserted data
+SELECT COUNT(*) AS total_products FROM Products;
+SELECT p.title, p.brand, c.name AS category 
+FROM Products p
+LEFT JOIN Categories c ON p.category_id = c.category_id
+LIMIT 10;
