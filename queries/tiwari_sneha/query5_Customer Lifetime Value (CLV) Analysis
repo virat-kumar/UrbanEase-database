@@ -1,4 +1,4 @@
- -- =============================================
+-- =============================================
 -- Author: Tiwari, Sneha
 -- Create date: [Date]
 -- Description: Query 5 - Customer Lifetime Value (CLV) Analysis
@@ -30,4 +30,3 @@ SELECT
     RANK() OVER (ORDER BY total_spent DESC) AS customer_rank
 FROM customer_spend
 ORDER BY total_spent DESC;
-
