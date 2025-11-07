@@ -4,7 +4,17 @@
 -- Procedure Name: sp_analyze_customer_performance
 -- Tables Involved: Users, Orders, Payments, Reviews
 -- Purpose: Generate a performance summary for a single user
--- =============================================
+
+-- Explanation:
+-- 1. Accepts a user ID and computes various KPIs:
+--    - Number of orders
+--    - Number of payments
+--    - Total and average payment amounts
+--    - Number of reviews and average rating
+-- 2. Combines data from multiple tables (Orders, Payments, Reviews).
+-- 3. Returns a single result with a “Customer_Tier” classification.
+-- 4. Uses COALESCE to safely handle users with no payments or reviews.
+-- ============================================================
 
 USE urbanease_shop;
 
@@ -73,18 +83,6 @@ BEGIN
 END$$
 
 DELIMITER ;
-
--- ============================================================
--- Explanation:
--- 1. Accepts a user ID and computes various KPIs:
---    - Number of orders
---    - Number of payments
---    - Total and average payment amounts
---    - Number of reviews and average rating
--- 2. Combines data from multiple tables (Orders, Payments, Reviews).
--- 3. Returns a single result with a “Customer_Tier” classification.
--- 4. Uses COALESCE to safely handle users with no payments or reviews.
--- ============================================================
 
 -- Example Usage:
 CALL sp_analyze_customer_performance(3);
