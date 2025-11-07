@@ -1,23 +1,36 @@
 -- =============================================
 -- Author: Tiwari, Sneha
 -- Create date: [Date]
--- Description: Query 3 - Revenue Analysis by Period
+-- Description: Query 5 & 6 - Revenue Analysis by Period
 -- Tables: Orders, OrderItems, Shipments
 -- =============================================
 
 USE urbanease_shop;
 
--- TODO: Write your complex query here
--- Example: Calculate revenue by day/month/year
+-- Query 5 - Daily Revenue Summary --
+USE urbanease_shop;
 
-/*
-SELECT 
-    DATE(o.placed_at) as order_date,
-    COUNT(o.order_id) as order_count,
-    SUM(o.grand_total_amount) as daily_revenue,
-    AVG(o.grand_total_amount) as avg_order_value
+SELECT
+    DATE(o.placed_at) AS order_date,
+    COUNT(DISTINCT o.order_id) AS order_count,
+    SUM(oi.line_total) AS daily_revenue,
+    AVG(oi.line_total) AS avg_order_value
 FROM Orders o
--- Add your JOINs and WHERE clauses
-;
-*/
+JOIN OrderItems oi ON o.order_id = oi.order_id
+GROUP BY DATE(o.placed_at)
+ORDER BY order_date;
 
+-- Query 6 - Monthly Revenue Trend for Fulfilled Orders --
+USE urbanease_shop;
+
+SELECT
+    DATE_FORMAT(o.placed_at, '%Y-%m') AS month_year,
+    COUNT(DISTINCT o.order_id) AS order_count,
+    SUM(oi.line_total) AS total_revenue,
+    AVG(oi.line_total) AS avg_order_value,
+    SUM(oi.qty) AS total_items_sold
+FROM Orders o
+JOIN OrderItems oi ON o.order_id = oi.order_id
+WHERE o.status = 'FULFILLED'
+GROUP BY month_year
+ORDER BY month_year;
