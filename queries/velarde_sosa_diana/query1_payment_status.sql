@@ -1,7 +1,7 @@
 -- ==========================================================
 -- Author: Velarde Sosa, Diana
 -- Create date: [2025-11-06]
--- Description: Query 1 CITY-LEVEL CUSTOMER INSIGHTS REPORT
+-- Description: Query 1 City-Level Customer Insights Report
 -- Tables Used: Users, Addresses, Orders, Payments, Reviews
 -- ----------------------------------------------------------
 -- Purpose:
