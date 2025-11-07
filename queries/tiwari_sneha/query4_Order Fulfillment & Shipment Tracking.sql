@@ -1,4 +1,4 @@
-Query 4 -- =============================================
+-- =============================================
 -- Author: Tiwari, Sneha
 -- Create date: [Date]
 -- Description: Query 4 - Order Fulfillment & Shipment Tracking
