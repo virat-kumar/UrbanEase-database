@@ -1,6 +1,6 @@
 -- =============================================
 -- Author: Bajwa, Achint Kaur
--- Create date: 2025-11
+-- Create date: November 2025
 -- Description: Product performance summary = sales, revenue, ratings, and
 --              available stock (on_hand - reserved) aggregated across warehouses.
 -- Tables: Products, Categories, ProductVariants, OrderItems, Orders, Reviews, Inventory
