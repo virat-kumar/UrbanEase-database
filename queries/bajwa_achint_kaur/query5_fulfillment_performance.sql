@@ -1,6 +1,6 @@
 -- =============================================
 -- Author:       Bajwa, Achint Kaur
--- Create date:  2025-11
+-- Create date:  November 2025
 -- Description:  Fulfillment SLA by warehouse & carrier:
 --               - Ship time (placed_at -> shipped_at)
 --               - Delivery time (shipped_at -> delivered_at)
