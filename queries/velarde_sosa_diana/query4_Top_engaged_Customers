@@ -1,0 +1,18 @@
+-- =============================================
+-- Author: Velarde Sosa, Diana
+-- Create date: [2025-11-06]
+-- Description: Query 3 - Product Reviews and Ratings Analysis
+-- Tables: Addresses, Payments, Reviews, Users, Orders, Products
+
+-- Purpose:
+--   Analyze how customer satisfaction (via reviews) 
+--   relates to regions (Addresses) and payment performance.
+--
+-- Includes:
+--   Average product ratings by region
+--   Count of reviews per product
+--   Relationship between payment success and review activity
+--   Optional grouping by state and city
+-- =============================================
+
+USE urbanease_shop;
