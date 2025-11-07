@@ -1,1 +1,73 @@
 
+
+-- ============================================================
+-- Complex Query 6 - Product Performance and Revenue Analysis
+-- Tables: Products, OrderItems, Orders, Payments, Reviews
+
+-- ============================================================
+-- Explanation:
+-- 1. Combines data from Products, Orders, Payments, and Reviews.
+-- 2. Aggregates total orders, quantity sold, and total revenue.
+-- 3. Calculates average product rating and classifies each product by quality and revenue category.
+-- 4. Uses CASE statements to categorize products into "Excellent," "Good," or "Average."
+-- 5. Displays only active products and sorts the output by revenue and rating.
+-- 6. LIMIT restricts results to the top 10 best-performing products.
+-- ============================================================
+-- ============================================================
+
+USE urbanease_shop;
+
+SELECT 
+    p.product_id,
+    p.title AS Product_Name,
+    p.brand AS Brand,
+    COUNT(DISTINCT oi.order_item_id) AS Total_Orders,          -- Total times the product was ordered
+    SUM(oi.qty) AS Total_Quantity_Sold,                        -- Total quantity sold
+    ROUND(SUM(oi.unit_price * oi.qty), 2) AS Total_Revenue,    -- Total revenue from this product
+    ROUND(AVG(oi.unit_price), 2) AS Avg_Selling_Price,         -- Average selling price
+    COUNT(DISTINCT r.review_id) AS Total_Reviews,              -- Number of reviews written for the product
+    ROUND(AVG(r.rating), 2) AS Avg_Rating,                     -- Average rating (1–5)
+    CASE
+        WHEN AVG(r.rating) >= 4.5 THEN '★★★★★ Excellent'
+        WHEN AVG(r.rating) BETWEEN 3.5 AND 4.49 THEN '★★★★ Good'
+        WHEN AVG(r.rating) BETWEEN 2.5 AND 3.49 THEN '★★★ Average'
+        ELSE '★★ Poor'
+    END AS Rating_Category,
+    CASE
+        WHEN SUM(oi.unit_price * oi.qty) > 1000 THEN 'High Revenue Product'
+        WHEN SUM(oi.unit_price * oi.qty) BETWEEN 500 AND 1000 THEN 'Medium Revenue Product'
+        ELSE 'Low Revenue Product'
+    END AS Revenue_Category
+FROM 
+    Products p
+LEFT JOIN 
+    ProductVariants pv ON pv.product_id = p.product_id
+LEFT JOIN 
+    OrderItems oi ON oi.variant_id = pv.variant_id
+LEFT JOIN 
+    Orders o ON o.order_id = oi.order_id
+LEFT JOIN 
+    Payments pay ON pay.order_id = o.order_id
+LEFT JOIN 
+    Reviews r ON r.product_id = p.product_id
+WHERE 
+    p.is_active = TRUE
+GROUP BY 
+    p.product_id, p.title, p.brand
+HAVING 
+    Total_Revenue IS NOT NULL
+ORDER BY 
+    Total_Revenue DESC, Avg_Rating DESC
+LIMIT 10;
+
+-- ✅ Optional Additions:
+-- a) Add date filter to analyze products sold this year:
+--    AND o.placed_at >= '2025-01-01'
+--
+-- b) Include category name:
+--    JOIN Categories c ON c.category_id = p.category_id
+--    Add c.name AS Category to SELECT and GROUP BY.
+--
+-- c) Filter by minimum number of reviews for better accuracy:
+--    HAVING COUNT(DISTINCT r.review_id) >= 3
+
