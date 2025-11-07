@@ -1,10 +1,9 @@
-
-
 -- ============================================================
--- Complex Query 6 - Product Performance and Revenue Analysis
+-- Author: Velarde Sosa, Diana
+-- Create date: [2025-11-07]
+-- Description: Query 4 - Product Performance and Revenue Analysis
 -- Tables: Products, OrderItems, Orders, Payments, Reviews
 
--- ============================================================
 -- Explanation:
 -- 1. Combines data from Products, Orders, Payments, and Reviews.
 -- 2. Aggregates total orders, quantity sold, and total revenue.
@@ -12,7 +11,6 @@
 -- 4. Uses CASE statements to categorize products into "Excellent," "Good," or "Average."
 -- 5. Displays only active products and sorts the output by revenue and rating.
 -- 6. LIMIT restricts results to the top 10 best-performing products.
--- ============================================================
 -- ============================================================
 
 USE urbanease_shop;
@@ -60,7 +58,7 @@ ORDER BY
     Total_Revenue DESC, Avg_Rating DESC
 LIMIT 10;
 
--- ✅ Optional Additions:
+-- Optional Additions:
 -- a) Add date filter to analyze products sold this year:
 --    AND o.placed_at >= '2025-01-01'
 --
