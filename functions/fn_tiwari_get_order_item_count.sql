@@ -19,18 +19,18 @@ READS SQL DATA
 BEGIN
     DECLARE item_count INT DEFAULT 0;
     
-    -- TODO: Implement your function logic here
-    
-    -- Example structure:
-    -- SELECT COUNT(*) INTO item_count
-    -- FROM OrderItems
-    -- WHERE order_id = p_order_id;
+    -- Count the number of items in the order
+    SELECT COUNT(*) INTO item_count
+    FROM OrderItems
+    WHERE order_id = p_order_id;
     
     RETURN item_count;
 END//
 
 DELIMITER ;
 
+
 -- Test the function
--- SELECT fn_GetOrderItemCount(1);
+SELECT fn_GetOrderItemCount(16) AS item_count;
+
 
