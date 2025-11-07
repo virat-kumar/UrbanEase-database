@@ -48,3 +48,13 @@ INSERT INTO Users (email, password_hash, full_name, phone, is_active, created_at
 -- Verify inserted data
 SELECT COUNT(*) AS total_users FROM Users;
 SELECT * FROM Users LIMIT 10;
+
+-- COMMENTS
+-- 1) Uses `USE urbanease_shop;` to pin the correct schema.
+-- 2) Explicit column list ensures compatibility if table evolves.
+-- 3) Emails are unique → relies on UNIQUE index on `email` to prevent dupes.
+-- 4) `password_hash` is stored as 32-byte binary via UNHEX(SHA2(...,256));
+--    choose BINARY(32)/VARBINARY(32) for this column to avoid truncation.
+-- 5) `is_active` uses 1/0 for cross-platform MySQL portability (TRUE/FALSE can vary).
+-- 6) Timestamps span 2024-01 to 2024-11 to simulate realistic account creation cadence.
+-- 7) Keep this file in /tables/<your_name>/users_seed.sql and run after CREATE TABLEs.
