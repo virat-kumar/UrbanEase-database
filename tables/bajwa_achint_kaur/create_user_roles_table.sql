@@ -64,3 +64,21 @@ JOIN Users u ON ur.user_id = u.user_id
 JOIN Roles r ON ur.role_id = r.role_id
 ORDER BY ur.user_id, ur.role_id
 LIMIT 20;
+
+-- COMMENTS
+-- 1) Uses lower-case table names (`user_roles`, `users`, `roles`) to avoid
+--    failures on case-sensitive MySQL installations.
+-- 2) The script inserts 38 rows (header updated). Users 31 has two roles.
+--    Users 34–35 intentionally have no roles (e.g., 35 is inactive).
+-- 3) Role id meanings (example mapping): 
+--    1=SuperAdmin, 2=Admin, 3=Manager, 4=Customer, 5=VIP Customer,
+--    6=WarehouseManager, 7=InventoryClerk, 8=ShippingCoordinator, 9=CustomerSupport,
+--    10=SalesAgent, 11=MarketingManager, 13=ProductManager, 16=OrderProcessor,
+--    20=FinanceManager, 22=PaymentProcessor. Ensure these exist in `roles`.
+-- 4) Added three sanity-check queries to quickly catch FK issues or duplicates.
+-- 5) Keep helpful indexes:
+--      CREATE INDEX idx_ur_user ON user_roles(user_id);
+--      CREATE INDEX idx_ur_role ON user_roles(role_id);
+--      CREATE INDEX idx_r_name  ON roles(role_name);
+-- 6) Always pin schema with `USE urbanease_shop;` and add an ORDER BY in
+--    verification queries for stable, comparable outputs across teammates.
