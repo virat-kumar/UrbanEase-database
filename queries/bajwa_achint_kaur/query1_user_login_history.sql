@@ -1,6 +1,6 @@
 -- =============================================
 -- Author: Bajwa, Achint Kaur
--- Create date: [Date]
+-- Create date: November 2025
 -- Description: Query 1 - User Login History
 -- Tables: Users, Roles, UserRoles
 -- =============================================
