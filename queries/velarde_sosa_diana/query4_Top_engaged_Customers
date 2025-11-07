@@ -1,18 +1,57 @@
 -- =============================================
 -- Author: Velarde Sosa, Diana
--- Create date: [2025-11-06]
--- Description: Query 3 - Product Reviews and Ratings Analysis
--- Tables: Addresses, Payments, Reviews, Users, Orders, Products
+-- Create date: [2025-11-07]
+-- Description: Query 4 - Top Engaged Customers: Spending vs. Review Activity
+-- Tables: Users, Payments, Reviews, Orders
 
--- Purpose:
---   Analyze how customer satisfaction (via reviews) 
---   relates to regions (Addresses) and payment performance.
---
--- Includes:
---   Average product ratings by region
---   Count of reviews per product
---   Relationship between payment success and review activity
---   Optional grouping by state and city
+-- Explanation:
+-- 1. Combines data from Users, Orders, Payments, and Reviews to evaluate each customer's engagement.
+-- 2. Aggregates spending (SUM, AVG) and review activity (COUNT, AVG).
+-- 3. Uses a CASE statement to classify users into engagement levels.
+-- 4. HAVING ensures we exclude users with no payment history.
+-- 5. ORDER BY helps highlight the top 10 customers by total spent and review count.
 -- =============================================
 
 USE urbanease_shop;
+
+SELECT 
+    u.user_id,
+    u.full_name AS Customer_Name,
+    u.email,
+    COUNT(DISTINCT p.payment_id) AS Total_Payments,      -- How many payments the user made
+    ROUND(SUM(p.amount), 2) AS Total_Spent,              -- Total money spent
+    ROUND(AVG(p.amount), 2) AS Avg_Payment,              -- Average amount per transaction
+    COUNT(DISTINCT r.review_id) AS Total_Reviews,        -- How many reviews the user wrote
+    ROUND(AVG(r.rating), 2) AS Avg_Rating,               -- Their average rating
+    CASE 
+        WHEN COUNT(DISTINCT r.review_id) >= 5 AND SUM(p.amount) > 500 THEN 'Highly Engaged'
+        WHEN COUNT(DISTINCT r.review_id) BETWEEN 1 AND 4 THEN 'Moderately Engaged'
+        ELSE 'Low Engagement'
+    END AS Engagement_Level                              -- Classification of user activity
+FROM 
+    Users u
+LEFT JOIN 
+    Orders o ON o.user_id = u.user_id
+LEFT JOIN 
+    Payments p ON p.order_id = o.order_id
+LEFT JOIN 
+    Reviews r ON r.user_id = u.user_id
+WHERE 
+    u.is_active = TRUE
+GROUP BY 
+    u.user_id, u.full_name, u.email
+HAVING 
+    SUM(p.amount) IS NOT NULL   -- Exclude users who never paid
+ORDER BY 
+    Total_Spent DESC, Total_Reviews DESC
+LIMIT 10;  -- Show only top 10 most active users
+
+-- Optional additions:
+-- a) Add a date filter for payments made this year:
+--    AND p.created_at >= '2025-01-01'
+-- b) Include the customer's region:
+--    JOIN Addresses a ON a.user_id = u.user_id
+--    AND add a.state_region to SELECT and GROUP BY
+-- c) Filter by country or active reviews:
+--    WHERE r.rating IS NOT NULL
+
