@@ -39,8 +39,8 @@ SELECT
     ) AS Payment_Success_Rate,  -- success % of all payments
 
     -- Order Information
-    ROUND(SUM(o.grand_total), 2) AS Total_Sales,     -- total sales amount
-    ROUND(AVG(o.grand_total), 2) AS Avg_Order_Value, -- average order value
+    ROUND(SUM(o.grand_total_amount), 2) AS Total_Sales,     -- total sales amount
+    ROUND(AVG(o.grand_total_amount), 2) AS Avg_Order_Value, -- average order value
 
     -- Review Insights
     COUNT(DISTINCT r.review_id) AS Total_Reviews,    -- total number of reviews written
