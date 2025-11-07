@@ -1,7 +1,7 @@
 -- =============================================
 -- Author: Tiwari, Sneha
 -- Create date: [Date]
--- Description: Query 3 & 4 - Pending or In-Transit Shipments & Orders with Multiple Pending Shipments
+-- Description: Query 3 & 4 - Pending Shipments Report
 -- Tables: Orders, OrderItems, Shipments
 -- =============================================
 
