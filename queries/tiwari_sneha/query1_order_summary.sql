@@ -1,7 +1,7 @@
 -- =============================================
 -- Author: Tiwari, Sneha
 -- Create date: [Date]
--- Description: Query 1 & 2 - Order Summary with Details & Top 5 Highest Value Orders with Pending Shipments
+-- Description: Query 1 & 2 - Order Summary with Details
 -- Tables: Orders, OrderItems, Shipments
 -- =============================================
 
