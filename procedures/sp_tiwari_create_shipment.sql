@@ -17,19 +17,23 @@ CREATE PROCEDURE sp_CreateShipment(
     IN p_tracking_no VARCHAR(120)
 )
 BEGIN
-    -- TODO: Implement your stored procedure logic here
-    
-    -- Example structure:
-    -- 1. Validate order exists
-    -- 2. Create shipment record
-    -- 3. Update order status
-    -- 4. Update inventory (deduct reserved stock)
-    
-    SELECT 'Procedure not implemented yet' as message;
+    DECLARE v_order_status VARCHAR(20);
+
+    -- Validate order exists
+    SELECT status INTO v_order_status
+    FROM Orders
+    WHERE order_id = p_order_id;
+
+    IF v_order_status IS NULL THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Order does not exist';
+    ELSE
+        -- Create shipment record
+        INSERT INTO Shipments(order_id, warehouse_id, carrier, tracking_no, status, shipped_at)
+        VALUES (p_order_id, p_warehouse_id, p_carrier, p_tracking_no, 'CREATED', NOW());
+
+    END IF;
 END//
 
-DELIMITER ;
-
 -- Test the procedure
--- CALL sp_CreateShipment(1, 1, 'FedEx', 'TRACK12345');
+CALL sp_CreateShipment(16, 1, 'FedEx', 'TRACK12345');
 
