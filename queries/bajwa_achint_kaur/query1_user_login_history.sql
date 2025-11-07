@@ -7,17 +7,15 @@
 
 USE urbanease_shop;
 
--- TODO: Write your complex query here
--- Example: Get user login history with their roles
-
-/*
-SELECT 
-    u.user_id,
-    u.email,
-    u.full_name,
-    -- Add more columns
-FROM Users u
--- Add your JOINs and WHERE clauses
-;
-*/
-
+SELECT
+  u.user_id,
+  u.email,
+  u.full_name,
+  r.role_name,
+  ur.assigned_at
+FROM Users      AS u
+JOIN UserRoles  AS ur ON ur.user_id = u.user_id
+JOIN Roles      AS r  ON r.role_id  = ur.role_id
+-- Optional filter to show only active accounts:
+-- WHERE u.is_active = 1
+ORDER BY u.user_id, ur.assigned_at, r.role_name;
