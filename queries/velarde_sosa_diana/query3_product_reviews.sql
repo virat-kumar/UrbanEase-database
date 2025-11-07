@@ -2,7 +2,7 @@
 -- Author: Velarde Sosa, Diana
 -- Create date: [2025-11-06]
 -- Description: Query 3 - Product Reviews and Ratings Analysis
--- Tables: Addresses, Payments, Reviews (+ Users, Orders, Products)
+-- Tables: Addresses, Payments, Reviews, Users, Orders, Products
 
 -- Purpose:
 --   Analyze how customer satisfaction (via reviews) 
