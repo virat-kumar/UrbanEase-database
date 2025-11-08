@@ -235,7 +235,7 @@ Every team member is responsible for **3 tables** and must create **6 database c
 | Component | Count | Description |
 |-----------|-------|-------------|
 | **Tables (Assigned)** | 3 | Your module's database tables (see your assignments) |
-| **Complex Queries** | 3 | SQL queries with JOINs, aggregations, or subqueries |
+| **Complex Queries** | 5 | SQL queries with JOINs, aggregations, or subqueries spanning 3+ tables |
 | **Stored Procedure** | 1 | Business logic procedure with parameters |
 | **Function** | 1 | Reusable calculation or validation function |
 | **Trigger** | 1 | Automatic action on INSERT/UPDATE/DELETE |
