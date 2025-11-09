@@ -15,26 +15,19 @@ CREATE TRIGGER tr_ValidateProduct
 BEFORE INSERT ON Products
 FOR EACH ROW
 BEGIN
-    -- 1. Title must not be empty or NULL
-    IF NEW.title IS NULL OR TRIM(NEW.title) = '' THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Product title cannot be empty';
+    -- If title is empty, replace it
+    IF NEW.title IS NULL OR NEW.title = '' THEN
+        SET NEW.title = 'Untitled Product';
     END IF;
 
-    -- 2. Category ID must exist in the Categories table
-    IF NOT EXISTS (
-        SELECT 1 FROM Categories WHERE category_id = NEW.category_id
-    ) THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Invalid category_id – category does not exist';
+    -- If brand is NULL, replace with 'Unknown'
+    IF NEW.brand IS NULL THEN
+        SET NEW.brand = 'Unknown';
     END IF;
 
-    -- 3. Title must not already exist (simple uniqueness check)
-    IF EXISTS (
-        SELECT 1 FROM Products WHERE title = NEW.title
-    ) THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'A product with this title already exists';
+    -- If category is NULL or 0, set to default category ID = 1
+    IF NEW.category_id IS NULL OR NEW.category_id = 0 THEN
+        SET NEW.category_id = 1;
     END IF;
 END//
 
@@ -42,5 +35,4 @@ DELIMITER ;
 
 -- Test the trigger
 INSERT INTO Products (category_id, title, description, brand)
-VALUES (31, 'Acoustic Guitar Beginner', 'Simple beginner friendly guitar', 'Fender');
-
+VALUES (NULL, '', 'Testing trigger without SIGNAL', NULL);
