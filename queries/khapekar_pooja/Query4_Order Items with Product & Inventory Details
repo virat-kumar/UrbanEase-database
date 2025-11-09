@@ -1,0 +1,28 @@
+-- =============================================
+-- Author: Khapekar, Pooja
+-- Create date: [Date]
+-- Description: Query 4 -Order Items with Product & Inventory Details
+-- Tables: OrderItems, Orders, ProductsVariant, Inventory
+-- =============================================
+
+USE urbanease_shop;
+
+-- TODO: Write your complex query here
+-- Example: Get Order Items with Product & Inventory Details
+
+SELECT 
+  oi.order_id,
+  pv.sku,
+  pv.price AS unit_price,
+  oi.qty AS qty_ordered,
+  (oi.qty * pv.price) AS line_total,
+  i.on_hand,
+  i.reserved,
+  (i.on_hand - i.reserved) AS available_stock
+FROM OrderItems oi
+JOIN Orders o ON oi.order_id = o.order_id                   -- Get order context
+JOIN ProductVariants pv ON oi.variant_id = pv.variant_id    -- Get SKU details
+LEFT JOIN Inventory i ON pv.variant_id = i.variant_id       -- Inventory info (may be null)
+WHERE o.status = 'PAID'
+ORDER BY o.placed_at DESC
+LIMIT 10;
