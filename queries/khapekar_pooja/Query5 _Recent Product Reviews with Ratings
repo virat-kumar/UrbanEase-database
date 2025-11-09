@@ -1,0 +1,26 @@
+-- =============================================
+-- Author: Khapekar, Pooja
+-- Create date: [Date]
+-- Description: Query 5 - Recent Product Reviews with Ratings
+
+-- Tables: Reviews, Products, Users
+-- =============================================
+
+USE urbanease_shop;
+
+-- TODO: Write your complex query here
+-- Example: Get Recent Product Reviews with Ratings
+
+SELECT 
+  p.title AS product,           -- Product name being reviewed
+  u.full_name,                  -- User who wrote the review
+  r.rating,                     -- Star rating (1 to 5)
+  r.title AS review_title,      -- Title of the review
+  r.created_at                  -- When the review was submitted
+FROM Reviews r
+JOIN Products p 
+  ON r.product_id = p.product_id     -- Link each review to its product
+JOIN Users u 
+  ON r.user_id = u.user_id           -- Link each review to the user who posted it
+ORDER BY r.created_at DESC           -- Sort by newest reviews first
+LIMIT 10;                            -- Show only the latest 10 reviews
