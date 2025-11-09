@@ -1,10 +1,12 @@
 -- =============================================
 -- Author: Khapekar, Pooja
--- Create date: [Date]
+-- Create date: November 2025
 -- Description: Function - Get Product Image Count
 -- Tables: Categories, Products, ProductImages
 -- Returns: Number of images for a product
 -- =============================================
+
+
 
 USE urbanease_shop;
 
@@ -18,14 +20,13 @@ DETERMINISTIC
 READS SQL DATA
 BEGIN
     DECLARE image_count INT DEFAULT 0;
-    
-    -- TODO: Implement your function logic here
-    
-    -- Example structure:
-    -- SELECT COUNT(*) INTO image_count
-    -- FROM ProductImages
-    -- WHERE product_id = p_product_id;
-    
+
+    -- Count how many images exist for this product
+    SELECT COUNT(*) INTO image_count
+    FROM ProductImages
+    WHERE product_id = p_product_id;
+
+    -- Return the result
     RETURN image_count;
 END//
 
@@ -34,3 +35,4 @@ DELIMITER ;
 -- Test the function
 -- SELECT fn_GetProductImageCount(1);
 
+SELECT fn_GetProductImageCount(1) AS total_images;
