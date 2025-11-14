@@ -1,7 +1,7 @@
 -- =============================================
 -- Author: Khapekar, Pooja
 -- Create date: November 2025
--- Description: Sample Data for Products Table (35 entries)
+-- Description: Sample Data for Products Table (324 entries)
 -- Module: Product Catalog
 -- Note: Requires Categories table to exist first
 -- =============================================
