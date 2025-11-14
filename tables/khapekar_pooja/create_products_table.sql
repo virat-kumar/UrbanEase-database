@@ -1,14 +1,14 @@
 -- =============================================
 -- Author: Khapekar, Pooja
 -- Create date: November 2025
--- Description: Sample Data for Products Table (324 entries)
+-- Description: Sample Data for Products Table 
 -- Module: Product Catalog
 -- Note: Requires Categories table to exist first
 -- =============================================
 
 USE urbanease_shop;
 
--- Insert 35 diverse products across different categories
+-- Insert diverse products across different categories
 INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
 VALUES (
     (SELECT category_id FROM Categories WHERE name = 'Electronics'),
