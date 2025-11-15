@@ -1,13 +1,14 @@
 -- =============================================
 -- Author: Khapekar, Pooja
 -- Create date: November 2025
--- Description: Sample Data for Categories Table (90 entries total: 30 root + 60 subcategories)
+-- Description: Sample Data for Categories Table (30 entries total: 10 root + 20 subcategories)
 -- Module: Product Catalog
 -- =============================================
 
 USE urbanease_shop;
 
--- Root categories (30 main categories)
+-- Root categories (10 main categories)
+
 INSERT INTO Categories (parent_id, name, slug) VALUES 
 (NULL, 'Electronics', 'electronics'),
 (NULL, 'Clothing', 'clothing'),
@@ -18,29 +19,10 @@ INSERT INTO Categories (parent_id, name, slug) VALUES
 (NULL, 'Toys & Games', 'toys-games'),
 (NULL, 'Automotive', 'automotive'),
 (NULL, 'Books & Stationery', 'books-stationery'),
-(NULL, 'Groceries', 'groceries'),
-(NULL, 'Baby & Kids', 'baby-kids'),
-(NULL, 'Jewelry & Accessories', 'jewelry-accessories'),
-(NULL, 'Shoes & Footwear', 'shoes-footwear'),
-(NULL, 'Pet Supplies', 'pet-supplies'),
-(NULL, 'Furniture', 'furniture'),
-(NULL, 'Office Supplies', 'office-supplies'),
-(NULL, 'Tools & Hardware', 'tools-hardware'),
-(NULL, 'Musical Instruments', 'musical-instruments'),
-(NULL, 'Arts & Crafts', 'arts-crafts'),
-(NULL, 'Cameras & Photography', 'cameras-photography'),
-(NULL, 'Computers & Laptops', 'computers-laptops'),
-(NULL, 'Mobile Phones & Tablets', 'mobile-phones-tablets'),
-(NULL, 'Appliances', 'appliances'),
-(NULL, 'Travel & Luggage', 'travel-luggage'),
-(NULL, 'Movies & Entertainment', 'movies-entertainment'),
-(NULL, 'Gaming', 'gaming'),
-(NULL, 'Watches', 'watches'),
-(NULL, 'Kitchen & Dining', 'kitchen-dining'),
-(NULL, 'Seasonal & Holiday', 'seasonal-holiday'),
-(NULL, 'Safety & Security', 'safety-security');
+(NULL, 'Groceries', 'groceries');
+
   
--- Sub-categories (60 subcategories, 2 per root category)
+-- Sub-categories (20 subcategories, 2 per root category)
 INSERT INTO Categories (parent_id, name, slug) VALUES
 -- 1. Electronics
 (1, 'Laptops', 'laptops'),
@@ -80,87 +62,9 @@ INSERT INTO Categories (parent_id, name, slug) VALUES
 
 -- 10. Groceries
 (10, 'Snacks & Beverages', 'snacks-beverages'),
-(10, 'Dairy Products', 'dairy-products'),
+(10, 'Dairy Products', 'dairy-products');
 
--- 11. Baby & Kids
-(11, 'Baby Clothing', 'baby-clothing'),
-(11, 'Baby Care', 'baby-care'),
-
--- 12. Jewelry & Accessories
-(12, 'Necklaces', 'necklaces'),
-(12, 'Earrings', 'earrings'),
-
--- 13. Shoes & Footwear
-(13, 'Men Footwear', 'men-footwear'),
-(13, 'Women Footwear', 'women-footwear'),
-
--- 14. Pet Supplies
-(14, 'Dog Supplies', 'dog-supplies'),
-(14, 'Cat Supplies', 'cat-supplies'),
-
--- 15. Furniture
-(15, 'Living Room Furniture', 'living-room-furniture'),
-(15, 'Bedroom Furniture', 'bedroom-furniture'),
-
--- 16. Office Supplies
-(16, 'Printers & Scanners', 'printers-scanners'),
-(16, 'Desk Accessories', 'desk-accessories'),
-
--- 17. Tools & Hardware
-(17, 'Power Tools', 'power-tools'),
-(17, 'Hand Tools', 'hand-tools'),
-
--- 18. Musical Instruments
-(18, 'Guitars', 'guitars'),
-(18, 'Keyboards', 'keyboards'),
-
--- 19. Arts & Crafts
-(19, 'Painting Supplies', 'painting-supplies'),
-(19, 'Craft Kits', 'craft-kits'),
-
--- 20. Cameras & Photography
-(20, 'DSLR Cameras', 'dslr-cameras'),
-(20, 'Camera Lenses', 'camera-lenses'),
-
--- 21. Computers & Laptops
-(21, 'Desktops', 'desktops'),
-(21, 'Gaming Laptops', 'gaming-laptops'),
-
--- 22. Mobile Phones & Tablets
-(22, 'Android Phones', 'android-phones'),
-(22, 'iPhones', 'iphones'),
-
--- 23. Appliances
-(23, 'Refrigerators', 'refrigerators'),
-(23, 'Washing Machines', 'washing-machines'),
-
--- 24. Travel & Luggage
-(24, 'Suitcases', 'suitcases'),
-(24, 'Backpacks', 'backpacks'),
-
--- 25. Movies & Entertainment
-(25, 'DVDs & Blu-rays', 'dvds-blurays'),
-(25, 'Music Albums', 'music-albums'),
-
--- 26. Gaming
-(26, 'Consoles', 'consoles'),
-(26, 'Video Games', 'video-games'),
-
--- 27. Watches
-(27, 'Men Watches', 'men-watches'),
-(27, 'Smart Watches', 'smart-watches'),
-
--- 28. Kitchen & Dining
-(28, 'Cookware', 'cookware'),
-(28, 'Tableware', 'tableware'),
-
--- 29. Seasonal & Holiday
-(29, 'Christmas Decor', 'christmas-decor'),
-(29, 'Halloween Supplies', 'halloween-supplies'),
-
--- 30. Safety & Security
-(30, 'Home Security Systems', 'home-security-systems'),
-(30, 'Surveillance Cameras', 'surveillance-cameras');
+SELECT * FROM Categories;
 
 -- Verify inserted data
 SELECT COUNT(*) AS total_categories FROM Categories;
