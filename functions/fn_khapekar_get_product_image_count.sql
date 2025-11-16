@@ -10,7 +10,7 @@
 
 USE urbanease_shop;
 
-DELIMITER //
+DELIMITER $$
 
 CREATE FUNCTION fn_GetProductImageCount(
     p_product_id BIGINT
@@ -28,11 +28,10 @@ BEGIN
 
     -- Return the result
     RETURN image_count;
-END//
+END$$
 
+-- Reset the delimiter back to default
 DELIMITER ;
 
 -- Test the function
--- SELECT fn_GetProductImageCount(1);
-
-SELECT fn_GetProductImageCount(1) AS total_images;
+SELECT fn_GetProductImageCount(25) AS total_images;
