@@ -5,6 +5,20 @@
 -- Tables: Categories, Products, ProductImages
 -- =============================================
 
+---BUSINESS USE CASE:
+This query gives a snapshot of the category structure, showing how many products and images exist per category. It helps teams identify:
+Underpopulated or image-deficient categories
+Readiness of product categories for campaigns
+Gaps in catalog coverage or merchandising focus
+
+--- REAL-WORLD SCENARIO:
+Before a major sale, teams run this to check if all featured categories have enough products and visuals. If a category has products but no images, it's flagged for immediate content upload.
+
+--- Impact:
+ Ensures catalog completeness, better customer experience, and supports campaign planning with accurate product distribution data.
+
+
+  
 USE urbanease_shop;
 
 -- TODO: Write your complex query here
