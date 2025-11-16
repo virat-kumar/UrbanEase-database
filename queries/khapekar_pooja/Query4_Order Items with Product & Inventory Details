@@ -5,6 +5,19 @@
 -- Tables: OrderItems, Orders, ProductsVariant, Inventory
 -- =============================================
 
+--- BUSINESS USE CASE:
+This query combines order items with product and inventory data to provide a real-time view of order fulfillment status. It is used to:
+Track inventory availability for each order item
+Identify backorders or low-stock situations
+Help fulfillment teams prioritize shipping based on stock status
+
+--- REAL-WORLD SCENARIO:
+During peak sales, operations uses this query to spot which order items are at risk due to stock shortages and reroute inventory from other warehouses if needed.
+
+--- Impact:
+ Prevents shipment delays, reduces customer complaints, and ensures efficient inventory utilization across active orders.
+
+
 USE urbanease_shop;
 
 -- TODO: Write your complex query here
