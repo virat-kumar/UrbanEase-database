@@ -14,7 +14,7 @@ VALUES (
     (SELECT category_id FROM Categories WHERE name = 'Electronics'),
     'Also Electronics',
     'This is a premium electronics product trusted by many customers.',
-    'DeWalt',
+    'LG',
     1,
     NOW(),
     NOW()
@@ -54,7 +54,7 @@ VALUES (
     (SELECT category_id FROM Categories WHERE name = 'Clothing'),
     'Believe Clothing',
     'This is a premium clothing product trusted by many customers.',
-    'H&M',
+    'ZARA',
     0,
     NOW(),
     NOW()
@@ -64,7 +64,7 @@ VALUES (
     (SELECT category_id FROM Categories WHERE name = 'Clothing'),
     'Say Clothing',
     'This is a premium clothing product trusted by many customers.',
-    'SHEIN',
+    'ZARA',
     1,
     NOW(),
     NOW()
@@ -114,7 +114,7 @@ VALUES (
     (SELECT category_id FROM Categories WHERE name = 'Beauty & Personal Care'),
     'Amount Beauty & Personal Care',
     'This is a premium beauty & personal care product trusted by many customers.',
-    'ELF',
+    'ULTA',
     0,
     NOW(),
     NOW()
@@ -154,7 +154,7 @@ VALUES (
     (SELECT category_id FROM Categories WHERE name = 'Health & Wellness'),
     'Ten Health & Wellness',
     'This is a premium health & wellness product trusted by many customers.',
-    'ON',
+    'COSTCO',
     1,
     NOW(),
     NOW()
