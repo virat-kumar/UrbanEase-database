@@ -319,6 +319,47 @@ VALUES (
     NOW(),
     NOW()
 );
+-- Additional products 32-35 (needed for ProductVariants)
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Books & Stationery'),
+    'Office Supplies',
+    'Premium office supplies for productivity.',
+    'Staples',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Home & Garden'),
+    'Home Tools',
+    'Essential home improvement tools.',
+    'Black & Decker',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Toys & Games'),
+    'Musical Instruments',
+    'Quality musical instruments for all skill levels.',
+    'Yamaha',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Books & Stationery'),
+    'Art Supplies',
+    'Professional art supplies for artists.',
+    'Crayola',
+    1,
+    NOW(),
+    NOW()
+);
 SELECT * FROM Products;
 
 -- Verify inserted data
