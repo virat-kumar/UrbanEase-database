@@ -6,24 +6,24 @@
 -- Returns: Number of images for a product
 -- =============================================
 
----BUSINESS USE CASE:
-This function is called thousands of times daily to ensure products meet visual content standards across:
-E-commerce frontend – Hides or flags products with no images
-Admin tools – Highlights SKUs missing images before publishing
-Marketplace sync – Prevents non-compliant listings on Amazon, Walmart, etc.
-Marketing QA – Validates campaigns include fully imaged products
-Mobile app – Dynamically adjusts layout based on image count
+-- BUSINESS USE CASE:
+-- This function is called thousands of times daily to ensure products meet visual content standards across:
+-- E-commerce frontend – Hides or flags products with no images
+-- Admin tools – Highlights SKUs missing images before publishing
+-- Marketplace sync – Prevents non-compliant listings on Amazon, Walmart, etc.
+-- Marketing QA – Validates campaigns include fully imaged products
+-- Mobile app – Dynamically adjusts layout based on image count
 
---- REAL-WORLD SCENARIO:
-During a major product launch, QA scripts run fn_GetProductImageCount() and flag 30+ SKUs with missing images.
-Without this function: those products would go live broken, damaging conversion and reputation.
-With it: faulty items are held back, preventing campaign failure.
+-- REAL-WORLD SCENARIO:
+-- During a major product launch, QA scripts run fn_GetProductImageCount() and flag 30+ SKUs with missing images.
+-- Without this function: those products would go live broken, damaging conversion and reputation.
+-- With it: faulty items are held back, preventing campaign failure.
 
---- Cost Impact:
-No images = ~50% lower conversion
-Avoids $2K–$5K/day in wasted ad spend
-Ensures compliance, avoids de-listing penalties
-✅ Saves $50K–$100K/year in revenue protection and operational efficiency.
+-- Cost Impact:
+-- No images = ~50% lower conversion
+-- Avoids $2K–$5K/day in wasted ad spend
+-- Ensures compliance, avoids de-listing penalties
+-- ✅ Saves $50K–$100K/year in revenue protection and operational efficiency.
 
 
 USE urbanease_shop;

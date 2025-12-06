@@ -100,7 +100,8 @@ END$$
 
 DELIMITER ;
 
-select * from products;
+-- Test: View existing product
+SELECT * FROM Products;
 
 -- Update existing product (e.g., ID = 1) with new image
 CALL sp_ManageProduct(

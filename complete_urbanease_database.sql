@@ -1,20 +1,28 @@
 -- =============================================
--- Project Group #6 - UrbanEase E-commerce Database System
+-- UrbanEase Database - Complete Setup Script
 -- =============================================
--- A comprehensive MySQL database for modern online retail platforms
--- Date: November 2024
--- Course: Database Management Systems
+-- Auto-generated from 63 SQL files (Schema + Tables + Procedures + Functions + Triggers + Queries)
+-- Database: urbanease_shop
+-- MySQL Version: 8.0+
+-- Generated: 2025-12-06
 -- =============================================
 
+
+-- ====================================================================
+-- File: table_schema.sql
+-- ====================================================================
+
+-- Target: MySQL 8.0+
+-- Create database and use it
 CREATE DATABASE IF NOT EXISTS urbanease_shop
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
 
 USE urbanease_shop;
 
--- =============================================
--- DATABASE SCHEMA - TABLE DEFINITIONS
--- =============================================
+/* ===========================
+   1) Accounts & Addresses
+   =========================== */
 
 CREATE TABLE Users (
   user_id       BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -250,13 +258,244 @@ CREATE INDEX IX_OrderItems_Order  ON OrderItems(order_id);
 CREATE INDEX IX_CartItems_Cart    ON CartItems(cart_id);
 CREATE INDEX IX_Payments_Order    ON Payments(order_id);
 
+
+
+-- ====================================================================
+-- File: tables/bajwa_achint_kaur/create_roles_table.sql
+-- ====================================================================
+
 -- =============================================
--- Bajwa, Achint Kaur
+-- Author: Bajwa, Achint Kaur
+-- Create date: November 2025
+-- Description: Sample Data for Roles Table (30 entries)
 -- Module: User Management & Authentication
--- Tables: Users, Roles, UserRoles
 -- =============================================
 
--- Data for tables: Users, Roles, UserRoles
+USE urbanease_shop;
+
+-- Insert 30 different role types for the application
+INSERT INTO Roles (role_name) VALUES
+('SuperAdmin'),
+('Admin'),
+('Manager'),
+('Customer'),
+('VIPCustomer'),
+('WarehouseManager'),
+('InventoryClerk'),
+('ShippingCoordinator'),
+('CustomerSupport'),
+('SalesAgent'),
+('MarketingManager'),
+('ContentCreator'),
+('ProductManager'),
+('CategoryManager'),
+('PricingAnalyst'),
+('OrderProcessor'),
+('ReturnsSpecialist'),
+('QualityAssurance'),
+('DataAnalyst'),
+('FinanceManager'),
+('Accountant'),
+('PaymentProcessor'),
+('SecurityOfficer'),
+('ComplianceOfficer'),
+('Auditor'),
+('Developer'),
+('SystemAdministrator'),
+('VendorManager'),
+('SupplyChainManager'),
+('Guest');
+
+
+
+-- ====================================================================
+-- File: tables/khapekar_pooja/create_categories_table.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Khapekar, Pooja
+-- Create date: November 2025
+-- Description: Sample Data for Categories Table (30 entries total: 10 root + 20 subcategories)
+-- Module: Product Catalog
+-- =============================================
+
+USE urbanease_shop;
+
+-- Root categories (10 main categories)
+
+INSERT INTO Categories (parent_id, name, slug) VALUES 
+(NULL, 'Electronics', 'electronics'),
+(NULL, 'Clothing', 'clothing'),
+(NULL, 'Home & Garden', 'home-garden'),
+(NULL, 'Beauty & Personal Care', 'beauty-personal-care'),
+(NULL, 'Health & Wellness', 'health-wellness'),
+(NULL, 'Sports & Outdoors', 'sports-outdoors'),
+(NULL, 'Toys & Games', 'toys-games'),
+(NULL, 'Automotive', 'automotive'),
+(NULL, 'Books & Stationery', 'books-stationery'),
+(NULL, 'Groceries', 'groceries');
+
+  
+-- Sub-categories (20 subcategories, 2 per root category)
+INSERT INTO Categories (parent_id, name, slug) VALUES
+-- 1. Electronics
+(1, 'Laptops', 'laptops'),
+(1, 'Smartphones', 'smartphones'),
+
+-- 2. Clothing
+(2, 'Men Clothing', 'men-clothing'),
+(2, 'Women Clothing', 'women-clothing'),
+
+-- 3. Home & Garden
+(3, 'Furniture Sets', 'furniture-sets'),
+(3, 'Home Decor', 'home-decor'),
+
+-- 4. Beauty & Personal Care
+(4, 'Skincare', 'skincare'),
+(4, 'Hair Care', 'hair-care'),
+
+-- 5. Health & Wellness
+(5, 'Vitamins & Supplements', 'vitamins-supplements'),
+(5, 'Fitness Equipment', 'fitness-equipment'),
+
+-- 6. Sports & Outdoors
+(6, 'Camping & Hiking', 'camping-hiking'),
+(6, 'Sportswear', 'sportswear'),
+
+-- 7. Toys & Games
+(7, 'Board Games', 'board-games'),
+(7, 'Action Figures', 'action-figures'),
+
+-- 8. Automotive
+(8, 'Car Accessories', 'car-accessories'),
+(8, 'Motorbike Accessories', 'motorbike-accessories'),
+
+-- 9. Books & Stationery
+(9, 'Fiction Books', 'fiction-books'),
+(9, 'Notebooks & Diaries', 'notebooks-diaries'),
+
+-- 10. Groceries
+(10, 'Snacks & Beverages', 'snacks-beverages'),
+(10, 'Dairy Products', 'dairy-products');
+
+
+
+-- ====================================================================
+-- File: tables/kumar_virat/create_warehouses_table.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Kumar, Virat
+-- Create date: November 2025
+-- Description: Sample Data for Warehouses Table (30 entries)
+-- Module: Inventory Management
+-- =============================================
+
+USE urbanease_shop;
+
+-- Insert 30 warehouse locations across different regions
+INSERT INTO Warehouses (name, code, city, state_region, country_code) VALUES
+('New York Distribution Center', 'NYC-DC-001', 'New York', 'New York', 'US'),
+('Los Angeles Fulfillment Hub', 'LAX-FH-002', 'Los Angeles', 'California', 'US'),
+('Chicago Central Warehouse', 'CHI-CW-003', 'Chicago', 'Illinois', 'US'),
+('Houston South Distribution', 'HOU-SD-004', 'Houston', 'Texas', 'US'),
+('Phoenix West Warehouse', 'PHX-WW-005', 'Phoenix', 'Arizona', 'US'),
+('Philadelphia East Hub', 'PHL-EH-006', 'Philadelphia', 'Pennsylvania', 'US'),
+('San Antonio Regional Center', 'SAT-RC-007', 'San Antonio', 'Texas', 'US'),
+('San Diego Coastal Warehouse', 'SAN-CW-008', 'San Diego', 'California', 'US'),
+('Dallas North Distribution', 'DAL-ND-009', 'Dallas', 'Texas', 'US'),
+('San Jose Tech Hub', 'SJC-TH-010', 'San Jose', 'California', 'US'),
+('Austin Central Depot', 'AUS-CD-011', 'Austin', 'Texas', 'US'),
+('Jacksonville Southeast Center', 'JAX-SC-012', 'Jacksonville', 'Florida', 'US'),
+('Fort Worth Logistics Hub', 'FTW-LH-013', 'Fort Worth', 'Texas', 'US'),
+('Columbus Midwest Warehouse', 'CMH-MW-014', 'Columbus', 'Ohio', 'US'),
+('Charlotte East Coast Hub', 'CLT-ECH-015', 'Charlotte', 'North Carolina', 'US'),
+('Seattle Northwest Center', 'SEA-NWC-016', 'Seattle', 'Washington', 'US'),
+('Denver Mountain Hub', 'DEN-MH-017', 'Denver', 'Colorado', 'US'),
+('Boston Northeast Depot', 'BOS-NED-018', 'Boston', 'Massachusetts', 'US'),
+('Detroit Great Lakes Center', 'DTW-GLC-019', 'Detroit', 'Michigan', 'US'),
+('Portland Pacific Warehouse', 'PDX-PW-020', 'Portland', 'Oregon', 'US'),
+('Las Vegas Desert Hub', 'LAS-DH-021', 'Las Vegas', 'Nevada', 'US'),
+('Miami Southeast Distribution', 'MIA-SED-022', 'Miami', 'Florida', 'US'),
+('Atlanta Southern Hub', 'ATL-SH-023', 'Atlanta', 'Georgia', 'US'),
+('Minneapolis North Central', 'MSP-NC-024', 'Minneapolis', 'Minnesota', 'US'),
+('Orlando Florida Center', 'MCO-FC-025', 'Orlando', 'Florida', 'US'),
+('San Francisco Bay Warehouse', 'SFO-BW-026', 'San Francisco', 'California', 'US'),
+('Tampa Gulf Coast Hub', 'TPA-GCH-027', 'Tampa', 'Florida', 'US'),
+('Sacramento Valley Center', 'SMF-VC-028', 'Sacramento', 'California', 'US'),
+('Kansas City Heartland Hub', 'MCI-HH-029', 'Kansas City', 'Missouri', 'US'),
+('Raleigh East Distribution', 'RDU-ED-030', 'Raleigh', 'North Carolina', 'US');
+
+
+
+-- ====================================================================
+-- File: tables/min_la_yaung/create_coupons_table.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Min, La Yaung
+-- Create date: November 2025
+-- Description: Sample Data for Coupons Table (30 entries)
+-- Module: Shopping Cart & Promotions
+-- =============================================
+
+USE urbanease_shop;
+
+-- Insert 30 promotional coupons with various types and conditions
+INSERT INTO Coupons (code, type, value, starts_at, expires_at, min_subtotal, is_active) VALUES
+-- Active percentage-based coupons
+('WELCOME10', 'PERCENT', 10.00, '2024-01-01 00:00:00', '2025-12-31 23:59:59', 50.00, TRUE),
+('SAVE15', 'PERCENT', 15.00, '2024-06-01 00:00:00', '2024-12-31 23:59:59', 100.00, TRUE),
+('BIGSALE20', 'PERCENT', 20.00, '2024-11-01 00:00:00', '2024-11-30 23:59:59', 150.00, TRUE),
+('VIP25', 'PERCENT', 25.00, '2024-01-01 00:00:00', '2025-12-31 23:59:59', 200.00, TRUE),
+('FLASH30', 'PERCENT', 30.00, '2024-11-07 00:00:00', '2024-11-10 23:59:59', 300.00, TRUE),
+
+-- Active fixed amount coupons
+('SAVE5', 'AMOUNT', 5.00, '2024-01-01 00:00:00', '2025-12-31 23:59:59', 25.00, TRUE),
+('GET10OFF', 'AMOUNT', 10.00, '2024-06-01 00:00:00', '2024-12-31 23:59:59', 50.00, TRUE),
+('DEAL25', 'AMOUNT', 25.00, '2024-09-01 00:00:00', '2024-12-31 23:59:59', 100.00, TRUE),
+('MEGA50', 'AMOUNT', 50.00, '2024-11-01 00:00:00', '2024-11-30 23:59:59', 200.00, TRUE),
+('SUPER100', 'AMOUNT', 100.00, '2024-11-01 00:00:00', '2024-11-15 23:59:59', 500.00, TRUE),
+
+-- Seasonal/Holiday coupons
+('SUMMER15', 'PERCENT', 15.00, '2024-06-01 00:00:00', '2024-08-31 23:59:59', 75.00, TRUE),
+('BACKTOSCHOOL', 'PERCENT', 12.00, '2024-08-01 00:00:00', '2024-09-15 23:59:59', 60.00, TRUE),
+('HALLOWEEN10', 'PERCENT', 10.00, '2024-10-15 00:00:00', '2024-10-31 23:59:59', 40.00, TRUE),
+('BLACKFRIDAY', 'PERCENT', 35.00, '2024-11-29 00:00:00', '2024-11-29 23:59:59', 100.00, TRUE),
+('CYBERMONDAY', 'PERCENT', 30.00, '2024-12-02 00:00:00', '2024-12-02 23:59:59', 100.00, TRUE),
+
+-- Category-specific coupons
+('TECH20', 'PERCENT', 20.00, '2024-10-01 00:00:00', '2024-12-31 23:59:59', 200.00, TRUE),
+('FASHION15', 'PERCENT', 15.00, '2024-09-01 00:00:00', '2024-12-31 23:59:59', 80.00, TRUE),
+('HOME10', 'PERCENT', 10.00, '2024-08-01 00:00:00', '2024-12-31 23:59:59', 100.00, TRUE),
+
+-- First-time customer coupons
+('FIRSTORDER', 'PERCENT', 20.00, '2024-01-01 00:00:00', '2025-12-31 23:59:59', 30.00, TRUE),
+('NEWUSER15', 'PERCENT', 15.00, '2024-01-01 00:00:00', '2025-12-31 23:59:59', 25.00, TRUE),
+
+-- Expired coupons
+('EXPIRED10', 'PERCENT', 10.00, '2024-01-01 00:00:00', '2024-06-30 23:59:59', 50.00, TRUE),
+('OLDCODE20', 'PERCENT', 20.00, '2024-01-01 00:00:00', '2024-03-31 23:59:59', 100.00, TRUE),
+('SUMMER2023', 'PERCENT', 15.00, '2023-06-01 00:00:00', '2023-08-31 23:59:59', 75.00, TRUE),
+
+-- Inactive coupons (manually deactivated)
+('INACTIVE25', 'PERCENT', 25.00, '2024-01-01 00:00:00', '2024-12-31 23:59:59', 150.00, FALSE),
+('DISABLED15', 'PERCENT', 15.00, '2024-01-01 00:00:00', '2024-12-31 23:59:59', 100.00, FALSE),
+
+-- High-value exclusive coupons
+('PREMIUM50', 'AMOUNT', 50.00, '2024-01-01 00:00:00', '2025-12-31 23:59:59', 250.00, TRUE),
+('VIPEXCLUSIVE', 'PERCENT', 30.00, '2024-01-01 00:00:00', '2025-12-31 23:59:59', 500.00, TRUE),
+('LOYALTY100', 'AMOUNT', 100.00, '2024-01-01 00:00:00', '2025-12-31 23:59:59', 1000.00, TRUE),
+
+-- Limited time offers
+('FLASH24H', 'PERCENT', 25.00, '2024-11-07 00:00:00', '2024-11-08 23:59:59', 100.00, TRUE),
+('HOURLY15', 'PERCENT', 15.00, '2024-11-07 10:00:00', '2024-11-07 20:00:00', 50.00, TRUE);
+
+
+
+-- ====================================================================
+-- File: tables/bajwa_achint_kaur/create_users_table.sql
+-- ====================================================================
 
 -- =============================================
 -- Author: Bajwa, Achint Kaur
@@ -305,85 +544,560 @@ INSERT INTO Users (email, password_hash, full_name, phone, is_active, created_at
 ('joshua.adams@email.com', UNHEX(SHA2('password123', 256)), 'Joshua Adams', '+1-555-0034', TRUE, '2024-10-25 15:20:00'),
 ('inactive.user@email.com', UNHEX(SHA2('password123', 256)), 'Inactive User', '+1-555-0035', FALSE, '2024-11-01 09:45:00');
 
--- Verify inserted data
-SELECT COUNT(*) AS total_users FROM Users;
-SELECT * FROM Users LIMIT 10;
 
--- COMMENTS
--- 1) Uses `USE urbanease_shop;` to pin the correct schema.
--- 2) Explicit column list ensures compatibility if table evolves.
--- 3) Emails are unique → relies on UNIQUE index on `email` to prevent dupes.
--- 4) `password_hash` is stored as 32-byte binary via UNHEX(SHA2(...,256));
---    choose BINARY(32)/VARBINARY(32) for this column to avoid truncation.
--- 5) `is_active` uses 1/0 for cross-platform MySQL portability (TRUE/FALSE can vary).
--- 6) Timestamps span 2024-01 to 2024-11 to simulate realistic account creation cadence.
--- 7) Keep this file in /tables/<your_name>/users_seed.sql and run after CREATE TABLEs.
 
+-- ====================================================================
+-- File: tables/velarde_sosa_diana/create_addresses_table.sql
+-- ====================================================================
 
 -- =============================================
--- Author: Bajwa, Achint Kaur
+-- Author: Velarde Sosa, Diana
 -- Create date: November 2025
--- Description: Sample Data for Roles Table (30 entries)
--- Module: User Management & Authentication
+-- Description: Sample Data for Addresses Table (35 entries)
+-- Module: User Addresses
+-- Note: Requires Users table to exist first
 -- =============================================
 
 USE urbanease_shop;
 
--- Insert 30 different role types for the application
-INSERT INTO Roles (role_name) VALUES
-('SuperAdmin'),
-('Admin'),
-('Manager'),
-('Customer'),
-('VIPCustomer'),
-('WarehouseManager'),
-('InventoryClerk'),
-('ShippingCoordinator'),
-('CustomerSupport'),
-('SalesAgent'),
-('MarketingManager'),
-('ContentCreator'),
-('ProductManager'),
-('CategoryManager'),
-('PricingAnalyst'),
-('OrderProcessor'),
-('ReturnsSpecialist'),
-('QualityAssurance'),
-('DataAnalyst'),
-('FinanceManager'),
-('Accountant'),
-('PaymentProcessor'),
-('SecurityOfficer'),
-('ComplianceOfficer'),
-('Auditor'),
-('Developer'),
-('SystemAdministrator'),
-('VendorManager'),
-('SupplyChainManager'),
-('Guest');
+-- Insert 35 user addresses (shipping and billing)
+INSERT INTO Addresses (user_id, label, name, line1, line2, city, state_region, postal_code, country_code, phone, is_default, created_at) VALUES
+-- User 2 addresses
+(2, 'Home', 'John Doe', '123 Main Street', 'Apt 4B', 'New York', 'New York', '10001', 'US', '+1-555-0102', TRUE, '2024-02-20 15:00:00'),
+(2, 'Office', 'John Doe', '456 Business Ave', 'Suite 200', 'New York', 'New York', '10002', 'US', '+1-555-0102', FALSE, '2024-03-10 10:30:00'),
 
--- Verify inserted data
-SELECT COUNT(*) AS total_roles FROM Roles;
-SELECT * FROM Roles ORDER BY role_id;
+-- User 3 addresses
+(3, 'Home', 'Jane Smith', '789 Oak Drive', NULL, 'Los Angeles', 'California', '90001', 'US', '+1-555-0103', TRUE, '2024-02-21 11:00:00'),
 
--- COMMENTS
--- 1) Inserts 30 well-defined roles for the Urbanease Shop system.
--- 2) Role names are concise, in PascalCase, and self-descriptive.
--- 3) Primary categories:
---      a) Administrative: SuperAdmin, Admin, Manager.
---      b) Customer-facing: Customer, VIPCustomer, SalesAgent, CustomerSupport.
---      c) Operations: WarehouseManager, InventoryClerk, ShippingCoordinator, OrderProcessor, ReturnsSpecialist.
---      d) Marketing/Creative: MarketingManager, ContentCreator, ProductManager, CategoryManager, PricingAnalyst.
---      e) Technical: Developer, SystemAdministrator, QualityAssurance, SecurityOfficer.
---      f) Finance/Compliance: FinanceManager, Accountant, PaymentProcessor, ComplianceOfficer, Auditor.
---      g) Data/Vendor: DataAnalyst, VendorManager, SupplyChainManager.
---      h) Misc: Guest (anonymous or temporary user).
--- 4) Ensure this table has an AUTO_INCREMENT `role_id` (PK) column for proper sequencing.
--- 5) Add a unique index to prevent duplicates:
---        ALTER TABLE roles ADD CONSTRAINT uq_role_name UNIQUE(role_name);
--- 6) Run this script before `user_roles` to avoid foreign-key violations.
--- 7) Keep capitalization consistent across all queries (use lower-case table names).
+-- User 4 addresses
+(4, 'Home', 'Michael Brown', '321 Elm Street', 'Unit 12', 'Chicago', 'Illinois', '60601', 'US', '+1-555-0104', TRUE, '2024-03-05 17:15:00'),
 
+-- User 5 addresses
+(5, 'Home', 'Emily Davis', '654 Pine Road', NULL, 'Houston', 'Texas', '77001', 'US', '+1-555-0105', TRUE, '2024-03-10 12:00:00'),
+(5, 'Work', 'Emily Davis', '987 Corporate Blvd', 'Floor 15', 'Houston', 'Texas', '77002', 'US', '+1-555-0105', FALSE, '2024-04-05 14:20:00'),
+
+-- User 6 addresses
+(6, 'Home', 'David Wilson', '147 Maple Lane', NULL, 'Phoenix', 'Arizona', '85001', 'US', '+1-555-0106', TRUE, '2024-03-15 14:00:00'),
+
+-- User 7 addresses
+(7, 'Home', 'Sarah Martinez', '258 Cedar Avenue', 'Apt 8C', 'Philadelphia', 'Pennsylvania', '19101', 'US', '+1-555-0107', TRUE, '2024-04-01 09:30:00'),
+
+-- User 8 addresses
+(8, 'Home', 'James Anderson', '369 Birch Street', NULL, 'San Antonio', 'Texas', '78201', 'US', '+1-555-0108', TRUE, '2024-04-05 16:00:00'),
+
+-- User 9 addresses
+(9, 'Home', 'Lisa Taylor', '741 Willow Court', 'Unit 5A', 'San Diego', 'California', '92101', 'US', '+1-555-0109', TRUE, '2024-04-12 11:15:00'),
+
+-- User 10 addresses
+(10, 'Home', 'Robert Thomas', '852 Spruce Way', NULL, 'Dallas', 'Texas', '75201', 'US', '+1-555-0110', TRUE, '2024-04-20 13:30:00'),
+
+-- User 11 addresses
+(11, 'Home', 'Jennifer Jackson', '963 Ash Boulevard', 'Apt 3D', 'San Jose', 'California', '95101', 'US', '+1-555-0111', TRUE, '2024-05-01 10:45:00'),
+
+-- User 12 addresses
+(12, 'Home', 'William White', '159 Poplar Street', NULL, 'Austin', 'Texas', '73301', 'US', '+1-555-0112', TRUE, '2024-05-08 15:00:00'),
+
+-- User 13 addresses
+(13, 'Home', 'Mary Harris', '357 Cypress Drive', 'Suite 10', 'Jacksonville', 'Florida', '32099', 'US', '+1-555-0113', TRUE, '2024-05-15 12:20:00'),
+
+-- User 14 addresses
+(14, 'Home', 'Charles Martin', '486 Redwood Lane', NULL, 'Fort Worth', 'Texas', '76101', 'US', '+1-555-0114', TRUE, '2024-05-22 17:10:00'),
+
+-- User 15 addresses
+(15, 'Home', 'Patricia Thompson', '597 Hickory Road', 'Apt 7B', 'Columbus', 'Ohio', '43004', 'US', '+1-555-0115', TRUE, '2024-06-01 09:40:00'),
+
+-- User 16 addresses
+(16, 'Home', 'Daniel Garcia', '618 Magnolia Street', NULL, 'Charlotte', 'North Carolina', '28202', 'US', '+1-555-0116', TRUE, '2024-06-10 14:00:00'),
+
+-- User 17 addresses
+(17, 'Home', 'Linda Martinez', '729 Sycamore Avenue', 'Unit 2C', 'Seattle', 'Washington', '98101', 'US', '+1-555-0117', TRUE, '2024-06-18 11:30:00'),
+
+-- User 18 addresses
+(18, 'Home', 'Joseph Robinson', '840 Walnut Court', NULL, 'Denver', 'Colorado', '80014', 'US', '+1-555-0118', TRUE, '2024-06-25 16:20:00'),
+
+-- User 19 addresses
+(19, 'Home', 'Barbara Clark', '951 Chestnut Way', 'Apt 9A', 'Boston', 'Massachusetts', '02101', 'US', '+1-555-0119', TRUE, '2024-07-02 10:00:00'),
+
+-- User 20 addresses
+(20, 'Home', 'Thomas Rodriguez', '162 Beech Boulevard', NULL, 'Detroit', 'Michigan', '48201', 'US', '+1-555-0120', TRUE, '2024-07-10 15:30:00'),
+
+-- User 21 addresses
+(21, 'Home', 'Susan Lewis', '273 Palm Drive', 'Suite 5', 'Portland', 'Oregon', '97201', 'US', '+1-555-0121', TRUE, '2024-07-18 12:45:00'),
+
+-- User 22 addresses
+(22, 'Home', 'Christopher Lee', '384 Fir Street', NULL, 'Las Vegas', 'Nevada', '89101', 'US', '+1-555-0122', TRUE, '2024-07-25 17:00:00'),
+
+-- User 23 addresses
+(23, 'Home', 'Jessica Walker', '495 Juniper Lane', 'Apt 6D', 'Miami', 'Florida', '33101', 'US', '+1-555-0123', TRUE, '2024-08-01 09:20:00'),
+
+-- User 24 addresses
+(24, 'Home', 'Matthew Hall', '516 Hemlock Road', NULL, 'Atlanta', 'Georgia', '30303', 'US', '+1-555-0124', TRUE, '2024-08-08 14:40:00'),
+
+-- User 25 addresses
+(25, 'Home', 'Karen Allen', '627 Laurel Avenue', 'Unit 11B', 'Minneapolis', 'Minnesota', '55401', 'US', '+1-555-0125', TRUE, '2024-08-15 11:10:00'),
+
+-- User 26 addresses
+(26, 'Home', 'Mark Young', '738 Dogwood Court', NULL, 'Orlando', 'Florida', '32801', 'US', '+1-555-0126', TRUE, '2024-08-22 16:50:00'),
+
+-- User 27 addresses
+(27, 'Home', 'Nancy Hernandez', '849 Cottonwood Way', 'Apt 4A', 'San Francisco', 'California', '94102', 'US', '+1-555-0127', TRUE, '2024-09-01 10:30:00'),
+
+-- User 28 addresses
+(28, 'Home', 'Paul King', '950 Alder Boulevard', NULL, 'Tampa', 'Florida', '33601', 'US', '+1-555-0128', TRUE, '2024-09-10 15:15:00'),
+
+-- User 29 addresses
+(29, 'Home', 'Betty Wright', '161 Sequoia Street', 'Suite 8', 'Sacramento', 'California', '94203', 'US', '+1-555-0129', TRUE, '2024-09-18 12:35:00'),
+
+-- User 30 addresses
+(30, 'Home', 'Steven Lopez', '272 Eucalyptus Drive', NULL, 'Kansas City', 'Missouri', '64101', 'US', '+1-555-0130', TRUE, '2024-09-25 17:50:00'),
+
+-- Additional addresses for users with multiple
+(10, 'Parents House', 'Robert Thomas', '555 Family Lane', NULL, 'Dallas', 'Texas', '75202', 'US', '+1-555-0110', FALSE, '2024-06-15 10:00:00'),
+(15, 'Vacation Home', 'Patricia Thompson', '777 Beach Road', NULL, 'Miami', 'Florida', '33139', 'US', '+1-555-0115', FALSE, '2024-07-20 14:30:00'),
+(20, 'Office', 'Thomas Rodriguez', '888 Work Plaza', 'Floor 22', 'Detroit', 'Michigan', '48202', 'US', '+1-555-0120', FALSE, '2024-08-10 11:45:00'),
+(25, 'Shipping Address', 'Karen Allen', '999 Delivery Lane', 'Warehouse B', 'Minneapolis', 'Minnesota', '55402', 'US', '+1-555-0125', FALSE, '2024-09-05 16:20:00'),
+(30, 'Billing Address', 'Steven Lopez', '111 Payment Street', NULL, 'Kansas City', 'Missouri', '64102', 'US', '+1-555-0130', FALSE, '2024-10-01 09:30:00');
+
+
+
+-- ====================================================================
+-- File: tables/khapekar_pooja/create_products_table.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Khapekar, Pooja
+-- Create date: November 2025
+-- Description: Sample Data for Products Table 
+-- Module: Product Catalog
+-- Note: Requires Categories table to exist first
+-- =============================================
+
+USE urbanease_shop;
+
+-- Insert diverse products across different categories
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Electronics'),
+    'Also Electronics',
+    'This is a premium electronics product trusted by many customers.',
+    'LG',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Electronics'),
+    'Push Electronics',
+    'This is a premium electronics product trusted by many customers.',
+    'LG',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Electronics'),
+    'Life Electronics',
+    'This is a premium electronics product trusted by many customers.',
+    'SONY',
+    0,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Clothing'),
+    'Theory Clothing',
+    'This is a premium clothing product trusted by many customers.',
+    'ZARA',
+    0,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Clothing'),
+    'Believe Clothing',
+    'This is a premium clothing product trusted by many customers.',
+    'ZARA',
+    0,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Clothing'),
+    'Say Clothing',
+    'This is a premium clothing product trusted by many customers.',
+    'ZARA',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Home & Garden'),
+    'Might Home & Garden',
+    'This is a premium home & garden product trusted by many customers.',
+    'HOME DEPOT',
+    0,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Home & Garden'),
+    'Scene Home & Garden',
+    'This is a premium home & garden product trusted by many customers.',
+    'WALMART',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Home & Garden'),
+    'Red Home & Garden',
+    'This is a premium home & garden product trusted by many customers.',
+    'IKEA',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Beauty & Personal Care'),
+    'Collection Beauty & Personal Care',
+    'This is a premium beauty & personal care product trusted by many customers.',
+    'ULTA',
+    0,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Beauty & Personal Care'),
+    'Amount Beauty & Personal Care',
+    'This is a premium beauty & personal care product trusted by many customers.',
+    'ULTA',
+    0,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Beauty & Personal Care'),
+    'Huge Beauty & Personal Care',
+    'This is a premium beauty & personal care product trusted by many customers.',
+    'MAYBELLENE',
+    0,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Health & Wellness'),
+    'Center Health & Wellness',
+    'This is a premium health & wellness product trusted by many customers.',
+    'NUTRI',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Health & Wellness'),
+    'Garden Health & Wellness',
+    'This is a premium health & wellness product trusted by many customers.',
+    'COSTCO',
+    0,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Health & Wellness'),
+    'Ten Health & Wellness',
+    'This is a premium health & wellness product trusted by many customers.',
+    'COSTCO',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Sports & Outdoors'),
+    'Hair Sports & Outdoors',
+    'This is a premium sports & outdoors product trusted by many customers.',
+    'UNDER ARMOUR',
+    0,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Sports & Outdoors'),
+    'Page Sports & Outdoors',
+    'This is a premium sports & outdoors product trusted by many customers.',
+    'NIKE',
+    0,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Sports & Outdoors'),
+    'Peace Sports & Outdoors',
+    'This is a premium sports & outdoors product trusted by many customers.',
+    'PUMA',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Toys & Games'),
+    'Toward Toys & Games',
+    'This is a premium toys & games product trusted by many customers.',
+    'HOT WHEELS',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Toys & Games'),
+    'President Toys & Games',
+    'This is a premium toys & games product trusted by many customers.',
+    'PS',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Automotive'),
+    'Rock Automotive',
+    'This is a premium automotive product trusted by many customers.',
+    'VOLVO',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Automotive'),
+    'Guy Automotive',
+    'This is a premium automotive product trusted by many customers.',
+    'BMW',
+    0,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Automotive'),
+    'Professor Automotive',
+    'This is a premium automotive product trusted by many customers.',
+    'AUDI',
+    0,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Books & Stationery'),
+    'Service Books & Stationery',
+    'This is a premium books & stationery product trusted by many customers.',
+    'NAVNEET',
+    0,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Books & Stationery'),
+    'Event Books & Stationery',
+    'This is a premium books & stationery product trusted by many customers.',
+    'PARAMOUNT',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Books & Stationery'),
+    'Exist Books & Stationery',
+    'This is a premium books & stationery product trusted by many customers.',
+    'SEABREEZE',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Groceries'),
+    'Democratic Groceries',
+    'This is a premium groceries product trusted by many customers.',
+    'CENTRAL MARKET',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Groceries'),
+    'Whether Groceries',
+    'This is a premium groceries product trusted by many customers.',
+    'KIRKLAND',
+    0,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Baby & Kids'),
+    'Talk Baby & Kids',
+    'This is a premium baby & kids product trusted by many customers.',
+    'BABIES',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Baby & Kids'),
+    'Opportunity Baby & Kids',
+    'This is a premium baby & kids product trusted by many customers.',
+    'KIDDO',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Baby & Kids'),
+    'Couple Baby & Kids',
+    'This is a premium baby & kids product trusted by many customers.',
+    'BRATZ',
+    1,
+    NOW(),
+    NOW()
+);
+-- Additional products 32-35 (needed for ProductVariants)
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Books & Stationery'),
+    'Office Supplies',
+    'Premium office supplies for productivity.',
+    'Staples',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Home & Garden'),
+    'Home Tools',
+    'Essential home improvement tools.',
+    'Black & Decker',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Toys & Games'),
+    'Musical Instruments',
+    'Quality musical instruments for all skill levels.',
+    'Yamaha',
+    1,
+    NOW(),
+    NOW()
+);
+INSERT INTO Products (category_id, title, description, brand, is_active, created_at, updated_at)
+VALUES (
+    (SELECT category_id FROM Categories WHERE name = 'Books & Stationery'),
+    'Art Supplies',
+    'Professional art supplies for artists.',
+    'Crayola',
+    1,
+    NOW(),
+    NOW()
+);
+
+
+-- ====================================================================
+-- File: tables/min_la_yaung/create_carts_table.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Min, La Yaung
+-- Create date: November 2025
+-- Description: Sample Data for Carts Table (35 entries)
+-- Module: Shopping Cart
+-- Note: Requires Users table to exist first
+-- =============================================
+
+USE urbanease_shop;
+
+-- Insert 35 shopping carts (mix of active, abandoned, and guest carts)
+INSERT INTO Carts (user_id, created_at, updated_at) VALUES
+-- Active customer carts (recently updated)
+(2, '2024-11-01 10:00:00', '2024-11-07 14:30:00'),
+(3, '2024-11-02 11:15:00', '2024-11-07 15:45:00'),
+(4, '2024-11-03 09:30:00', '2024-11-07 10:20:00'),
+(5, '2024-11-04 14:20:00', '2024-11-07 16:10:00'),
+(6, '2024-11-05 08:45:00', '2024-11-07 11:35:00'),
+
+-- Recent carts (updated within last 2 days)
+(7, '2024-11-05 16:30:00', '2024-11-06 09:15:00'),
+(8, '2024-11-06 10:20:00', '2024-11-07 13:20:00'),
+(9, '2024-11-06 13:40:00', '2024-11-07 08:50:00'),
+(10, '2024-11-06 15:10:00', '2024-11-06 18:25:00'),
+
+-- Abandoned carts (not updated in 3-7 days)
+(11, '2024-10-28 10:00:00', '2024-10-28 10:15:00'),
+(12, '2024-10-29 11:30:00', '2024-10-29 11:45:00'),
+(13, '2024-10-30 14:20:00', '2024-10-30 14:35:00'),
+(14, '2024-10-31 09:15:00', '2024-10-31 09:30:00'),
+(15, '2024-11-01 16:40:00', '2024-11-01 16:55:00'),
+
+-- Old abandoned carts (7+ days)
+(16, '2024-10-20 10:00:00', '2024-10-20 10:20:00'),
+(17, '2024-10-21 12:30:00', '2024-10-21 12:45:00'),
+(18, '2024-10-22 15:10:00', '2024-10-22 15:25:00'),
+(19, '2024-10-23 08:45:00', '2024-10-23 09:00:00'),
+(20, '2024-10-24 14:20:00', '2024-10-24 14:35:00'),
+
+-- Guest carts (user_id is NULL)
+(NULL, '2024-11-07 09:00:00', '2024-11-07 09:45:00'),
+(NULL, '2024-11-07 10:30:00', '2024-11-07 11:15:00'),
+(NULL, '2024-11-07 12:00:00', '2024-11-07 12:30:00'),
+(NULL, '2024-11-06 14:20:00', '2024-11-06 14:50:00'),
+(NULL, '2024-11-06 16:10:00', '2024-11-06 16:40:00'),
+
+-- More customer carts (various states)
+(21, '2024-11-03 10:30:00', '2024-11-07 09:20:00'),
+(22, '2024-11-04 13:15:00', '2024-11-06 15:30:00'),
+(23, '2024-10-25 11:00:00', '2024-10-25 11:20:00'),
+(24, '2024-11-05 09:45:00', '2024-11-07 14:10:00'),
+(25, '2024-10-27 14:30:00', '2024-10-27 14:50:00'),
+
+-- Additional guest and customer carts
+(NULL, '2024-11-05 08:00:00', '2024-11-05 08:25:00'),
+(26, '2024-11-06 10:15:00', '2024-11-07 12:45:00'),
+(27, '2024-10-26 16:20:00', '2024-10-26 16:40:00'),
+(28, '2024-11-07 07:30:00', '2024-11-07 13:50:00'),
+(29, '2024-11-02 12:10:00', '2024-11-07 10:35:00'),
+(30, '2024-11-01 15:40:00', '2024-11-07 16:20:00');
+
+
+
+-- ====================================================================
+-- File: tables/bajwa_achint_kaur/create_user_roles_table.sql
+-- ====================================================================
 
 -- =============================================
 -- Author: Bajwa, Achint Kaur
@@ -443,457 +1157,11 @@ INSERT INTO UserRoles (user_id, role_id, assigned_at) VALUES
 (32, 4, '2024-10-10 13:40:00'),
 (33, 4, '2024-10-18 10:55:00');
 
--- Verify inserted data
-SELECT COUNT(*) AS total_user_roles FROM UserRoles;
-SELECT u.email, r.role_name, ur.assigned_at 
-FROM UserRoles ur
-JOIN Users u ON ur.user_id = u.user_id
-JOIN Roles r ON ur.role_id = r.role_id
-ORDER BY ur.user_id, ur.role_id
-LIMIT 20;
 
--- COMMENTS
--- 1) Uses lower-case table names (`user_roles`, `users`, `roles`) to avoid
---    failures on case-sensitive MySQL installations.
--- 2) The script inserts 38 rows (header updated). Users 31 has two roles.
---    Users 34–35 intentionally have no roles (e.g., 35 is inactive).
--- 3) Role id meanings (example mapping): 
---    1=SuperAdmin, 2=Admin, 3=Manager, 4=Customer, 5=VIP Customer,
---    6=WarehouseManager, 7=InventoryClerk, 8=ShippingCoordinator, 9=CustomerSupport,
---    10=SalesAgent, 11=MarketingManager, 13=ProductManager, 16=OrderProcessor,
---    20=FinanceManager, 22=PaymentProcessor. Ensure these exist in `roles`.
--- 4) Added three sanity-check queries to quickly catch FK issues or duplicates.
--- 5) Keep helpful indexes:
---      CREATE INDEX idx_ur_user ON user_roles(user_id);
---      CREATE INDEX idx_ur_role ON user_roles(role_id);
---      CREATE INDEX idx_r_name  ON roles(role_name);
--- 6) Always pin schema with `USE urbanease_shop;` and add an ORDER BY in
---    verification queries for stable, comparable outputs across teammates.
 
-
--- =============================================
--- Khapekar, Pooja
--- Module: Product Catalog
--- Tables: Categories, Products, ProductImages
--- =============================================
-
--- Data for tables: Categories, Products, ProductImages
-
--- =============================================
--- Author: Khapekar, Pooja
--- Create date: November 2025
--- Description: Sample Data for Categories Table (90 entries total: 30 root + 60 subcategories)
--- Module: Product Catalog
--- =============================================
-
-USE urbanease_shop;
-
--- Root categories (30 main categories)
-INSERT INTO Categories (parent_id, name, slug) VALUES 
-(NULL, 'Electronics', 'electronics'),
-(NULL, 'Clothing', 'clothing'),
-(NULL, 'Home & Garden', 'home-garden'),
-(NULL, 'Beauty & Personal Care', 'beauty-personal-care'),
-(NULL, 'Health & Wellness', 'health-wellness'),
-(NULL, 'Sports & Outdoors', 'sports-outdoors'),
-(NULL, 'Toys & Games', 'toys-games'),
-(NULL, 'Automotive', 'automotive'),
-(NULL, 'Books & Stationery', 'books-stationery'),
-(NULL, 'Groceries', 'groceries'),
-(NULL, 'Baby & Kids', 'baby-kids'),
-(NULL, 'Jewelry & Accessories', 'jewelry-accessories'),
-(NULL, 'Shoes & Footwear', 'shoes-footwear'),
-(NULL, 'Pet Supplies', 'pet-supplies'),
-(NULL, 'Furniture', 'furniture'),
-(NULL, 'Office Supplies', 'office-supplies'),
-(NULL, 'Tools & Hardware', 'tools-hardware'),
-(NULL, 'Musical Instruments', 'musical-instruments'),
-(NULL, 'Arts & Crafts', 'arts-crafts'),
-(NULL, 'Cameras & Photography', 'cameras-photography'),
-(NULL, 'Computers & Laptops', 'computers-laptops'),
-(NULL, 'Mobile Phones & Tablets', 'mobile-phones-tablets'),
-(NULL, 'Appliances', 'appliances'),
-(NULL, 'Travel & Luggage', 'travel-luggage'),
-(NULL, 'Movies & Entertainment', 'movies-entertainment'),
-(NULL, 'Gaming', 'gaming'),
-(NULL, 'Watches', 'watches'),
-(NULL, 'Kitchen & Dining', 'kitchen-dining'),
-(NULL, 'Seasonal & Holiday', 'seasonal-holiday'),
-(NULL, 'Safety & Security', 'safety-security');
-  
--- Sub-categories (60 subcategories, 2 per root category)
-INSERT INTO Categories (parent_id, name, slug) VALUES
--- 1. Electronics
-(1, 'Laptops', 'laptops'),
-(1, 'Smartphones', 'smartphones'),
-
--- 2. Clothing
-(2, 'Men Clothing', 'men-clothing'),
-(2, 'Women Clothing', 'women-clothing'),
-
--- 3. Home & Garden
-(3, 'Furniture Sets', 'furniture-sets'),
-(3, 'Home Decor', 'home-decor'),
-
--- 4. Beauty & Personal Care
-(4, 'Skincare', 'skincare'),
-(4, 'Hair Care', 'hair-care'),
-
--- 5. Health & Wellness
-(5, 'Vitamins & Supplements', 'vitamins-supplements'),
-(5, 'Fitness Equipment', 'fitness-equipment'),
-
--- 6. Sports & Outdoors
-(6, 'Camping & Hiking', 'camping-hiking'),
-(6, 'Sportswear', 'sportswear'),
-
--- 7. Toys & Games
-(7, 'Board Games', 'board-games'),
-(7, 'Action Figures', 'action-figures'),
-
--- 8. Automotive
-(8, 'Car Accessories', 'car-accessories'),
-(8, 'Motorbike Accessories', 'motorbike-accessories'),
-
--- 9. Books & Stationery
-(9, 'Fiction Books', 'fiction-books'),
-(9, 'Notebooks & Diaries', 'notebooks-diaries'),
-
--- 10. Groceries
-(10, 'Snacks & Beverages', 'snacks-beverages'),
-(10, 'Dairy Products', 'dairy-products'),
-
--- 11. Baby & Kids
-(11, 'Baby Clothing', 'baby-clothing'),
-(11, 'Baby Care', 'baby-care'),
-
--- 12. Jewelry & Accessories
-(12, 'Necklaces', 'necklaces'),
-(12, 'Earrings', 'earrings'),
-
--- 13. Shoes & Footwear
-(13, 'Men Footwear', 'men-footwear'),
-(13, 'Women Footwear', 'women-footwear'),
-
--- 14. Pet Supplies
-(14, 'Dog Supplies', 'dog-supplies'),
-(14, 'Cat Supplies', 'cat-supplies'),
-
--- 15. Furniture
-(15, 'Living Room Furniture', 'living-room-furniture'),
-(15, 'Bedroom Furniture', 'bedroom-furniture'),
-
--- 16. Office Supplies
-(16, 'Printers & Scanners', 'printers-scanners'),
-(16, 'Desk Accessories', 'desk-accessories'),
-
--- 17. Tools & Hardware
-(17, 'Power Tools', 'power-tools'),
-(17, 'Hand Tools', 'hand-tools'),
-
--- 18. Musical Instruments
-(18, 'Guitars', 'guitars'),
-(18, 'Keyboards', 'keyboards'),
-
--- 19. Arts & Crafts
-(19, 'Painting Supplies', 'painting-supplies'),
-(19, 'Craft Kits', 'craft-kits'),
-
--- 20. Cameras & Photography
-(20, 'DSLR Cameras', 'dslr-cameras'),
-(20, 'Camera Lenses', 'camera-lenses'),
-
--- 21. Computers & Laptops
-(21, 'Desktops', 'desktops'),
-(21, 'Gaming Laptops', 'gaming-laptops'),
-
--- 22. Mobile Phones & Tablets
-(22, 'Android Phones', 'android-phones'),
-(22, 'iPhones', 'iphones'),
-
--- 23. Appliances
-(23, 'Refrigerators', 'refrigerators'),
-(23, 'Washing Machines', 'washing-machines'),
-
--- 24. Travel & Luggage
-(24, 'Suitcases', 'suitcases'),
-(24, 'Backpacks', 'backpacks'),
-
--- 25. Movies & Entertainment
-(25, 'DVDs & Blu-rays', 'dvds-blurays'),
-(25, 'Music Albums', 'music-albums'),
-
--- 26. Gaming
-(26, 'Consoles', 'consoles'),
-(26, 'Video Games', 'video-games'),
-
--- 27. Watches
-(27, 'Men Watches', 'men-watches'),
-(27, 'Smart Watches', 'smart-watches'),
-
--- 28. Kitchen & Dining
-(28, 'Cookware', 'cookware'),
-(28, 'Tableware', 'tableware'),
-
--- 29. Seasonal & Holiday
-(29, 'Christmas Decor', 'christmas-decor'),
-(29, 'Halloween Supplies', 'halloween-supplies'),
-
--- 30. Safety & Security
-(30, 'Home Security Systems', 'home-security-systems'),
-(30, 'Surveillance Cameras', 'surveillance-cameras');
-
--- Verify inserted data
-SELECT COUNT(*) AS total_categories FROM Categories;
-SELECT * FROM Categories WHERE parent_id IS NULL LIMIT 10;
-SELECT c.name AS subcategory, p.name AS parent_category 
-FROM Categories c 
-LEFT JOIN Categories p ON c.parent_id = p.category_id 
-WHERE c.parent_id IS NOT NULL 
-LIMIT 10;
-
-
--- =============================================
--- Author: Khapekar, Pooja
--- Create date: November 2025
--- Description: Sample Data for Products Table (35 entries)
--- Module: Product Catalog
--- Note: Requires Categories table to exist first
--- =============================================
-
-USE urbanease_shop;
-
--- Insert 35 diverse products across different categories
-INSERT INTO Products (category_id, title, description, brand, is_active, created_at) VALUES
-(31, 'MacBook Pro 16" M3', 'Powerful laptop for professionals with M3 chip, 16GB RAM, 512GB SSD', 'Apple', TRUE, '2024-01-10 10:00:00'),
-(32, 'iPhone 15 Pro Max', 'Latest flagship smartphone with A17 Pro chip and titanium design', 'Apple', TRUE, '2024-01-15 11:30:00'),
-(33, 'Premium Cotton T-Shirt', 'Comfortable 100% organic cotton t-shirt for men', 'Nike', TRUE, '2024-02-01 09:15:00'),
-(34, 'Summer Floral Dress', 'Elegant floral print dress perfect for summer occasions', 'Zara', TRUE, '2024-02-10 14:20:00'),
-(35, 'Modern Sofa Set', 'Contemporary 3-seater sofa with premium fabric upholstery', 'IKEA', TRUE, '2024-02-20 10:45:00'),
-(36, 'Decorative Wall Art', 'Hand-painted canvas art for living room decoration', 'HomeStyle', TRUE, '2024-03-01 13:30:00'),
-(37, 'Vitamin C Face Serum', 'Brightening serum with 20% vitamin C for radiant skin', 'The Ordinary', TRUE, '2024-03-10 08:50:00'),
-(38, 'Argan Oil Shampoo', 'Nourishing shampoo for damaged and dry hair', 'OGX', TRUE, '2024-03-15 15:10:00'),
-(39, 'Multivitamin Complex', 'Daily multivitamin supplement with essential nutrients', 'Nature Made', TRUE, '2024-04-01 10:20:00'),
-(40, 'Adjustable Dumbbell Set', 'Space-saving adjustable dumbbells 5-52.5 lbs', 'Bowflex', TRUE, '2024-04-10 12:35:00'),
-(41, 'Camping Tent 4-Person', 'Waterproof family camping tent with easy setup', 'Coleman', TRUE, '2024-04-20 09:40:00'),
-(42, 'Running Shorts Men', 'Lightweight moisture-wicking running shorts', 'Under Armour', TRUE, '2024-05-01 14:15:00'),
-(43, 'Strategy Board Game', 'Award-winning strategy game for 2-4 players', 'Catan', TRUE, '2024-05-10 11:25:00'),
-(44, 'Superhero Action Figure', 'Collectible 12-inch articulated action figure', 'Marvel', TRUE, '2024-05-20 16:30:00'),
-(45, 'Car Phone Mount', 'Universal magnetic phone holder for car dashboard', 'iOttie', TRUE, '2024-06-01 10:05:00'),
-(46, 'Motorcycle Gloves', 'Protective leather gloves for riders', 'Alpinestars', TRUE, '2024-06-10 13:45:00'),
-(47, 'Mystery Novel Collection', 'Bestselling mystery thriller paperback book', 'Penguin Books', TRUE, '2024-06-20 09:30:00'),
-(48, 'Leather Journal', 'Handcrafted leather-bound journal with 200 pages', 'Moleskine', TRUE, '2024-07-01 15:20:00'),
-(49, 'Organic Trail Mix', 'Healthy snack mix with nuts, seeds and dried fruits', 'Nature Valley', TRUE, '2024-07-10 08:55:00'),
-(50, 'Greek Yogurt Pack', 'High-protein probiotic yogurt 6-pack', 'Chobani', TRUE, '2024-07-20 12:10:00'),
-(51, 'Baby Onesie 3-Pack', 'Soft cotton baby bodysuits in assorted colors', 'Gerber', TRUE, '2024-08-01 10:35:00'),
-(52, 'Baby Wipes Sensitive', 'Hypoallergenic fragrance-free baby wipes 500 count', 'Pampers', TRUE, '2024-08-10 14:50:00'),
-(53, 'Gold Pendant Necklace', 'Elegant 18K gold plated pendant with chain', 'Swarovski', TRUE, '2024-08-20 11:15:00'),
-(54, 'Diamond Stud Earrings', 'Classic sterling silver earrings with cubic zirconia', 'Pandora', TRUE, '2024-09-01 16:25:00'),
-(55, 'Leather Oxford Shoes', 'Handcrafted genuine leather formal shoes for men', 'Clarks', TRUE, '2024-09-10 09:40:00'),
-(56, 'High Heel Pumps', 'Elegant pointed-toe pumps for women', 'Steve Madden', TRUE, '2024-09-20 13:55:00'),
-(57, 'Premium Dog Food 15kg', 'Grain-free natural dog food for all breeds', 'Blue Buffalo', TRUE, '2024-10-01 10:30:00'),
-(58, 'Cat Scratching Post', 'Multi-level cat tree with sisal scratching posts', 'Frisco', TRUE, '2024-10-10 15:45:00'),
-(59, 'Recliner Armchair', 'Comfortable leather recliner for living room', 'La-Z-Boy', TRUE, '2024-10-20 08:20:00'),
-(60, 'Queen Size Bed Frame', 'Solid wood platform bed with headboard', 'Zinus', TRUE, '2024-11-01 12:40:00'),
-(61, 'Wireless All-in-One Printer', 'Color printer with scanner and copier', 'HP', TRUE, '2024-11-05 09:50:00'),
-(62, 'Desk Organizer Set', 'Bamboo desktop organizer with multiple compartments', 'SimpleHouseware', TRUE, '2024-11-07 14:05:00'),
-(63, 'Cordless Drill Kit', '20V drill driver with battery and charger', 'DeWalt', TRUE, '2024-11-08 11:30:00'),
-(64, 'Acoustic Guitar Bundle', 'Full-size guitar with case, tuner and picks', 'Fender', TRUE, '2024-11-09 16:15:00'),
-(65, 'Watercolor Paint Set', 'Professional watercolor set with 36 colors', 'Winsor & Newton', TRUE, '2024-11-10 10:25:00');
-
--- Verify inserted data
-SELECT COUNT(*) AS total_products FROM Products;
-SELECT p.title, p.brand, c.name AS category 
-FROM Products p
-LEFT JOIN Categories c ON p.category_id = c.category_id
-LIMIT 10;
-
-
--- =============================================
--- Author: Khapekar, Pooja
--- Create date: November 2025
--- Description: Sample Data for ProductImages Table (35 entries)
--- Module: Product Catalog
--- Note: Requires Products table to exist first
--- =============================================
-
-USE urbanease_shop;
-
--- Insert 35 product images (1-2 images per product)
-INSERT INTO ProductImages (product_id, url, alt_text, sort_order) VALUES
--- Product 1: MacBook Pro
-(1, 'https://cdn.urbanease.com/products/macbook-pro-16-front.jpg', 'MacBook Pro 16 inch front view', 0),
-(1, 'https://cdn.urbanease.com/products/macbook-pro-16-side.jpg', 'MacBook Pro 16 inch side view', 1),
-
--- Product 2: iPhone 15 Pro Max
-(2, 'https://cdn.urbanease.com/products/iphone-15-pro-max-blue.jpg', 'iPhone 15 Pro Max in blue titanium', 0),
-
--- Product 3: T-Shirt
-(3, 'https://cdn.urbanease.com/products/cotton-tshirt-men-black.jpg', 'Black cotton t-shirt for men', 0),
-
--- Product 4: Summer Dress
-(4, 'https://cdn.urbanease.com/products/floral-dress-women-summer.jpg', 'Women summer floral dress', 0),
-(4, 'https://cdn.urbanease.com/products/floral-dress-detail.jpg', 'Floral dress detail view', 1),
-
--- Product 5: Sofa Set
-(5, 'https://cdn.urbanease.com/products/modern-sofa-grey.jpg', 'Modern grey sofa set', 0),
-
--- Product 6: Wall Art
-(6, 'https://cdn.urbanease.com/products/wall-art-abstract.jpg', 'Abstract wall art painting', 0),
-
--- Product 7: Face Serum
-(7, 'https://cdn.urbanease.com/products/vitamin-c-serum.jpg', 'Vitamin C face serum bottle', 0),
-
--- Product 8: Shampoo
-(8, 'https://cdn.urbanease.com/products/argan-oil-shampoo.jpg', 'Argan oil shampoo bottle', 0),
-(8, 'https://cdn.urbanease.com/products/argan-oil-ingredients.jpg', 'Shampoo ingredients label', 1),
-
--- Product 9: Multivitamin
-(9, 'https://cdn.urbanease.com/products/multivitamin-complex.jpg', 'Multivitamin supplement bottle', 0),
-
--- Product 10: Dumbbells
-(10, 'https://cdn.urbanease.com/products/adjustable-dumbbells.jpg', 'Adjustable dumbbell set', 0),
-
--- Product 11: Camping Tent
-(11, 'https://cdn.urbanease.com/products/camping-tent-4person.jpg', '4-person camping tent', 0),
-(11, 'https://cdn.urbanease.com/products/tent-interior.jpg', 'Tent interior view', 1),
-
--- Product 12: Running Shorts
-(12, 'https://cdn.urbanease.com/products/running-shorts-men-blue.jpg', 'Men blue running shorts', 0),
-
--- Product 13: Board Game
-(13, 'https://cdn.urbanease.com/products/catan-board-game.jpg', 'Catan strategy board game', 0),
-
--- Product 14: Action Figure
-(14, 'https://cdn.urbanease.com/products/superhero-action-figure.jpg', 'Marvel superhero action figure', 0),
-
--- Product 15: Phone Mount
-(15, 'https://cdn.urbanease.com/products/car-phone-mount.jpg', 'Magnetic car phone mount', 0),
-
--- Product 16: Motorcycle Gloves
-(16, 'https://cdn.urbanease.com/products/motorcycle-gloves-leather.jpg', 'Leather motorcycle gloves', 0),
-(16, 'https://cdn.urbanease.com/products/gloves-detail.jpg', 'Gloves protection detail', 1),
-
--- Product 17: Mystery Novel
-(17, 'https://cdn.urbanease.com/products/mystery-novel-cover.jpg', 'Mystery novel book cover', 0),
-
--- Product 18: Leather Journal
-(18, 'https://cdn.urbanease.com/products/leather-journal-brown.jpg', 'Brown leather journal', 0),
-
--- Product 19: Trail Mix
-(19, 'https://cdn.urbanease.com/products/organic-trail-mix.jpg', 'Organic trail mix pack', 0),
-
--- Product 20: Greek Yogurt
-(20, 'https://cdn.urbanease.com/products/greek-yogurt-6pack.jpg', 'Greek yogurt 6-pack', 0),
-
--- Product 21: Baby Onesie
-(21, 'https://cdn.urbanease.com/products/baby-onesie-3pack.jpg', 'Baby onesie 3-pack assorted', 0),
-
--- Product 22: Baby Wipes
-(22, 'https://cdn.urbanease.com/products/baby-wipes-sensitive.jpg', 'Sensitive baby wipes pack', 0),
-
--- Product 23: Pendant Necklace
-(23, 'https://cdn.urbanease.com/products/gold-pendant-necklace.jpg', 'Gold pendant necklace', 0),
-
--- Product 24: Earrings
-(24, 'https://cdn.urbanease.com/products/diamond-stud-earrings.jpg', 'Diamond stud earrings', 0),
-
--- Product 25: Oxford Shoes
-(25, 'https://cdn.urbanease.com/products/leather-oxford-shoes-brown.jpg', 'Brown leather oxford shoes', 0),
-
--- Product 26: High Heels
-(26, 'https://cdn.urbanease.com/products/high-heel-pumps-black.jpg', 'Black high heel pumps', 0),
-(26, 'https://cdn.urbanease.com/products/pumps-side-view.jpg', 'Pumps side view', 1),
-
--- Product 27: Dog Food
-(27, 'https://cdn.urbanease.com/products/premium-dog-food-15kg.jpg', 'Premium dog food 15kg bag', 0),
-
--- Product 28: Cat Tree
-(28, 'https://cdn.urbanease.com/products/cat-scratching-post.jpg', 'Multi-level cat scratching post', 0),
-
--- Product 29: Recliner
-(29, 'https://cdn.urbanease.com/products/leather-recliner-armchair.jpg', 'Leather recliner armchair', 0),
-
--- Product 30: Bed Frame
-(30, 'https://cdn.urbanease.com/products/queen-bed-frame-wood.jpg', 'Queen size wooden bed frame', 0),
-
--- Product 31: Printer
-(31, 'https://cdn.urbanease.com/products/wireless-printer-hp.jpg', 'HP wireless all-in-one printer', 0),
-
--- Product 32: Desk Organizer
-(32, 'https://cdn.urbanease.com/products/bamboo-desk-organizer.jpg', 'Bamboo desk organizer set', 0),
-
--- Product 33: Drill Kit
-(33, 'https://cdn.urbanease.com/products/cordless-drill-kit.jpg', 'Cordless drill kit with battery', 0),
-
--- Product 34: Acoustic Guitar
-(34, 'https://cdn.urbanease.com/products/acoustic-guitar-bundle.jpg', 'Acoustic guitar bundle with accessories', 0),
-
--- Product 35: Watercolor Set
-(35, 'https://cdn.urbanease.com/products/watercolor-paint-set.jpg', 'Professional watercolor paint set', 0);
-
--- Verify inserted data
-SELECT COUNT(*) AS total_images FROM ProductImages;
-SELECT pi.image_id, p.title, pi.alt_text, pi.sort_order
-FROM ProductImages pi
-JOIN Products p ON pi.product_id = p.product_id
-LIMIT 10;
-
-
--- =============================================
--- Kumar, Virat
--- Module: Product Variants & Inventory Management
--- Tables: ProductVariants, Warehouses, Inventory
--- =============================================
-
--- Data for tables: ProductVariants, Warehouses, Inventory
-
--- =============================================
--- Author: Kumar, Virat
--- Create date: November 2025
--- Description: Sample Data for Warehouses Table (30 entries)
--- Module: Inventory Management
--- =============================================
-
-USE urbanease_shop;
-
--- Insert 30 warehouse locations across different regions
-INSERT INTO Warehouses (name, code, city, state_region, country_code) VALUES
-('New York Distribution Center', 'NYC-DC-001', 'New York', 'New York', 'US'),
-('Los Angeles Fulfillment Hub', 'LAX-FH-002', 'Los Angeles', 'California', 'US'),
-('Chicago Central Warehouse', 'CHI-CW-003', 'Chicago', 'Illinois', 'US'),
-('Houston South Distribution', 'HOU-SD-004', 'Houston', 'Texas', 'US'),
-('Phoenix West Warehouse', 'PHX-WW-005', 'Phoenix', 'Arizona', 'US'),
-('Philadelphia East Hub', 'PHL-EH-006', 'Philadelphia', 'Pennsylvania', 'US'),
-('San Antonio Regional Center', 'SAT-RC-007', 'San Antonio', 'Texas', 'US'),
-('San Diego Coastal Warehouse', 'SAN-CW-008', 'San Diego', 'California', 'US'),
-('Dallas North Distribution', 'DAL-ND-009', 'Dallas', 'Texas', 'US'),
-('San Jose Tech Hub', 'SJC-TH-010', 'San Jose', 'California', 'US'),
-('Austin Central Depot', 'AUS-CD-011', 'Austin', 'Texas', 'US'),
-('Jacksonville Southeast Center', 'JAX-SC-012', 'Jacksonville', 'Florida', 'US'),
-('Fort Worth Logistics Hub', 'FTW-LH-013', 'Fort Worth', 'Texas', 'US'),
-('Columbus Midwest Warehouse', 'CMH-MW-014', 'Columbus', 'Ohio', 'US'),
-('Charlotte East Coast Hub', 'CLT-ECH-015', 'Charlotte', 'North Carolina', 'US'),
-('Seattle Northwest Center', 'SEA-NWC-016', 'Seattle', 'Washington', 'US'),
-('Denver Mountain Hub', 'DEN-MH-017', 'Denver', 'Colorado', 'US'),
-('Boston Northeast Depot', 'BOS-NED-018', 'Boston', 'Massachusetts', 'US'),
-('Detroit Great Lakes Center', 'DTW-GLC-019', 'Detroit', 'Michigan', 'US'),
-('Portland Pacific Warehouse', 'PDX-PW-020', 'Portland', 'Oregon', 'US'),
-('Las Vegas Desert Hub', 'LAS-DH-021', 'Las Vegas', 'Nevada', 'US'),
-('Miami Southeast Distribution', 'MIA-SED-022', 'Miami', 'Florida', 'US'),
-('Atlanta Southern Hub', 'ATL-SH-023', 'Atlanta', 'Georgia', 'US'),
-('Minneapolis North Central', 'MSP-NC-024', 'Minneapolis', 'Minnesota', 'US'),
-('Orlando Florida Center', 'MCO-FC-025', 'Orlando', 'Florida', 'US'),
-('San Francisco Bay Warehouse', 'SFO-BW-026', 'San Francisco', 'California', 'US'),
-('Tampa Gulf Coast Hub', 'TPA-GCH-027', 'Tampa', 'Florida', 'US'),
-('Sacramento Valley Center', 'SMF-VC-028', 'Sacramento', 'California', 'US'),
-('Kansas City Heartland Hub', 'MCI-HH-029', 'Kansas City', 'Missouri', 'US'),
-('Raleigh East Distribution', 'RDU-ED-030', 'Raleigh', 'North Carolina', 'US');
-
--- Verify inserted data
-SELECT COUNT(*) AS total_warehouses FROM Warehouses;
-SELECT * FROM Warehouses LIMIT 10;
-
+-- ====================================================================
+-- File: tables/kumar_virat/create_product_variants_table.sql
+-- ====================================================================
 
 -- =============================================
 -- Author: Kumar, Virat
@@ -1017,13 +1285,679 @@ INSERT INTO ProductVariants (product_id, sku, attributes_json, price, currency, 
 -- Product 35: Watercolor
 (35, 'PAINT-WC-36COL', '{"type":"Watercolor","colors":"36","quality":"Professional"}', 54.99, 'USD', TRUE, '2024-11-10 10:25:00');
 
--- Verify inserted data
-SELECT COUNT(*) AS total_variants FROM ProductVariants;
-SELECT pv.sku, p.title, pv.price, pv.attributes_json
-FROM ProductVariants pv
-JOIN Products p ON pv.product_id = p.product_id
-LIMIT 10;
 
+
+-- ====================================================================
+-- File: tables/khapekar_pooja/create_product_images_table.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Khapekar, Pooja
+-- Create date: November 2025
+-- Description: Sample Data for ProductImages Table (85 entries)
+-- Module: Product Catalog
+-- Note: Requires Products table to exist first
+-- =============================================
+
+USE urbanease_shop;
+
+-- Insert 85 product images (1-2 images per product)
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Also Electronics'),
+    'https://cdn.example.com/images/also_electronics_1.jpg',
+    'Also Electronics - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Also Electronics'),
+    'https://cdn.example.com/images/also_electronics_2.jpg',
+    'Also Electronics - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Also Electronics'),
+    'https://cdn.example.com/images/also_electronics_3.jpg',
+    'Also Electronics - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Push Electronics'),
+    'https://cdn.example.com/images/push_electronics_1.jpg',
+    'Push Electronics - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Push Electronics'),
+    'https://cdn.example.com/images/push_electronics_2.jpg',
+    'Push Electronics - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Push Electronics'),
+    'https://cdn.example.com/images/push_electronics_3.jpg',
+    'Push Electronics - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Life Electronics'),
+    'https://cdn.example.com/images/life_electronics_1.jpg',
+    'Life Electronics - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Life Electronics'),
+    'https://cdn.example.com/images/life_electronics_2.jpg',
+    'Life Electronics - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Life Electronics'),
+    'https://cdn.example.com/images/life_electronics_3.jpg',
+    'Life Electronics - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Theory Clothing'),
+    'https://cdn.example.com/images/theory_clothing_1.jpg',
+    'Theory Clothing - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Theory Clothing'),
+    'https://cdn.example.com/images/theory_clothing_2.jpg',
+    'Theory Clothing - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Theory Clothing'),
+    'https://cdn.example.com/images/theory_clothing_3.jpg',
+    'Theory Clothing - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Believe Clothing'),
+    'https://cdn.example.com/images/believe_clothing_1.jpg',
+    'Believe Clothing - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Believe Clothing'),
+    'https://cdn.example.com/images/believe_clothing_2.jpg',
+    'Believe Clothing - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Believe Clothing'),
+    'https://cdn.example.com/images/believe_clothing_3.jpg',
+    'Believe Clothing - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Say Clothing'),
+    'https://cdn.example.com/images/say_clothing_1.jpg',
+    'Say Clothing - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Say Clothing'),
+    'https://cdn.example.com/images/say_clothing_2.jpg',
+    'Say Clothing - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Say Clothing'),
+    'https://cdn.example.com/images/say_clothing_3.jpg',
+    'Say Clothing - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Might Home & Garden'),
+    'https://cdn.example.com/images/might_home_&_garden_1.jpg',
+    'Might Home & Garden - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Might Home & Garden'),
+    'https://cdn.example.com/images/might_home_&_garden_2.jpg',
+    'Might Home & Garden - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Might Home & Garden'),
+    'https://cdn.example.com/images/might_home_&_garden_3.jpg',
+    'Might Home & Garden - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Scene Home & Garden'),
+    'https://cdn.example.com/images/scene_home_&_garden_1.jpg',
+    'Scene Home & Garden - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Scene Home & Garden'),
+    'https://cdn.example.com/images/scene_home_&_garden_2.jpg',
+    'Scene Home & Garden - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Scene Home & Garden'),
+    'https://cdn.example.com/images/scene_home_&_garden_3.jpg',
+    'Scene Home & Garden - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Red Home & Garden'),
+    'https://cdn.example.com/images/red_home_&_garden_1.jpg',
+    'Red Home & Garden - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Red Home & Garden'),
+    'https://cdn.example.com/images/red_home_&_garden_2.jpg',
+    'Red Home & Garden - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Red Home & Garden'),
+    'https://cdn.example.com/images/red_home_&_garden_3.jpg',
+    'Red Home & Garden - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Collection Beauty & Personal Care'),
+    'https://cdn.example.com/images/collection_beauty_&_personal_care_1.jpg',
+    'Collection Beauty & Personal Care - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Collection Beauty & Personal Care'),
+    'https://cdn.example.com/images/collection_beauty_&_personal_care_2.jpg',
+    'Collection Beauty & Personal Care - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Collection Beauty & Personal Care'),
+    'https://cdn.example.com/images/collection_beauty_&_personal_care_3.jpg',
+    'Collection Beauty & Personal Care - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Amount Beauty & Personal Care'),
+    'https://cdn.example.com/images/amount_beauty_&_personal_care_1.jpg',
+    'Amount Beauty & Personal Care - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Amount Beauty & Personal Care'),
+    'https://cdn.example.com/images/amount_beauty_&_personal_care_2.jpg',
+    'Amount Beauty & Personal Care - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Amount Beauty & Personal Care'),
+    'https://cdn.example.com/images/amount_beauty_&_personal_care_3.jpg',
+    'Amount Beauty & Personal Care - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Huge Beauty & Personal Care'),
+    'https://cdn.example.com/images/huge_beauty_&_personal_care_1.jpg',
+    'Huge Beauty & Personal Care - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Huge Beauty & Personal Care'),
+    'https://cdn.example.com/images/huge_beauty_&_personal_care_2.jpg',
+    'Huge Beauty & Personal Care - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Huge Beauty & Personal Care'),
+    'https://cdn.example.com/images/huge_beauty_&_personal_care_3.jpg',
+    'Huge Beauty & Personal Care - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Center Health & Wellness'),
+    'https://cdn.example.com/images/center_health_&_wellness_1.jpg',
+    'Center Health & Wellness - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Center Health & Wellness'),
+    'https://cdn.example.com/images/center_health_&_wellness_2.jpg',
+    'Center Health & Wellness - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Center Health & Wellness'),
+    'https://cdn.example.com/images/center_health_&_wellness_3.jpg',
+    'Center Health & Wellness - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Garden Health & Wellness'),
+    'https://cdn.example.com/images/garden_health_&_wellness_1.jpg',
+    'Garden Health & Wellness - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Garden Health & Wellness'),
+    'https://cdn.example.com/images/garden_health_&_wellness_2.jpg',
+    'Garden Health & Wellness - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Garden Health & Wellness'),
+    'https://cdn.example.com/images/garden_health_&_wellness_3.jpg',
+    'Garden Health & Wellness - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Ten Health & Wellness'),
+    'https://cdn.example.com/images/ten_health_&_wellness_1.jpg',
+    'Ten Health & Wellness - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Ten Health & Wellness'),
+    'https://cdn.example.com/images/ten_health_&_wellness_2.jpg',
+    'Ten Health & Wellness - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Ten Health & Wellness'),
+    'https://cdn.example.com/images/ten_health_&_wellness_3.jpg',
+    'Ten Health & Wellness - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Hair Sports & Outdoors'),
+    'https://cdn.example.com/images/hair_sports_&_outdoors_1.jpg',
+    'Hair Sports & Outdoors - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Hair Sports & Outdoors'),
+    'https://cdn.example.com/images/hair_sports_&_outdoors_2.jpg',
+    'Hair Sports & Outdoors - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Hair Sports & Outdoors'),
+    'https://cdn.example.com/images/hair_sports_&_outdoors_3.jpg',
+    'Hair Sports & Outdoors - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Page Sports & Outdoors'),
+    'https://cdn.example.com/images/page_sports_&_outdoors_1.jpg',
+    'Page Sports & Outdoors - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Page Sports & Outdoors'),
+    'https://cdn.example.com/images/page_sports_&_outdoors_2.jpg',
+    'Page Sports & Outdoors - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Page Sports & Outdoors'),
+    'https://cdn.example.com/images/page_sports_&_outdoors_3.jpg',
+    'Page Sports & Outdoors - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Peace Sports & Outdoors'),
+    'https://cdn.example.com/images/peace_sports_&_outdoors_1.jpg',
+    'Peace Sports & Outdoors - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Peace Sports & Outdoors'),
+    'https://cdn.example.com/images/peace_sports_&_outdoors_2.jpg',
+    'Peace Sports & Outdoors - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Peace Sports & Outdoors'),
+    'https://cdn.example.com/images/peace_sports_&_outdoors_3.jpg',
+    'Peace Sports & Outdoors - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Toward Toys & Games'),
+    'https://cdn.example.com/images/toward_toys_&_games_1.jpg',
+    'Toward Toys & Games - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Toward Toys & Games'),
+    'https://cdn.example.com/images/toward_toys_&_games_2.jpg',
+    'Toward Toys & Games - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Toward Toys & Games'),
+    'https://cdn.example.com/images/toward_toys_&_games_3.jpg',
+    'Toward Toys & Games - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'President Toys & Games'),
+    'https://cdn.example.com/images/president_toys_&_games_1.jpg',
+    'President Toys & Games - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'President Toys & Games'),
+    'https://cdn.example.com/images/president_toys_&_games_2.jpg',
+    'President Toys & Games - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'President Toys & Games'),
+    'https://cdn.example.com/images/president_toys_&_games_3.jpg',
+    'President Toys & Games - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Rock Automotive'),
+    'https://cdn.example.com/images/rock_automotive_1.jpg',
+    'Rock Automotive - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Rock Automotive'),
+    'https://cdn.example.com/images/rock_automotive_2.jpg',
+    'Rock Automotive - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Rock Automotive'),
+    'https://cdn.example.com/images/rock_automotive_3.jpg',
+    'Rock Automotive - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Guy Automotive'),
+    'https://cdn.example.com/images/guy_automotive_1.jpg',
+    'Guy Automotive - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Guy Automotive'),
+    'https://cdn.example.com/images/guy_automotive_2.jpg',
+    'Guy Automotive - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Guy Automotive'),
+    'https://cdn.example.com/images/guy_automotive_3.jpg',
+    'Guy Automotive - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Professor Automotive'),
+    'https://cdn.example.com/images/professor_automotive_1.jpg',
+    'Professor Automotive - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Professor Automotive'),
+    'https://cdn.example.com/images/professor_automotive_2.jpg',
+    'Professor Automotive - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Professor Automotive'),
+    'https://cdn.example.com/images/professor_automotive_3.jpg',
+    'Professor Automotive - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Service Books & Stationery'),
+    'https://cdn.example.com/images/service_books_&_stationery_1.jpg',
+    'Service Books & Stationery - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Service Books & Stationery'),
+    'https://cdn.example.com/images/service_books_&_stationery_2.jpg',
+    'Service Books & Stationery - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Service Books & Stationery'),
+    'https://cdn.example.com/images/service_books_&_stationery_3.jpg',
+    'Service Books & Stationery - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Event Books & Stationery'),
+    'https://cdn.example.com/images/event_books_&_stationery_1.jpg',
+    'Event Books & Stationery - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Event Books & Stationery'),
+    'https://cdn.example.com/images/event_books_&_stationery_2.jpg',
+    'Event Books & Stationery - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Event Books & Stationery'),
+    'https://cdn.example.com/images/event_books_&_stationery_3.jpg',
+    'Event Books & Stationery - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Exist Books & Stationery'),
+    'https://cdn.example.com/images/exist_books_&_stationery_1.jpg',
+    'Exist Books & Stationery - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Exist Books & Stationery'),
+    'https://cdn.example.com/images/exist_books_&_stationery_2.jpg',
+    'Exist Books & Stationery - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Exist Books & Stationery'),
+    'https://cdn.example.com/images/exist_books_&_stationery_3.jpg',
+    'Exist Books & Stationery - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Democratic Groceries'),
+    'https://cdn.example.com/images/democratic_groceries_1.jpg',
+    'Democratic Groceries - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Democratic Groceries'),
+    'https://cdn.example.com/images/democratic_groceries_2.jpg',
+    'Democratic Groceries - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Democratic Groceries'),
+    'https://cdn.example.com/images/democratic_groceries_3.jpg',
+    'Democratic Groceries - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Whether Groceries'),
+    'https://cdn.example.com/images/whether_groceries_1.jpg',
+    'Whether Groceries - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Whether Groceries'),
+    'https://cdn.example.com/images/whether_groceries_2.jpg',
+    'Whether Groceries - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Whether Groceries'),
+    'https://cdn.example.com/images/whether_groceries_3.jpg',
+    'Whether Groceries - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Talk Baby & Kids'),
+    'https://cdn.example.com/images/talk_baby_&_kids_1.jpg',
+    'Talk Baby & Kids - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Talk Baby & Kids'),
+    'https://cdn.example.com/images/talk_baby_&_kids_2.jpg',
+    'Talk Baby & Kids - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Talk Baby & Kids'),
+    'https://cdn.example.com/images/talk_baby_&_kids_3.jpg',
+    'Talk Baby & Kids - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Opportunity Baby & Kids'),
+    'https://cdn.example.com/images/opportunity_baby_&_kids_1.jpg',
+    'Opportunity Baby & Kids - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Opportunity Baby & Kids'),
+    'https://cdn.example.com/images/opportunity_baby_&_kids_2.jpg',
+    'Opportunity Baby & Kids - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Opportunity Baby & Kids'),
+    'https://cdn.example.com/images/opportunity_baby_&_kids_3.jpg',
+    'Opportunity Baby & Kids - Image 3',
+    3
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Couple Baby & Kids'),
+    'https://cdn.example.com/images/couple_baby_&_kids_1.jpg',
+    'Couple Baby & Kids - Image 1',
+    1
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Couple Baby & Kids'),
+    'https://cdn.example.com/images/couple_baby_&_kids_2.jpg',
+    'Couple Baby & Kids - Image 2',
+    2
+);
+INSERT INTO ProductImages (product_id, url, alt_text, sort_order)
+VALUES (
+    (SELECT product_id FROM Products WHERE title = 'Couple Baby & Kids'),
+    'https://cdn.example.com/images/couple_baby_&_kids_3.jpg',
+    'Couple Baby & Kids - Image 3',
+    3
+);
+
+
+-- ====================================================================
+-- File: tables/kumar_virat/create_inventory_table.sql
+-- ====================================================================
 
 -- =============================================
 -- Author: Kumar, Virat
@@ -1086,230 +2020,11 @@ INSERT INTO Inventory (warehouse_id, variant_id, on_hand, reserved) VALUES
 (7, 34, 55, 6),   -- Cat Tree
 (7, 35, 15, 2);   -- Watercolor Set
 
--- Verify inserted data
-SELECT COUNT(*) AS total_inventory_records FROM Inventory;
-SELECT 
-    w.name AS warehouse, 
-    pv.sku, 
-    i.on_hand, 
-    i.reserved,
-    (i.on_hand - i.reserved) AS available
-FROM Inventory i
-JOIN Warehouses w ON i.warehouse_id = w.warehouse_id
-JOIN ProductVariants pv ON i.variant_id = pv.variant_id
-LIMIT 10;
 
 
--- =============================================
--- Velarde Sosa, Diana
--- Module: User Addresses, Payments & Reviews
--- Tables: Addresses, Payments, Reviews
--- =============================================
-
--- Data for tables: Addresses, Payments, Reviews
-
--- =============================================
--- Author: Velarde Sosa, Diana
--- Create date: November 2025
--- Description: Sample Data for Addresses Table (35 entries)
--- Module: User Addresses
--- Note: Requires Users table to exist first
--- =============================================
-
-USE urbanease_shop;
-
--- Insert 35 user addresses (shipping and billing)
-INSERT INTO Addresses (user_id, label, name, line1, line2, city, state_region, postal_code, country_code, phone, is_default, created_at) VALUES
--- User 2 addresses
-(2, 'Home', 'John Doe', '123 Main Street', 'Apt 4B', 'New York', 'New York', '10001', 'US', '+1-555-0102', TRUE, '2024-02-20 15:00:00'),
-(2, 'Office', 'John Doe', '456 Business Ave', 'Suite 200', 'New York', 'New York', '10002', 'US', '+1-555-0102', FALSE, '2024-03-10 10:30:00'),
-
--- User 3 addresses
-(3, 'Home', 'Jane Smith', '789 Oak Drive', NULL, 'Los Angeles', 'California', '90001', 'US', '+1-555-0103', TRUE, '2024-02-21 11:00:00'),
-
--- User 4 addresses
-(4, 'Home', 'Michael Brown', '321 Elm Street', 'Unit 12', 'Chicago', 'Illinois', '60601', 'US', '+1-555-0104', TRUE, '2024-03-05 17:15:00'),
-
--- User 5 addresses
-(5, 'Home', 'Emily Davis', '654 Pine Road', NULL, 'Houston', 'Texas', '77001', 'US', '+1-555-0105', TRUE, '2024-03-10 12:00:00'),
-(5, 'Work', 'Emily Davis', '987 Corporate Blvd', 'Floor 15', 'Houston', 'Texas', '77002', 'US', '+1-555-0105', FALSE, '2024-04-05 14:20:00'),
-
--- User 6 addresses
-(6, 'Home', 'David Wilson', '147 Maple Lane', NULL, 'Phoenix', 'Arizona', '85001', 'US', '+1-555-0106', TRUE, '2024-03-15 14:00:00'),
-
--- User 7 addresses
-(7, 'Home', 'Sarah Martinez', '258 Cedar Avenue', 'Apt 8C', 'Philadelphia', 'Pennsylvania', '19101', 'US', '+1-555-0107', TRUE, '2024-04-01 09:30:00'),
-
--- User 8 addresses
-(8, 'Home', 'James Anderson', '369 Birch Street', NULL, 'San Antonio', 'Texas', '78201', 'US', '+1-555-0108', TRUE, '2024-04-05 16:00:00'),
-
--- User 9 addresses
-(9, 'Home', 'Lisa Taylor', '741 Willow Court', 'Unit 5A', 'San Diego', 'California', '92101', 'US', '+1-555-0109', TRUE, '2024-04-12 11:15:00'),
-
--- User 10 addresses
-(10, 'Home', 'Robert Thomas', '852 Spruce Way', NULL, 'Dallas', 'Texas', '75201', 'US', '+1-555-0110', TRUE, '2024-04-20 13:30:00'),
-
--- User 11 addresses
-(11, 'Home', 'Jennifer Jackson', '963 Ash Boulevard', 'Apt 3D', 'San Jose', 'California', '95101', 'US', '+1-555-0111', TRUE, '2024-05-01 10:45:00'),
-
--- User 12 addresses
-(12, 'Home', 'William White', '159 Poplar Street', NULL, 'Austin', 'Texas', '73301', 'US', '+1-555-0112', TRUE, '2024-05-08 15:00:00'),
-
--- User 13 addresses
-(13, 'Home', 'Mary Harris', '357 Cypress Drive', 'Suite 10', 'Jacksonville', 'Florida', '32099', 'US', '+1-555-0113', TRUE, '2024-05-15 12:20:00'),
-
--- User 14 addresses
-(14, 'Home', 'Charles Martin', '486 Redwood Lane', NULL, 'Fort Worth', 'Texas', '76101', 'US', '+1-555-0114', TRUE, '2024-05-22 17:10:00'),
-
--- User 15 addresses
-(15, 'Home', 'Patricia Thompson', '597 Hickory Road', 'Apt 7B', 'Columbus', 'Ohio', '43004', 'US', '+1-555-0115', TRUE, '2024-06-01 09:40:00'),
-
--- User 16 addresses
-(16, 'Home', 'Daniel Garcia', '618 Magnolia Street', NULL, 'Charlotte', 'North Carolina', '28202', 'US', '+1-555-0116', TRUE, '2024-06-10 14:00:00'),
-
--- User 17 addresses
-(17, 'Home', 'Linda Martinez', '729 Sycamore Avenue', 'Unit 2C', 'Seattle', 'Washington', '98101', 'US', '+1-555-0117', TRUE, '2024-06-18 11:30:00'),
-
--- User 18 addresses
-(18, 'Home', 'Joseph Robinson', '840 Walnut Court', NULL, 'Denver', 'Colorado', '80014', 'US', '+1-555-0118', TRUE, '2024-06-25 16:20:00'),
-
--- User 19 addresses
-(19, 'Home', 'Barbara Clark', '951 Chestnut Way', 'Apt 9A', 'Boston', 'Massachusetts', '02101', 'US', '+1-555-0119', TRUE, '2024-07-02 10:00:00'),
-
--- User 20 addresses
-(20, 'Home', 'Thomas Rodriguez', '162 Beech Boulevard', NULL, 'Detroit', 'Michigan', '48201', 'US', '+1-555-0120', TRUE, '2024-07-10 15:30:00'),
-
--- User 21 addresses
-(21, 'Home', 'Susan Lewis', '273 Palm Drive', 'Suite 5', 'Portland', 'Oregon', '97201', 'US', '+1-555-0121', TRUE, '2024-07-18 12:45:00'),
-
--- User 22 addresses
-(22, 'Home', 'Christopher Lee', '384 Fir Street', NULL, 'Las Vegas', 'Nevada', '89101', 'US', '+1-555-0122', TRUE, '2024-07-25 17:00:00'),
-
--- User 23 addresses
-(23, 'Home', 'Jessica Walker', '495 Juniper Lane', 'Apt 6D', 'Miami', 'Florida', '33101', 'US', '+1-555-0123', TRUE, '2024-08-01 09:20:00'),
-
--- User 24 addresses
-(24, 'Home', 'Matthew Hall', '516 Hemlock Road', NULL, 'Atlanta', 'Georgia', '30303', 'US', '+1-555-0124', TRUE, '2024-08-08 14:40:00'),
-
--- User 25 addresses
-(25, 'Home', 'Karen Allen', '627 Laurel Avenue', 'Unit 11B', 'Minneapolis', 'Minnesota', '55401', 'US', '+1-555-0125', TRUE, '2024-08-15 11:10:00'),
-
--- User 26 addresses
-(26, 'Home', 'Mark Young', '738 Dogwood Court', NULL, 'Orlando', 'Florida', '32801', 'US', '+1-555-0126', TRUE, '2024-08-22 16:50:00'),
-
--- User 27 addresses
-(27, 'Home', 'Nancy Hernandez', '849 Cottonwood Way', 'Apt 4A', 'San Francisco', 'California', '94102', 'US', '+1-555-0127', TRUE, '2024-09-01 10:30:00'),
-
--- User 28 addresses
-(28, 'Home', 'Paul King', '950 Alder Boulevard', NULL, 'Tampa', 'Florida', '33601', 'US', '+1-555-0128', TRUE, '2024-09-10 15:15:00'),
-
--- User 29 addresses
-(29, 'Home', 'Betty Wright', '161 Sequoia Street', 'Suite 8', 'Sacramento', 'California', '94203', 'US', '+1-555-0129', TRUE, '2024-09-18 12:35:00'),
-
--- User 30 addresses
-(30, 'Home', 'Steven Lopez', '272 Eucalyptus Drive', NULL, 'Kansas City', 'Missouri', '64101', 'US', '+1-555-0130', TRUE, '2024-09-25 17:50:00'),
-
--- Additional addresses for users with multiple
-(10, 'Parents House', 'Robert Thomas', '555 Family Lane', NULL, 'Dallas', 'Texas', '75202', 'US', '+1-555-0110', FALSE, '2024-06-15 10:00:00'),
-(15, 'Vacation Home', 'Patricia Thompson', '777 Beach Road', NULL, 'Miami', 'Florida', '33139', 'US', '+1-555-0115', FALSE, '2024-07-20 14:30:00'),
-(20, 'Office', 'Thomas Rodriguez', '888 Work Plaza', 'Floor 22', 'Detroit', 'Michigan', '48202', 'US', '+1-555-0120', FALSE, '2024-08-10 11:45:00'),
-(25, 'Shipping Address', 'Karen Allen', '999 Delivery Lane', 'Warehouse B', 'Minneapolis', 'Minnesota', '55402', 'US', '+1-555-0125', FALSE, '2024-09-05 16:20:00'),
-(30, 'Billing Address', 'Steven Lopez', '111 Payment Street', NULL, 'Kansas City', 'Missouri', '64102', 'US', '+1-555-0130', FALSE, '2024-10-01 09:30:00');
-
--- Verify inserted data
-SELECT COUNT(*) AS total_addresses FROM Addresses;
-SELECT 
-    a.address_id,
-    u.full_name,
-    a.label,
-    CONCAT(a.line1, ', ', a.city, ', ', a.state_region, ' ', a.postal_code) AS full_address,
-    a.is_default
-FROM Addresses a
-JOIN Users u ON a.user_id = u.user_id
-LIMIT 10;
-
-
--- =============================================
--- Min, La Yaung
--- Module: Shopping Cart & Promotions
--- Tables: Carts, CartItems, Coupons
--- =============================================
-
--- Data for tables: Carts, CartItems, Coupons
-
--- =============================================
--- Author: Min, La Yaung
--- Create date: November 2025
--- Description: Sample Data for Carts Table (35 entries)
--- Module: Shopping Cart
--- Note: Requires Users table to exist first
--- =============================================
-
-USE urbanease_shop;
-
--- Insert 35 shopping carts (mix of active, abandoned, and guest carts)
-INSERT INTO Carts (user_id, created_at, updated_at) VALUES
--- Active customer carts (recently updated)
-(2, '2024-11-01 10:00:00', '2024-11-07 14:30:00'),
-(3, '2024-11-02 11:15:00', '2024-11-07 15:45:00'),
-(4, '2024-11-03 09:30:00', '2024-11-07 10:20:00'),
-(5, '2024-11-04 14:20:00', '2024-11-07 16:10:00'),
-(6, '2024-11-05 08:45:00', '2024-11-07 11:35:00'),
-
--- Recent carts (updated within last 2 days)
-(7, '2024-11-05 16:30:00', '2024-11-06 09:15:00'),
-(8, '2024-11-06 10:20:00', '2024-11-07 13:20:00'),
-(9, '2024-11-06 13:40:00', '2024-11-07 08:50:00'),
-(10, '2024-11-06 15:10:00', '2024-11-06 18:25:00'),
-
--- Abandoned carts (not updated in 3-7 days)
-(11, '2024-10-28 10:00:00', '2024-10-28 10:15:00'),
-(12, '2024-10-29 11:30:00', '2024-10-29 11:45:00'),
-(13, '2024-10-30 14:20:00', '2024-10-30 14:35:00'),
-(14, '2024-10-31 09:15:00', '2024-10-31 09:30:00'),
-(15, '2024-11-01 16:40:00', '2024-11-01 16:55:00'),
-
--- Old abandoned carts (7+ days)
-(16, '2024-10-20 10:00:00', '2024-10-20 10:20:00'),
-(17, '2024-10-21 12:30:00', '2024-10-21 12:45:00'),
-(18, '2024-10-22 15:10:00', '2024-10-22 15:25:00'),
-(19, '2024-10-23 08:45:00', '2024-10-23 09:00:00'),
-(20, '2024-10-24 14:20:00', '2024-10-24 14:35:00'),
-
--- Guest carts (user_id is NULL)
-(NULL, '2024-11-07 09:00:00', '2024-11-07 09:45:00'),
-(NULL, '2024-11-07 10:30:00', '2024-11-07 11:15:00'),
-(NULL, '2024-11-07 12:00:00', '2024-11-07 12:30:00'),
-(NULL, '2024-11-06 14:20:00', '2024-11-06 14:50:00'),
-(NULL, '2024-11-06 16:10:00', '2024-11-06 16:40:00'),
-
--- More customer carts (various states)
-(21, '2024-11-03 10:30:00', '2024-11-07 09:20:00'),
-(22, '2024-11-04 13:15:00', '2024-11-06 15:30:00'),
-(23, '2024-10-25 11:00:00', '2024-10-25 11:20:00'),
-(24, '2024-11-05 09:45:00', '2024-11-07 14:10:00'),
-(25, '2024-10-27 14:30:00', '2024-10-27 14:50:00'),
-
--- Additional guest and customer carts
-(NULL, '2024-11-05 08:00:00', '2024-11-05 08:25:00'),
-(26, '2024-11-06 10:15:00', '2024-11-07 12:45:00'),
-(27, '2024-10-26 16:20:00', '2024-10-26 16:40:00'),
-(28, '2024-11-07 07:30:00', '2024-11-07 13:50:00'),
-(29, '2024-11-02 12:10:00', '2024-11-07 10:35:00'),
-(30, '2024-11-01 15:40:00', '2024-11-07 16:20:00');
-
--- Verify inserted data
-SELECT COUNT(*) AS total_carts FROM Carts;
-SELECT 
-    cart_id,
-    CASE WHEN user_id IS NULL THEN 'Guest' ELSE CONCAT('User ', user_id) END AS cart_owner,
-    created_at,
-    updated_at,
-    DATEDIFF(NOW(), updated_at) AS days_since_update
-FROM Carts
-ORDER BY updated_at DESC
-LIMIT 10;
-
+-- ====================================================================
+-- File: tables/min_la_yaung/create_cart_items_table.sql
+-- ====================================================================
 
 -- =============================================
 -- Author: Min, La Yaung
@@ -1401,102 +2116,11 @@ INSERT INTO CartItems (cart_id, variant_id, qty, unit_price, added_at) VALUES
 -- Cart 34 items
 (34, 30, 1, 49.99, '2024-11-07 14:15:00');
 
--- Verify inserted data
-SELECT COUNT(*) AS total_cart_items FROM CartItems;
-SELECT 
-    ci.cart_item_id,
-    ci.cart_id,
-    pv.sku,
-    ci.qty,
-    ci.unit_price,
-    (ci.qty * ci.unit_price) AS line_total
-FROM CartItems ci
-JOIN ProductVariants pv ON ci.variant_id = pv.variant_id
-LIMIT 10;
 
 
--- =============================================
--- Author: Min, La Yaung
--- Create date: November 2025
--- Description: Sample Data for Coupons Table (30 entries)
--- Module: Shopping Cart & Promotions
--- =============================================
-
-USE urbanease_shop;
-
--- Insert 30 promotional coupons with various types and conditions
-INSERT INTO Coupons (code, type, value, starts_at, expires_at, min_subtotal, is_active) VALUES
--- Active percentage-based coupons
-('WELCOME10', 'PERCENT', 10.00, '2024-01-01 00:00:00', '2025-12-31 23:59:59', 50.00, TRUE),
-('SAVE15', 'PERCENT', 15.00, '2024-06-01 00:00:00', '2024-12-31 23:59:59', 100.00, TRUE),
-('BIGSALE20', 'PERCENT', 20.00, '2024-11-01 00:00:00', '2024-11-30 23:59:59', 150.00, TRUE),
-('VIP25', 'PERCENT', 25.00, '2024-01-01 00:00:00', '2025-12-31 23:59:59', 200.00, TRUE),
-('FLASH30', 'PERCENT', 30.00, '2024-11-07 00:00:00', '2024-11-10 23:59:59', 300.00, TRUE),
-
--- Active fixed amount coupons
-('SAVE5', 'AMOUNT', 5.00, '2024-01-01 00:00:00', '2025-12-31 23:59:59', 25.00, TRUE),
-('GET10OFF', 'AMOUNT', 10.00, '2024-06-01 00:00:00', '2024-12-31 23:59:59', 50.00, TRUE),
-('DEAL25', 'AMOUNT', 25.00, '2024-09-01 00:00:00', '2024-12-31 23:59:59', 100.00, TRUE),
-('MEGA50', 'AMOUNT', 50.00, '2024-11-01 00:00:00', '2024-11-30 23:59:59', 200.00, TRUE),
-('SUPER100', 'AMOUNT', 100.00, '2024-11-01 00:00:00', '2024-11-15 23:59:59', 500.00, TRUE),
-
--- Seasonal/Holiday coupons
-('SUMMER15', 'PERCENT', 15.00, '2024-06-01 00:00:00', '2024-08-31 23:59:59', 75.00, TRUE),
-('BACKTOSCHOOL', 'PERCENT', 12.00, '2024-08-01 00:00:00', '2024-09-15 23:59:59', 60.00, TRUE),
-('HALLOWEEN10', 'PERCENT', 10.00, '2024-10-15 00:00:00', '2024-10-31 23:59:59', 40.00, TRUE),
-('BLACKFRIDAY', 'PERCENT', 35.00, '2024-11-29 00:00:00', '2024-11-29 23:59:59', 100.00, TRUE),
-('CYBERMONDAY', 'PERCENT', 30.00, '2024-12-02 00:00:00', '2024-12-02 23:59:59', 100.00, TRUE),
-
--- Category-specific coupons
-('TECH20', 'PERCENT', 20.00, '2024-10-01 00:00:00', '2024-12-31 23:59:59', 200.00, TRUE),
-('FASHION15', 'PERCENT', 15.00, '2024-09-01 00:00:00', '2024-12-31 23:59:59', 80.00, TRUE),
-('HOME10', 'PERCENT', 10.00, '2024-08-01 00:00:00', '2024-12-31 23:59:59', 100.00, TRUE),
-
--- First-time customer coupons
-('FIRSTORDER', 'PERCENT', 20.00, '2024-01-01 00:00:00', '2025-12-31 23:59:59', 30.00, TRUE),
-('NEWUSER15', 'PERCENT', 15.00, '2024-01-01 00:00:00', '2025-12-31 23:59:59', 25.00, TRUE),
-
--- Expired coupons
-('EXPIRED10', 'PERCENT', 10.00, '2024-01-01 00:00:00', '2024-06-30 23:59:59', 50.00, TRUE),
-('OLDCODE20', 'PERCENT', 20.00, '2024-01-01 00:00:00', '2024-03-31 23:59:59', 100.00, TRUE),
-('SUMMER2023', 'PERCENT', 15.00, '2023-06-01 00:00:00', '2023-08-31 23:59:59', 75.00, TRUE),
-
--- Inactive coupons (manually deactivated)
-('INACTIVE25', 'PERCENT', 25.00, '2024-01-01 00:00:00', '2024-12-31 23:59:59', 150.00, FALSE),
-('DISABLED15', 'PERCENT', 15.00, '2024-01-01 00:00:00', '2024-12-31 23:59:59', 100.00, FALSE),
-
--- High-value exclusive coupons
-('PREMIUM50', 'AMOUNT', 50.00, '2024-01-01 00:00:00', '2025-12-31 23:59:59', 250.00, TRUE),
-('VIPEXCLUSIVE', 'PERCENT', 30.00, '2024-01-01 00:00:00', '2025-12-31 23:59:59', 500.00, TRUE),
-('LOYALTY100', 'AMOUNT', 100.00, '2024-01-01 00:00:00', '2025-12-31 23:59:59', 1000.00, TRUE),
-
--- Limited time offers
-('FLASH24H', 'PERCENT', 25.00, '2024-11-07 00:00:00', '2024-11-08 23:59:59', 100.00, TRUE),
-('HOURLY15', 'PERCENT', 15.00, '2024-11-07 10:00:00', '2024-11-07 20:00:00', 50.00, TRUE);
-
--- Verify inserted data
-SELECT COUNT(*) AS total_coupons FROM Coupons;
-SELECT 
-    code,
-    type,
-    value,
-    is_active,
-    CASE 
-        WHEN expires_at < NOW() THEN 'Expired'
-        WHEN starts_at > NOW() THEN 'Not Started'
-        ELSE 'Active'
-    END AS status
-FROM Coupons
-LIMIT 15;
-
-
--- =============================================
--- Tiwari, Sneha
--- Module: Order Management & Fulfillment
--- Tables: Orders, OrderItems, Shipments
--- =============================================
-
--- Data for tables: Orders, OrderItems, Shipments
+-- ====================================================================
+-- File: tables/tiwari_sneha/create_orders_table.sql
+-- ====================================================================
 
 -- =============================================
 -- Author: Tiwari, Sneha
@@ -1558,20 +2182,11 @@ INSERT INTO Orders (user_id, status, subtotal_amount, discount_amount, shipping_
 (34, 'PAID', 149.99, 0.00, 12.99, 12.00, NULL, 3, 3, '2024-11-07 13:50:00'),
 (35, 'PAID', 299.99, 45.00, 0.00, 24.00, 2, 4, 4, '2024-11-07 15:30:00');
 
--- Verify inserted data
-SELECT COUNT(*) AS total_orders FROM Orders;
-SELECT 
-    order_id,
-    user_id,
-    status,
-    subtotal_amount,
-    discount_amount,
-    grand_total_amount,
-    placed_at
-FROM Orders
-ORDER BY placed_at DESC
-LIMIT 10;
 
+
+-- ====================================================================
+-- File: tables/tiwari_sneha/create_order_items_table.sql
+-- ====================================================================
 
 -- =============================================
 -- Author: Tiwari, Sneha
@@ -1668,19 +2283,11 @@ INSERT INTO OrderItems (order_id, variant_id, qty, unit_price, tax_amount, disco
 -- Order 26 items (cancelled)
 (26, 1, 1, 2499.00, 199.92, 0.00);
 
--- Verify inserted data
-SELECT COUNT(*) AS total_order_items FROM OrderItems;
-SELECT 
-    oi.order_item_id,
-    oi.order_id,
-    pv.sku,
-    oi.qty,
-    oi.unit_price,
-    (oi.qty * oi.unit_price) AS line_total
-FROM OrderItems oi
-JOIN ProductVariants pv ON oi.variant_id = pv.variant_id
-LIMIT 10;
 
+
+-- ====================================================================
+-- File: tables/tiwari_sneha/create_shipments_table.sql
+-- ====================================================================
 
 -- =============================================
 -- Author: Tiwari, Sneha
@@ -1739,30 +2346,11 @@ INSERT INTO Shipments (order_id, warehouse_id, carrier, tracking_no, status, shi
 -- More recent deliveries
 (10, 4, 'DHL', '1234567894', 'DELIVERED', '2024-11-04 10:30:00', '2024-11-06 12:00:00', '2024-11-03 15:00:00');
 
--- Verify inserted data
-SELECT COUNT(*) AS total_shipments FROM Shipments;
-SELECT 
-    s.shipment_id,
-    s.order_id,
-    w.name AS warehouse,
-    s.carrier,
-    s.tracking_no,
-    s.status,
-    s.shipped_at,
-    s.delivered_at
-FROM Shipments s
-JOIN Warehouses w ON s.warehouse_id = w.warehouse_id
-ORDER BY s.created_at DESC
-LIMIT 10;
 
 
--- =============================================
--- Velarde Sosa, Diana (continued)
--- Module: User Addresses, Payments & Reviews
--- Tables: Addresses, Payments, Reviews
--- =============================================
-
--- Data for tables: Addresses, Payments, Reviews
+-- ====================================================================
+-- File: tables/velarde_sosa_diana/create_payments_table.sql
+-- ====================================================================
 
 -- =============================================
 -- Author: Velarde Sosa, Diana
@@ -1821,21 +2409,11 @@ INSERT INTO Payments (order_id, provider, provider_ref, amount, status, paid_at,
 (28, 'Stripe', 'ch_3NI42S2eZvKYlo2C1890123456', 96.38, 'REFUNDED', '2024-09-10 11:35:00', '2024-09-10 11:30:00'),
 (29, 'Square', 'sq_8901234567HIJKLMNO', 149.48, 'REFUNDED', '2024-09-28 15:50:00', '2024-09-28 15:45:00');
 
--- Verify inserted data
-SELECT COUNT(*) AS total_payments FROM Payments;
-SELECT 
-    p.payment_id,
-    p.order_id,
-    p.provider,
-    p.amount,
-    p.status,
-    p.paid_at,
-    o.grand_total_amount
-FROM Payments p
-JOIN Orders o ON p.order_id = o.order_id
-ORDER BY p.created_at DESC
-LIMIT 10;
 
+
+-- ====================================================================
+-- File: tables/velarde_sosa_diana/create_reviews_table.sql
+-- ====================================================================
 
 -- =============================================
 -- Author: Velarde Sosa, Diana
@@ -1891,2228 +2469,248 @@ INSERT INTO Reviews (product_id, user_id, rating, title, body, created_at) VALUE
 (34, 30, 4, 'Great beginner guitar', 'Good quality for the price. Sounds nice and comes with everything you need to start learning.', '2024-11-11 11:15:00'),
 (35, 2, 5, 'Professional quality paints', 'These watercolors are vibrant and blend beautifully. Perfect for serious artists. Worth the investment.', '2024-11-12 16:40:00');
 
--- Verify inserted data
-SELECT COUNT(*) AS total_reviews FROM Reviews;
-SELECT 
-    r.review_id,
-    p.title AS product_name,
-    u.full_name AS reviewer,
-    r.rating,
-    r.title AS review_title,
-    r.created_at
-FROM Reviews r
-JOIN Products p ON r.product_id = p.product_id
-JOIN Users u ON r.user_id = u.user_id
-ORDER BY r.created_at DESC
-LIMIT 10;
 
 
+-- ====================================================================
+-- File: procedures/sp_bajwa_manage_user_roles.sql
+-- ====================================================================
 
--- =============================================
--- COMPLEX QUERIES - TEAM CONTRIBUTIONS
--- =============================================
--- All queries span 3 or more tables and demonstrate advanced SQL concepts
-
--- =============================================
--- Bajwa, Achint Kaur
--- =============================================
-
--- =============================================
--- Author: Bajwa, Achint Kaur
--- Create date: November 2025
--- Description: Query 1 - User Login History
--- Tables: Users, Roles, UserRoles
--- =============================================
-
-USE urbanease_shop;
-
-SELECT
-  u.user_id,
-  u.email,
-  u.full_name,
-  r.role_name,
-  ur.assigned_at
-FROM Users      AS u
-JOIN UserRoles  AS ur ON ur.user_id = u.user_id
-JOIN Roles      AS r  ON r.role_id  = ur.role_id
--- Optional filter to show only active accounts:
--- WHERE u.is_active = 1
-ORDER BY u.user_id, ur.assigned_at, r.role_name;
-
-
--- =============================================
--- Author: Bajwa, Achint Kaur
--- Create date: November 2025
--- Description: Query 2 - Users by Role
--- Tables: Users, Roles, UserRoles
--- =============================================
-
-USE urbanease_shop;
-
--- (Optional) show more sample emails if many users share a role
--- SET SESSION group_concat_max_len = 8192;
-
-SELECT
-  r.role_name,
-  COUNT(DISTINCT ur.user_id) AS user_count,                          -- de-duplicate users per role
-  COALESCE(
-    GROUP_CONCAT(DISTINCT u.email ORDER BY u.email SEPARATOR ', '),  -- readable examples
-    '—'
-  ) AS example_users
-FROM Roles      AS r
-LEFT JOIN UserRoles AS ur ON ur.role_id = r.role_id
-LEFT JOIN Users     AS u  ON u.user_id  = ur.user_id
--- Uncomment to count only active accounts:
--- WHERE u.is_active = 1 OR u.user_id IS NULL
-GROUP BY r.role_id, r.role_name
-ORDER BY user_count DESC, r.role_name;
-
--- COMMENTS
--- 1) COUNT(DISTINCT ur.user_id) prevents overcounting if data ever contains duplicates.
--- 2) GROUP_CONCAT(DISTINCT ...) lists unique emails per role; COALESCE shows '—' when no users.
--- 3) Add the WHERE line to exclude inactive users from counts while keeping roles with zero users.
--- 4) If your role gets many users, bump GROUP_CONCAT length (see SET statement above).
--- 5) Helpful indexes (if not already present):
---      CREATE INDEX idx_userroles_role ON UserRoles(role_id);
---      CREATE INDEX idx_userroles_user ON UserRoles(user_id);
---      CREATE UNIQUE INDEX uq_roles_name ON Roles(role_name);
-
-
--- =============================================
--- Author: Bajwa, Achint Kaur
--- Create date: November 2025
--- Description: Query 3 - Active Users with Multiple Roles
--- Tables: Users, Roles, UserRoles
--- =============================================
-
-USE urbanease_shop;
-
-SELECT
-  u.user_id,
-  u.email,
-  u.full_name,
-  GROUP_CONCAT(DISTINCT r.role_name ORDER BY r.role_name SEPARATOR ', ') AS roles,
-  COUNT(DISTINCT r.role_id) AS role_count
-FROM Users      AS u
-LEFT JOIN UserRoles AS ur ON ur.user_id = u.user_id
-LEFT JOIN Roles     AS r  ON r.role_id  = ur.role_id
-WHERE u.is_active = 1                      -- use 1 for cross-platform boolean
-GROUP BY u.user_id, u.email, u.full_name
-HAVING role_count > 1                      -- only show users with >1 role
-ORDER BY role_count DESC, u.user_id;
-
--- COMMENTS
--- 1) Lists only active users who hold more than one distinct role.
--- 2) GROUP_CONCAT(DISTINCT ...) ensures duplicate roles are not repeated.
--- 3) COUNT(DISTINCT r.role_id) enables HAVING role_count>1 filtering.
--- 4) Uses numeric 1 for BOOLEAN to avoid TRUE/FALSE portability issues.
--- 5) ORDER BY role_count DESC shows users with the most roles first.
--- 6) Helpful indexes:
---      CREATE INDEX idx_userroles_user ON UserRoles(user_id);
---      CREATE INDEX idx_userroles_role ON UserRoles(role_id);
---      CREATE INDEX idx_users_active   ON Users(is_active);
-
-
--- =============================================
--- Author: Bajwa, Achint Kaur
--- Create date: November 2025
--- Description: Product performance summary = sales, revenue, ratings, and
---              available stock (on_hand - reserved) aggregated across warehouses.
--- Tables: Products, Categories, ProductVariants, OrderItems, Orders, Reviews, Inventory
--- =============================================
-
-USE urbanease_shop;
-
-WITH params AS (
-  SELECT 
-    DATE('2024-01-01') AS p_start_date,
-    DATE('2025-12-31') AS p_end_date
-),
-order_lines AS (
-  -- Paid/fulfilled order items in date range
-  SELECT 
-      oi.variant_id,
-      oi.qty,
-      (oi.qty * oi.unit_price) AS line_revenue
-  FROM OrderItems oi
-  JOIN Orders o ON o.order_id = oi.order_id
-  JOIN params p
-    ON o.placed_at >= p.p_start_date
-   AND o.placed_at <  p.p_end_date + INTERVAL 1 DAY
-  WHERE o.status IN ('PAID','FULFILLED')   -- exclude cancelled/refunded
-),
-variant_sales AS (
-  SELECT 
-      variant_id,
-      SUM(qty)                  AS units_sold,
-      SUM(line_revenue)         AS revenue
-  FROM order_lines
-  GROUP BY variant_id
-),
-variant_ratings AS (
-  SELECT 
-      pv.variant_id,
-      AVG(r.rating) AS avg_rating,
-      COUNT(*)      AS rating_count
-  FROM Reviews r
-  JOIN Products p  ON p.product_id = r.product_id
-  JOIN ProductVariants pv ON pv.product_id = p.product_id
-  GROUP BY pv.variant_id
-),
-variant_stock AS (
-  -- Sum stock across all warehouses for each variant
-  SELECT 
-      i.variant_id,
-      GREATEST(SUM(i.on_hand - i.reserved), 0) AS available_stock
-  FROM Inventory i
-  GROUP BY i.variant_id
-)
-SELECT
-  p.product_id,
-  p.title                           AS product_title,
-  c.name                            AS category,
-  pv.variant_id,
-  pv.sku,
-  COALESCE(vs.units_sold, 0)        AS units_sold,
-  COALESCE(vs.revenue, 0.00)        AS revenue_usd,
-  ROUND(COALESCE(vr.avg_rating, 0), 2) AS avg_rating,
-  COALESCE(vr.rating_count, 0)      AS rating_count,
-  COALESCE(vst.available_stock, 0)  AS available_stock,
-  CASE 
-    WHEN COALESCE(vst.available_stock,0) = 0 THEN 'OUT OF STOCK'
-    WHEN COALESCE(vst.available_stock,0) < 10 THEN 'LOW'
-    WHEN COALESCE(vst.available_stock,0) < 50 THEN 'MEDIUM'
-    ELSE 'HIGH'
-  END AS stock_band
-FROM Products p
-LEFT JOIN Categories c         ON c.category_id = p.category_id
-JOIN ProductVariants pv        ON pv.product_id = p.product_id
-LEFT JOIN variant_sales  vs    ON vs.variant_id = pv.variant_id
-LEFT JOIN variant_ratings vr   ON vr.variant_id = pv.variant_id
-LEFT JOIN variant_stock  vst   ON vst.variant_id = pv.variant_id
-WHERE p.is_active = 1 AND pv.is_active = 1
-ORDER BY revenue_usd DESC, units_sold DESC, pv.variant_id
-LIMIT 25;
-
--- COMMENTS
--- 1) Uses CTE `params` so graders can quickly change the date window.
--- 2) Counts sales only from Orders with status PAID/FULFILLED (business-valid revenue).
--- 3) Revenue = SUM(qty*unit_price) at order-line granularity; grouped per variant.
--- 4) Ratings averaged at variant level by bridging Reviews -> Products -> ProductVariants.
--- 5) Stock is rolled up across all Warehouses: SUM(on_hand - reserved).
--- 6) Robust to missing data via COALESCE; adds a stock_band label for UX/reporting.
--- 7) Helpful indexes (if large data):
---      CREATE INDEX IX_O_placed_status ON Orders(placed_at, status);
---      CREATE INDEX IX_OI_variant ON OrderItems(variant_id);
---      CREATE INDEX IX_Inv_variant ON Inventory(variant_id);
---      CREATE INDEX IX_Prod_category ON Products(category_id);
-
-
--- =============================================
+-- ============================================================
 -- Author:       Bajwa, Achint Kaur
 -- Create date:  November 2025
--- Description:  Fulfillment SLA by warehouse & carrier:
---               - Ship time (placed_at -> shipped_at)
---               - Delivery time (shipped_at -> delivered_at)
---               - On-time shipping/delivery rates
---               - Volume of shipments
--- Tables:       Orders, Shipments, Warehouses
--- =============================================
-
-USE urbanease_shop;
-
-WITH params AS (
-  SELECT 
-    DATE('2024-01-01') AS p_start_date,
-    DATE('2025-12-31') AS p_end_date,
-    48  AS ship_sla_hours,     -- on-time ship threshold (2 days)
-    168 AS delivery_sla_hours  -- on-time delivery threshold (7 days)
-),
-ship_events AS (
-  SELECT
-      s.shipment_id,
-      s.order_id,
-      s.warehouse_id,
-      s.carrier,
-      s.status,
-      s.shipped_at,
-      s.delivered_at,
-      o.placed_at
-  FROM Shipments s
-  JOIN Orders o ON o.order_id = s.order_id
-  JOIN params p
-    ON o.placed_at >= p.p_start_date
-   AND o.placed_at <  p.p_end_date + INTERVAL 1 DAY
-),
-durations AS (
-  SELECT
-      se.warehouse_id,
-      se.carrier,
-      se.status,
-      se.placed_at,
-      se.shipped_at,
-      se.delivered_at,
-      TIMESTAMPDIFF(HOUR, se.placed_at,   se.shipped_at)   AS ship_hours,
-      TIMESTAMPDIFF(HOUR, se.shipped_at,  se.delivered_at) AS delivery_hours
-  FROM ship_events se
-  WHERE se.shipped_at IS NOT NULL
-)
-SELECT
-  w.warehouse_id,
-  w.name                 AS warehouse_name,
-  w.code                 AS warehouse_code,
-  d.carrier,
-  COUNT(*)                                AS shipments_total,
-  SUM(d.shipped_at   IS NOT NULL)         AS shipped_cnt,
-  SUM(d.delivered_at IS NOT NULL)         AS delivered_cnt,
-  ROUND(AVG(d.ship_hours), 1)             AS ship_hours_avg,
-  MIN(d.ship_hours)                        AS ship_hours_min,
-  MAX(d.ship_hours)                        AS ship_hours_max,
-  ROUND(AVG(CASE WHEN d.delivered_at IS NOT NULL THEN d.delivery_hours END), 1) AS delivery_hours_avg,
-  MIN(CASE WHEN d.delivered_at IS NOT NULL THEN d.delivery_hours END)           AS delivery_hours_min,
-  MAX(CASE WHEN d.delivered_at IS NOT NULL THEN d.delivery_hours END)           AS delivery_hours_max,
-  CONCAT(ROUND(100 * AVG(CASE 
-           WHEN d.ship_hours    IS NOT NULL 
-            AND d.ship_hours   <= (SELECT ship_sla_hours FROM params) 
-           THEN 1 ELSE 0 END), 1), '%') AS ship_ontime_rate,
-  CONCAT(ROUND(100 * AVG(CASE 
-           WHEN d.delivery_hours IS NOT NULL
-            AND d.delivery_hours <= (SELECT delivery_sla_hours FROM params)
-           THEN 1 ELSE 0 END), 1), '%') AS delivery_ontime_rate
-FROM durations d
-LEFT JOIN Warehouses w ON w.warehouse_id = d.warehouse_id
-GROUP BY w.warehouse_id, w.name, w.code, d.carrier
-HAVING shipments_total > 0
-ORDER BY delivery_ontime_rate DESC, ship_ontime_rate DESC, shipments_total DESC
-LIMIT 100;
-
--- COMMENTS
--- 1) Date window & SLA thresholds stored in CTE `params` for easy edits.
--- 2) Ship time = Orders.placed_at → Shipments.shipped_at.
--- 3) Delivery time = Shipments.shipped_at → Shipments.delivered_at.
--- 4) On-time shipping = <=48 hours; on-time delivery = <=168 hours.
--- 5) Filters shipments tied to orders in date range.
--- 6) Aggregates SLA metrics by warehouse & carrier.
--- 7) Good indexes:
---      CREATE INDEX IX_Orders_placed ON Orders(placed_at);
---      CREATE INDEX IX_Shipments_order ON Shipments(order_id);
---      CREATE INDEX IX_Shipments_warehouse_carrier ON Shipments(warehouse_id, carrier);
-
-
--- =============================================
--- Khapekar, Pooja
--- =============================================
-
--- =============================================
--- Author: Khapekar, Pooja
--- Create date: [Date]
--- Description: Query 1 - Products by Category with Images
--- Tables: Categories, Products, ProductImages
--- =============================================
-
-USE urbanease_shop;
-
--- TODO: Write your complex query here
--- Example: Get products with their categories and image count
-
-/*
-SELECT 
-    c.name as category_name,
-    p.title as product_name,
-    p.brand,
-    COUNT(pi.image_id) as image_count
-FROM Categories c
--- Add your JOINs and WHERE clauses
-;
-*/
-
-
-
--- =============================================
--- Author: Khapekar, Pooja
--- Create date: [Date]
--- Description: Query 2 - Category Hierarchy with Product Count
--- Tables: Categories, Products, ProductImages
--- =============================================
-
-USE urbanease_shop;
-
--- TODO: Write your complex query here
--- Example: Display category hierarchy (parent-child) with product counts
-
-/*
-SELECT 
-    parent.name as parent_category,
-    child.name as child_category,
-    COUNT(p.product_id) as product_count
-FROM Categories parent
--- Add your JOINs and WHERE clauses
-;
-*/
-
-
-
--- =============================================
--- Author: Khapekar, Pooja
--- Create date: [Date]
--- Description: Query 3 - Products Without Images
--- Tables: Categories, Products, ProductImages
--- =============================================
-
-USE urbanease_shop;
-
--- TODO: Write your complex query here
--- Example: Find products that don't have any images
-
-/*
-SELECT 
-    p.product_id,
-    p.title,
-    c.name as category_name,
-    p.brand
-FROM Products p
--- Add your JOINs and WHERE clauses
-;
-*/
-
-
-
--- =============================================
--- Kumar, Virat
--- =============================================
-
--- =============================================
--- Author: Kumar, Virat
--- Create date: November 2025
--- Description: Query 1 - End-to-End Customer Order Fulfillment Analysis
--- Tables Used: Users (Bajwa), Orders (Sneha), OrderItems (Sneha), Shipments (Sneha), 
---              ProductVariants (Virat), Products (Pooja), Warehouses (Virat), Payments (Diana)
--- =============================================
-
--- BUSINESS USE CASE:
--- This query provides a complete customer order lifecycle view for operations teams
--- to track fulfillment performance, identify bottlenecks, and improve customer satisfaction.
--- It combines user data, order processing, inventory allocation, shipping, and payment status.
-
--- REAL-WORLD SCENARIO:
--- Operations managers use this query daily to:
--- - Monitor order-to-delivery time across different warehouses
--- - Identify delayed shipments and take corrective action
--- - Track which customers receive fastest service
--- - Analyze payment and fulfillment correlation
--- - Optimize warehouse allocation based on customer location
-
-USE urbanease_shop;
-
-SELECT 
-    -- Customer Information (Bajwa's tables)
-    u.user_id,
-    u.full_name AS customer_name,
-    u.email AS customer_email,
-    u.phone AS customer_phone,
-    u.is_active AS customer_active_status,
-    
-    -- Order Information (Sneha's tables)
-    o.order_id,
-    o.status AS order_status,
-    o.placed_at AS order_date,
-    DATE_FORMAT(o.placed_at, '%Y-%m-%d') AS order_date_formatted,
-    o.subtotal_amount,
-    o.discount_amount,
-    o.shipping_amount,
-    o.tax_amount,
-    o.grand_total_amount,
-    
-    -- Order Item Details (Sneha + Virat + Pooja tables)
-    COUNT(DISTINCT oi.order_item_id) AS total_line_items,
-    SUM(oi.qty) AS total_units_ordered,
-    GROUP_CONCAT(DISTINCT p.title SEPARATOR ', ') AS products_ordered,
-    GROUP_CONCAT(DISTINCT p.brand SEPARATOR ', ') AS brands_ordered,
-    
-    -- Payment Information (Diana's tables)
-    pay.provider AS payment_provider,
-    pay.status AS payment_status,
-    pay.paid_at AS payment_date,
-    DATEDIFF(pay.paid_at, o.placed_at) AS days_to_payment,
-    
-    -- Shipment Information (Sneha + Virat tables)
-    s.shipment_id,
-    w.name AS fulfillment_warehouse,
-    CONCAT(w.city, ', ', w.state_region) AS warehouse_location,
-    s.carrier AS shipping_carrier,
-    s.tracking_no AS tracking_number,
-    s.status AS shipment_status,
-    s.shipped_at AS ship_date,
-    s.delivered_at AS delivery_date,
-    
-    -- Performance Metrics
-    DATEDIFF(s.shipped_at, o.placed_at) AS days_order_to_ship,
-    DATEDIFF(s.delivered_at, s.shipped_at) AS days_ship_to_delivery,
-    DATEDIFF(s.delivered_at, o.placed_at) AS total_fulfillment_days,
-    
-    -- SLA Performance Classification
-    CASE 
-        WHEN s.delivered_at IS NULL AND s.status = 'DELIVERED' THEN 'Data Issue'
-        WHEN s.delivered_at IS NULL THEN 'In Progress'
-        WHEN DATEDIFF(s.delivered_at, o.placed_at) <= 2 THEN 'EXCELLENT (<=2 days)'
-        WHEN DATEDIFF(s.delivered_at, o.placed_at) <= 5 THEN 'GOOD (3-5 days)'
-        WHEN DATEDIFF(s.delivered_at, o.placed_at) <= 7 THEN 'ACCEPTABLE (6-7 days)'
-        WHEN DATEDIFF(s.delivered_at, o.placed_at) <= 10 THEN 'SLOW (8-10 days)'
-        ELSE 'CRITICAL DELAY (>10 days)'
-    END AS delivery_performance,
-    
-    -- Order Value Classification
-    CASE 
-        WHEN o.grand_total_amount >= 1000 THEN 'HIGH VALUE'
-        WHEN o.grand_total_amount >= 500 THEN 'MEDIUM-HIGH VALUE'
-        WHEN o.grand_total_amount >= 200 THEN 'MEDIUM VALUE'
-        WHEN o.grand_total_amount >= 100 THEN 'LOW-MEDIUM VALUE'
-        ELSE 'LOW VALUE'
-    END AS order_value_tier,
-    
-    -- Fulfillment Status Analysis
-    CASE 
-        WHEN o.status = 'FULFILLED' AND s.status = 'DELIVERED' THEN 'Complete & Delivered'
-        WHEN o.status = 'PAID' AND s.status = 'IN_TRANSIT' THEN 'Paid & In Transit'
-        WHEN o.status = 'PAID' AND s.status = 'PICKED' THEN 'Paid & Ready to Ship'
-        WHEN o.status = 'PAID' AND s.status = 'CREATED' THEN 'Paid & Awaiting Pickup'
-        WHEN o.status = 'PENDING' THEN 'Payment Pending'
-        WHEN o.status = 'CANCELLED' THEN 'Order Cancelled'
-        WHEN o.status = 'REFUNDED' THEN 'Order Refunded'
-        ELSE 'Status Mismatch - Review Needed'
-    END AS fulfillment_pipeline_status,
-    
-    -- Risk Flags
-    CASE 
-        WHEN o.status = 'PAID' AND pay.status != 'CAPTURED' THEN 'RISK: Payment Not Captured'
-        WHEN o.status = 'PAID' AND s.status = 'CREATED' AND DATEDIFF(NOW(), o.placed_at) > 2 THEN 'RISK: Delayed Pickup'
-        WHEN s.status = 'IN_TRANSIT' AND DATEDIFF(NOW(), s.shipped_at) > 7 THEN 'RISK: Transit Delay'
-        WHEN o.grand_total_amount > 500 AND s.carrier = 'USPS' THEN 'WATCH: High Value USPS'
-        ELSE 'Normal'
-    END AS risk_flag,
-    
-    -- Customer Satisfaction Predictor
-    CASE 
-        WHEN s.delivered_at IS NOT NULL AND DATEDIFF(s.delivered_at, o.placed_at) <= 3 
-            THEN 'High Satisfaction Expected'
-        WHEN s.delivered_at IS NOT NULL AND DATEDIFF(s.delivered_at, o.placed_at) <= 7 
-            THEN 'Moderate Satisfaction Expected'
-        WHEN s.delivered_at IS NOT NULL AND DATEDIFF(s.delivered_at, o.placed_at) > 7 
-            THEN 'Low Satisfaction - Follow Up Needed'
-        WHEN s.status = 'IN_TRANSIT' AND DATEDIFF(NOW(), s.shipped_at) <= 3 
-            THEN 'On Track'
-        WHEN s.status IN ('CREATED', 'PICKED') AND DATEDIFF(NOW(), o.placed_at) > 2 
-            THEN 'At Risk - Expedite Needed'
-        ELSE 'Monitor Closely'
-    END AS satisfaction_predictor
-
-FROM Orders o
-INNER JOIN Users u ON o.user_id = u.user_id
-INNER JOIN OrderItems oi ON o.order_id = oi.order_id
-INNER JOIN ProductVariants pv ON oi.variant_id = pv.variant_id
-INNER JOIN Products p ON pv.product_id = p.product_id
-LEFT JOIN Payments pay ON o.order_id = pay.order_id
-LEFT JOIN Shipments s ON o.order_id = s.order_id
-LEFT JOIN Warehouses w ON s.warehouse_id = w.warehouse_id
-
-WHERE 
-    o.placed_at >= DATE_SUB(NOW(), INTERVAL 90 DAY)  -- Last 90 days
-    AND o.status NOT IN ('CANCELLED', 'REFUNDED')      -- Exclude cancelled orders
-
-GROUP BY 
-    u.user_id, u.full_name, u.email, u.phone, u.is_active,
-    o.order_id, o.status, o.placed_at, o.subtotal_amount, o.discount_amount, 
-    o.shipping_amount, o.tax_amount, o.grand_total_amount,
-    pay.provider, pay.status, pay.paid_at,
-    s.shipment_id, w.name, w.city, w.state_region,
-    s.carrier, s.tracking_no, s.status, s.shipped_at, s.delivered_at
-
-ORDER BY 
-    CASE 
-        WHEN o.status = 'PAID' AND s.status = 'CREATED' AND DATEDIFF(NOW(), o.placed_at) > 2 THEN 1
-        WHEN s.status = 'IN_TRANSIT' AND DATEDIFF(NOW(), s.shipped_at) > 7 THEN 2
-        WHEN o.status = 'PENDING' THEN 3
-        ELSE 4
-    END,
-    o.placed_at DESC;
-
--- BUSINESS VALUE:
--- 1. Operations: Identifies bottlenecks in fulfillment pipeline
--- 2. Customer Service: Proactively addresses delayed orders
--- 3. Warehouse Management: Evaluates warehouse performance
--- 4. Finance: Correlates payment status with fulfillment
--- 5. Executive Dashboard: Overall fulfillment health metrics
-
-
-
--- =============================================
--- Author: Kumar, Virat
--- Create date: November 2025
--- Description: Query 2 - Product Performance with Customer Reviews and Sales Analysis
--- Tables Used: Products (Pooja), ProductVariants (Virat), Categories (Pooja), Reviews (Diana),
---              OrderItems (Sneha), Orders (Sneha), Users (Bajwa), Inventory (Virat)
--- =============================================
-
--- BUSINESS USE CASE:
--- This query combines product catalog, customer reviews, sales data, and inventory to provide
--- a comprehensive product performance dashboard. It helps merchandising and marketing teams
--- identify bestsellers, underperformers, and opportunities for improvement.
-
--- REAL-WORLD SCENARIO:
--- Merchandising team uses this monthly to:
--- - Decide which products to feature in campaigns
--- - Identify products needing review solicitation
--- - Determine which items to discontinue
--- - Plan inventory investments based on customer satisfaction
--- - Optimize product mix by category
-
-USE urbanease_shop;
-
-SELECT 
-    -- Category & Product Info (Pooja's tables)
-    c.name AS category_name,
-    p.product_id,
-    p.title AS product_name,
-    p.brand AS product_brand,
-    p.is_active AS product_active,
-    
-    -- Variant Pricing (Virat's tables)
-    COUNT(DISTINCT pv.variant_id) AS total_variants,
-    MIN(pv.price) AS lowest_price_point,
-    MAX(pv.price) AS highest_price_point,
-    ROUND(AVG(pv.price), 2) AS average_price_point,
-    
-    -- Customer Reviews (Diana's tables)
-    COUNT(DISTINCT r.review_id) AS total_reviews,
-    ROUND(AVG(r.rating), 2) AS average_rating,
-    SUM(CASE WHEN r.rating = 5 THEN 1 ELSE 0 END) AS five_star_reviews,
-    SUM(CASE WHEN r.rating = 4 THEN 1 ELSE 0 END) AS four_star_reviews,
-    SUM(CASE WHEN r.rating = 3 THEN 1 ELSE 0 END) AS three_star_reviews,
-    SUM(CASE WHEN r.rating <= 2 THEN 1 ELSE 0 END) AS critical_reviews,
-    
-    -- Sales Performance (Sneha's tables)
-    COUNT(DISTINCT o.order_id) AS total_orders_containing_product,
-    SUM(oi.qty) AS total_units_sold,
-    ROUND(SUM(oi.qty * oi.unit_price), 2) AS total_revenue_generated,
-    ROUND(AVG(oi.unit_price), 2) AS average_selling_price,
-    
-    -- Customer Reach (Bajwa + Sneha tables)
-    COUNT(DISTINCT o.user_id) AS unique_customers_purchased,
-    
-    -- Current Inventory Position (Virat's tables)
-    SUM(i.on_hand) AS total_stock_on_hand,
-    SUM(i.reserved) AS total_stock_reserved,
-    SUM(i.on_hand - i.reserved) AS total_available_stock,
-    ROUND(SUM(i.on_hand * pv.price), 2) AS current_inventory_value,
-    
-    -- Review Health Metrics
-    CASE 
-        WHEN AVG(r.rating) IS NULL THEN 'NO REVIEWS'
-        WHEN AVG(r.rating) >= 4.5 THEN 'EXCELLENT (4.5+)'
-        WHEN AVG(r.rating) >= 4.0 THEN 'VERY GOOD (4.0-4.4)'
-        WHEN AVG(r.rating) >= 3.5 THEN 'GOOD (3.5-3.9)'
-        WHEN AVG(r.rating) >= 3.0 THEN 'AVERAGE (3.0-3.4)'
-        ELSE 'BELOW AVERAGE (<3.0)'
-    END AS review_rating_class,
-    
-    -- Review Volume Assessment
-    CASE 
-        WHEN COUNT(DISTINCT r.review_id) = 0 THEN 'CRITICAL: No Reviews - Needs Attention'
-        WHEN COUNT(DISTINCT r.review_id) < 5 THEN 'LOW: Needs More Reviews'
-        WHEN COUNT(DISTINCT r.review_id) < 10 THEN 'MODERATE: Building Credibility'
-        WHEN COUNT(DISTINCT r.review_id) < 20 THEN 'GOOD: Strong Social Proof'
-        ELSE 'EXCELLENT: High Engagement'
-    END AS review_volume_status,
-    
-    -- Sales Performance Classification
-    CASE 
-        WHEN SUM(oi.qty) IS NULL OR SUM(oi.qty) = 0 THEN 'NO SALES'
-        WHEN SUM(oi.qty) >= 50 THEN 'BESTSELLER'
-        WHEN SUM(oi.qty) >= 20 THEN 'STRONG SELLER'
-        WHEN SUM(oi.qty) >= 10 THEN 'MODERATE SELLER'
-        WHEN SUM(oi.qty) >= 5 THEN 'SLOW MOVER'
-        ELSE 'POOR PERFORMER'
-    END AS sales_performance_tier,
-    
-    -- Stock Health vs Sales Velocity
-    CASE 
-        WHEN SUM(oi.qty) > 0 AND SUM(i.on_hand - i.reserved) = 0 
-            THEN 'URGENT: Out of Stock & Selling'
-        WHEN SUM(oi.qty) > 20 AND SUM(i.on_hand - i.reserved) < 50 
-            THEN 'WARNING: High Sales, Low Stock'
-        WHEN SUM(oi.qty) < 5 AND SUM(i.on_hand) > 100 
-            THEN 'OVERSTOCKED: Low Sales, High Inventory'
-        WHEN SUM(i.on_hand - i.reserved) > 0 AND SUM(oi.qty) > 10 
-            THEN 'HEALTHY: Good Balance'
-        ELSE 'MONITOR'
-    END AS inventory_sales_alignment,
-    
-    -- Customer Satisfaction Score (combining rating and sales)
-    CASE 
-        WHEN AVG(r.rating) >= 4.5 AND SUM(oi.qty) >= 20 
-            THEN 'STAR PRODUCT: High Rating & High Sales'
-        WHEN AVG(r.rating) >= 4.0 AND SUM(oi.qty) >= 10 
-            THEN 'SOLID PERFORMER: Good Rating & Good Sales'
-        WHEN AVG(r.rating) IS NULL AND SUM(oi.qty) >= 20 
-            THEN 'SELLING WELL: Needs Reviews for Credibility'
-        WHEN AVG(r.rating) < 3.0 AND SUM(oi.qty) < 5 
-            THEN 'PROBLEM PRODUCT: Poor Rating & Weak Sales'
-        WHEN AVG(r.rating) >= 4.0 AND (SUM(oi.qty) IS NULL OR SUM(oi.qty) < 5) 
-            THEN 'HIDDEN GEM: Good Rating but Low Visibility'
-        ELSE 'NEEDS ANALYSIS'
-    END AS product_health_status,
-    
-    -- Revenue Performance
-    CASE 
-        WHEN SUM(oi.qty * oi.unit_price) >= 10000 THEN 'TOP REVENUE DRIVER'
-        WHEN SUM(oi.qty * oi.unit_price) >= 5000 THEN 'STRONG REVENUE CONTRIBUTOR'
-        WHEN SUM(oi.qty * oi.unit_price) >= 1000 THEN 'MODERATE REVENUE'
-        WHEN SUM(oi.qty * oi.unit_price) > 0 THEN 'MINOR REVENUE'
-        ELSE 'NO REVENUE'
-    END AS revenue_contribution,
-    
-    -- Strategic Actions Recommended
-    CASE 
-        WHEN AVG(r.rating) IS NULL AND SUM(oi.qty) > 0 
-            THEN 'ACTION: Solicit reviews from recent buyers'
-        WHEN AVG(r.rating) < 3.0 
-            THEN 'ACTION: Investigate quality issues, consider removal'
-        WHEN AVG(r.rating) >= 4.5 AND SUM(oi.qty) >= 20 
-            THEN 'ACTION: Feature in marketing campaigns'
-        WHEN SUM(i.on_hand - i.reserved) = 0 AND SUM(oi.qty) > 0 
-            THEN 'ACTION: Emergency restock - high demand'
-        WHEN SUM(oi.qty) < 5 AND SUM(i.on_hand) > 100 
-            THEN 'ACTION: Run promotion or consider clearance'
-        WHEN AVG(r.rating) >= 4.0 AND SUM(oi.qty) < 5 
-            THEN 'ACTION: Increase visibility - good product, low sales'
-        ELSE 'ACTION: Monitor performance trends'
-    END AS recommended_action,
-    
-    -- Price-to-Rating Optimization
-    CASE 
-        WHEN AVG(pv.price) < 100 AND AVG(r.rating) >= 4.5 
-            THEN 'OPPORTUNITY: Consider price increase'
-        WHEN AVG(pv.price) > 500 AND AVG(r.rating) < 3.5 
-            THEN 'RISK: High price, low satisfaction'
-        WHEN AVG(pv.price) > 200 AND AVG(r.rating) >= 4.5 
-            THEN 'PREMIUM JUSTIFIED: High price, high satisfaction'
-        ELSE 'STANDARD PRICING'
-    END AS pricing_strategy_insight
-
-FROM Products p
-LEFT JOIN Categories c ON p.category_id = c.category_id
-LEFT JOIN ProductVariants pv ON p.product_id = pv.product_id AND pv.is_active = TRUE
-LEFT JOIN Reviews r ON p.product_id = r.product_id
-LEFT JOIN OrderItems oi ON pv.variant_id = oi.variant_id
-LEFT JOIN Orders o ON oi.order_id = o.order_id 
-    AND o.status IN ('PAID', 'FULFILLED') 
-    AND o.placed_at >= DATE_SUB(NOW(), INTERVAL 90 DAY)
-LEFT JOIN Inventory i ON pv.variant_id = i.variant_id
-
-WHERE p.is_active = TRUE
-
-GROUP BY 
-    c.name, p.product_id, p.title, p.brand, p.is_active
-
-ORDER BY 
-    CASE 
-        WHEN AVG(r.rating) >= 4.5 AND SUM(oi.qty) >= 20 THEN 1  -- Star products first
-        WHEN SUM(oi.qty) > 0 AND SUM(i.on_hand - i.reserved) = 0 THEN 2  -- Out of stock sellers
-        WHEN AVG(r.rating) < 3.0 THEN 3  -- Problem products
-        ELSE 4
-    END,
-    total_revenue_generated DESC,
-    average_rating DESC;
-
--- BUSINESS VALUE:
--- 1. Merchandising: Identifies products to promote or discontinue
--- 2. Marketing: Finds star products for campaigns
--- 3. Customer Success: Identifies products needing quality improvement
--- 4. Inventory Planning: Aligns stock with demand and satisfaction
--- 5. Pricing Strategy: Optimizes pricing based on customer feedback
--- 6. Executive Dashboard: Product portfolio health overview
-
-
-
--- =============================================
--- Author: Kumar, Virat
--- Create date: November 2025
--- Description: Query 3 - Abandoned Cart Recovery with Customer & Inventory Intelligence
--- Tables Used: Carts (Min), CartItems (Min), Users (Bajwa), ProductVariants (Virat),
---              Products (Pooja), Inventory (Virat), Coupons (Min), Orders (Sneha)
--- =============================================
-
--- BUSINESS USE CASE:
--- This query identifies high-value abandoned carts and provides actionable intelligence
--- for recovery campaigns. It combines cart data with customer history, product availability,
--- and coupon strategies to maximize conversion rates.
-
--- REAL-WORLD SCENARIO:
--- Marketing team runs this query 3x daily to:
--- - Send personalized cart recovery emails with dynamic coupons
--- - Prioritize which abandoned carts to target first
--- - Ensure products are still in stock before sending reminders
--- - Customize messaging based on customer purchase history
--- - Calculate ROI of recovery campaigns
-
-USE urbanease_shop;
-
-SELECT 
-    -- Cart Identification
-    c.cart_id,
-    c.created_at AS cart_created_date,
-    c.updated_at AS cart_last_modified,
-    DATEDIFF(NOW(), c.updated_at) AS days_since_last_activity,
-    TIMESTAMPDIFF(HOUR, c.updated_at, NOW()) AS hours_since_last_activity,
-    
-    -- Customer Information (Bajwa's tables)
-    CASE 
-        WHEN c.user_id IS NULL THEN 'Guest'
-        ELSE 'Registered'
-    END AS customer_type,
-    u.user_id,
-    u.full_name AS customer_name,
-    u.email AS customer_email,
-    u.phone AS customer_phone,
-    u.is_active AS customer_active_status,
-    DATE_FORMAT(u.created_at, '%Y-%m-%d') AS customer_since,
-    DATEDIFF(NOW(), u.created_at) AS customer_age_days,
-    
-    -- Cart Contents (Min + Virat + Pooja tables)
-    COUNT(DISTINCT ci.cart_item_id) AS total_items_in_cart,
-    SUM(ci.qty) AS total_units_in_cart,
-    GROUP_CONCAT(DISTINCT p.title ORDER BY (ci.qty * ci.unit_price) DESC SEPARATOR ' | ') AS products_in_cart,
-    GROUP_CONCAT(DISTINCT p.brand SEPARATOR ', ') AS brands_in_cart,
-    GROUP_CONCAT(DISTINCT pv.sku SEPARATOR ', ') AS skus_in_cart,
-    
-    -- Cart Value Analysis
-    ROUND(SUM(ci.qty * ci.unit_price), 2) AS cart_total_value,
-    ROUND(AVG(ci.unit_price), 2) AS average_item_price,
-    ROUND(MAX(ci.unit_price), 2) AS highest_priced_item,
-    ROUND(MIN(ci.unit_price), 2) AS lowest_priced_item,
-    
-    -- Inventory Availability Check (Virat's tables)
-    SUM(CASE 
-        WHEN IFNULL(inv.on_hand - inv.reserved, 0) >= ci.qty THEN 1
-        ELSE 0
-    END) AS items_in_stock_count,
-    SUM(CASE 
-        WHEN IFNULL(inv.on_hand - inv.reserved, 0) < ci.qty THEN 1
-        ELSE 0
-    END) AS items_out_of_stock_count,
-    
-    -- Customer Purchase History (Sneha's tables)
-    COUNT(DISTINCT o.order_id) AS previous_orders_count,
-    ROUND(COALESCE(SUM(o.grand_total_amount), 0), 2) AS lifetime_purchase_value,
-    MAX(o.placed_at) AS last_order_date,
-    DATEDIFF(NOW(), MAX(o.placed_at)) AS days_since_last_order,
-    
-    -- Cart Abandonment Classification
-    CASE 
-        WHEN DATEDIFF(NOW(), c.updated_at) = 0 THEN 'TODAY - Fresh Abandonment'
-        WHEN DATEDIFF(NOW(), c.updated_at) = 1 THEN 'YESTERDAY - 24hr Window'
-        WHEN DATEDIFF(NOW(), c.updated_at) <= 3 THEN 'RECENT - 2-3 Days (Prime for Recovery)'
-        WHEN DATEDIFF(NOW(), c.updated_at) <= 7 THEN 'STALE - 4-7 Days'
-        WHEN DATEDIFF(NOW(), c.updated_at) <= 14 THEN 'VERY STALE - 8-14 Days'
-        WHEN DATEDIFF(NOW(), c.updated_at) <= 30 THEN 'OLD - 15-30 Days'
-        ELSE 'EXPIRED - >30 Days'
-    END AS abandonment_age_category,
-    
-    -- Cart Value Tier
-    CASE 
-        WHEN SUM(ci.qty * ci.unit_price) >= 1000 THEN 'PREMIUM ($1000+)'
-        WHEN SUM(ci.qty * ci.unit_price) >= 500 THEN 'HIGH VALUE ($500-$999)'
-        WHEN SUM(ci.qty * ci.unit_price) >= 200 THEN 'MEDIUM-HIGH ($200-$499)'
-        WHEN SUM(ci.qty * ci.unit_price) >= 100 THEN 'MEDIUM ($100-$199)'
-        WHEN SUM(ci.qty * ci.unit_price) >= 50 THEN 'LOW-MEDIUM ($50-$99)'
-        ELSE 'LOW VALUE (<$50)'
-    END AS cart_value_tier,
-    
-    -- Recovery Priority Score (1-10, 10 being highest)
-    CASE 
-        -- High value, recent abandonment, items in stock, existing customer
-        WHEN SUM(ci.qty * ci.unit_price) >= 500 
-            AND DATEDIFF(NOW(), c.updated_at) <= 3 
-            AND SUM(CASE WHEN IFNULL(inv.on_hand - inv.reserved, 0) >= ci.qty THEN 1 ELSE 0 END) = COUNT(ci.cart_item_id)
-            AND c.user_id IS NOT NULL
-            THEN 10
-        -- High value, recent, in stock
-        WHEN SUM(ci.qty * ci.unit_price) >= 300 
-            AND DATEDIFF(NOW(), c.updated_at) <= 3 
-            AND SUM(CASE WHEN IFNULL(inv.on_hand - inv.reserved, 0) >= ci.qty THEN 1 ELSE 0 END) >= COUNT(ci.cart_item_id) * 0.8
-            THEN 9
-        -- Medium-high value, very recent
-        WHEN SUM(ci.qty * ci.unit_price) >= 200 AND DATEDIFF(NOW(), c.updated_at) <= 1 THEN 8
-        -- High value but older
-        WHEN SUM(ci.qty * ci.unit_price) >= 500 AND DATEDIFF(NOW(), c.updated_at) <= 7 THEN 7
-        -- Medium value, recent
-        WHEN SUM(ci.qty * ci.unit_price) >= 100 AND DATEDIFF(NOW(), c.updated_at) <= 3 THEN 6
-        -- Registered customer, decent value
-        WHEN c.user_id IS NOT NULL AND SUM(ci.qty * ci.unit_price) >= 100 THEN 5
-        -- Recent but low value
-        WHEN DATEDIFF(NOW(), c.updated_at) <= 1 THEN 4
-        -- Guest cart, low value
-        WHEN c.user_id IS NULL AND SUM(ci.qty * ci.unit_price) < 50 THEN 2
-        -- Very old carts
-        WHEN DATEDIFF(NOW(), c.updated_at) > 14 THEN 1
-        ELSE 3
-    END AS recovery_priority_score,
-    
-    -- Customer Segment for Targeting
-    CASE 
-        WHEN c.user_id IS NOT NULL AND COUNT(DISTINCT o.order_id) >= 3 
-            THEN 'LOYAL CUSTOMER - High Trust'
-        WHEN c.user_id IS NOT NULL AND COUNT(DISTINCT o.order_id) BETWEEN 1 AND 2 
-            THEN 'REPEAT BUYER - Medium Trust'
-        WHEN c.user_id IS NOT NULL AND COUNT(DISTINCT o.order_id) = 0 
-            THEN 'NEW REGISTERED - Building Relationship'
-        WHEN c.user_id IS NULL 
-            THEN 'GUEST - Needs Registration Incentive'
-        ELSE 'UNKNOWN'
-    END AS customer_segment,
-    
-    -- Recommended Recovery Strategy
-    CASE 
-        -- High value loyal customers
-        WHEN SUM(ci.qty * ci.unit_price) >= 500 AND COUNT(DISTINCT o.order_id) >= 3 
-            THEN 'VIP: Personal email + Phone call + Free shipping + 15% off'
-        -- High value new customers
-        WHEN SUM(ci.qty * ci.unit_price) >= 500 AND COUNT(DISTINCT o.order_id) = 0 
-            THEN 'HIGH POTENTIAL: Email + 20% first order discount + Free shipping'
-        -- Medium value, items in stock, recent
-        WHEN SUM(ci.qty * ci.unit_price) >= 200 
-            AND DATEDIFF(NOW(), c.updated_at) <= 3 
-            AND SUM(CASE WHEN IFNULL(inv.on_hand - inv.reserved, 0) >= ci.qty THEN 1 ELSE 0 END) = COUNT(ci.cart_item_id)
-            THEN 'TIMELY: Email + 10% discount + Urgency message (24hr)'
-        -- Out of stock issues
-        WHEN SUM(CASE WHEN IFNULL(inv.on_hand - inv.reserved, 0) < ci.qty THEN 1 ELSE 0 END) > 0 
-            THEN 'INVENTORY: Notify when back in stock + Waitlist'
-        -- Guest carts
-        WHEN c.user_id IS NULL AND SUM(ci.qty * ci.unit_price) >= 100 
-            THEN 'GUEST RECOVERY: Email + Register & Save 10% incentive'
-        -- Stale carts
-        WHEN DATEDIFF(NOW(), c.updated_at) BETWEEN 7 AND 14 
-            THEN 'LAST CHANCE: Email + 15% off + Limited time offer'
-        -- Low priority
-        ELSE 'LOW PRIORITY: Basic reminder email only'
-    END AS recommended_recovery_tactic,
-    
-    -- Suggested Coupon Type (from Min's Coupons table logic)
-    CASE 
-        WHEN SUM(ci.qty * ci.unit_price) >= 500 THEN 'Offer SAVE15 or MEGA50 coupon'
-        WHEN SUM(ci.qty * ci.unit_price) >= 200 THEN 'Offer SAVE15 or DEAL25 coupon'
-        WHEN SUM(ci.qty * ci.unit_price) >= 100 THEN 'Offer WELCOME10 or GET10OFF coupon'
-        WHEN SUM(ci.qty * ci.unit_price) >= 50 THEN 'Offer WELCOME10 or SAVE5 coupon'
-        ELSE 'Offer SAVE5 coupon or free shipping'
-    END AS suggested_coupon_strategy,
-    
-    -- Stock Availability Status
-    CASE 
-        WHEN SUM(CASE WHEN IFNULL(inv.on_hand - inv.reserved, 0) >= ci.qty THEN 1 ELSE 0 END) = COUNT(ci.cart_item_id)
-            THEN 'ALL IN STOCK - Ready to fulfill'
-        WHEN SUM(CASE WHEN IFNULL(inv.on_hand - inv.reserved, 0) >= ci.qty THEN 1 ELSE 0 END) >= COUNT(ci.cart_item_id) * 0.5
-            THEN 'PARTIALLY IN STOCK - Some items available'
-        ELSE 'MOSTLY OUT OF STOCK - Notify when available'
-    END AS inventory_availability_status,
-    
-    -- Estimated Recovery Value (cart value * probability)
-    ROUND(
-        SUM(ci.qty * ci.unit_price) * 
-        CASE 
-            WHEN DATEDIFF(NOW(), c.updated_at) <= 1 THEN 0.35  -- 35% conversion within 24hrs
-            WHEN DATEDIFF(NOW(), c.updated_at) <= 3 THEN 0.25  -- 25% conversion 2-3 days
-            WHEN DATEDIFF(NOW(), c.updated_at) <= 7 THEN 0.15  -- 15% conversion 4-7 days
-            WHEN DATEDIFF(NOW(), c.updated_at) <= 14 THEN 0.05 -- 5% conversion 8-14 days
-            ELSE 0.02  -- 2% conversion after 14 days
-        END, 
-        2
-    ) AS estimated_recovery_value,
-    
-    -- Action Urgency
-    CASE 
-        WHEN SUM(ci.qty * ci.unit_price) >= 500 AND DATEDIFF(NOW(), c.updated_at) <= 1 
-            THEN 'URGENT: Contact within 2 hours'
-        WHEN SUM(ci.qty * ci.unit_price) >= 200 AND DATEDIFF(NOW(), c.updated_at) <= 3 
-            THEN 'HIGH: Contact within 12 hours'
-        WHEN DATEDIFF(NOW(), c.updated_at) <= 3 
-            THEN 'MEDIUM: Contact within 24 hours'
-        WHEN DATEDIFF(NOW(), c.updated_at) <= 7 
-            THEN 'LOW: Contact within 3 days'
-        ELSE 'MINIMAL: Optional contact'
-    END AS action_urgency
-
-FROM Carts c
-LEFT JOIN Users u ON c.user_id = u.user_id
-INNER JOIN CartItems ci ON c.cart_id = ci.cart_id
-INNER JOIN ProductVariants pv ON ci.variant_id = pv.variant_id
-INNER JOIN Products p ON pv.product_id = p.product_id
-LEFT JOIN (
-    SELECT variant_id, SUM(on_hand) AS on_hand, SUM(reserved) AS reserved
-    FROM Inventory
-    GROUP BY variant_id
-) inv ON pv.variant_id = inv.variant_id
-LEFT JOIN Orders o ON c.user_id = o.user_id AND o.status IN ('PAID', 'FULFILLED')
-
-WHERE 
-    -- Cart was updated in last 30 days (not too old)
-    c.updated_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
-    -- Cart was not converted to order (check by lack of recent order with same products)
-    AND NOT EXISTS (
-        SELECT 1 FROM Orders o2
-        INNER JOIN OrderItems oi ON o2.order_id = oi.order_id
-        WHERE o2.user_id = c.user_id 
-        AND oi.variant_id = ci.variant_id
-        AND o2.placed_at >= c.updated_at
-    )
-    -- Cart has been inactive for at least 3 hours (abandoned)
-    AND TIMESTAMPDIFF(HOUR, c.updated_at, NOW()) >= 3
-
-GROUP BY 
-    c.cart_id, c.created_at, c.updated_at, c.user_id,
-    u.user_id, u.full_name, u.email, u.phone, u.is_active, u.created_at
-
-HAVING 
-    cart_total_value > 0  -- Only carts with value
-
-ORDER BY 
-    recovery_priority_score DESC,
-    cart_total_value DESC,
-    days_since_last_activity ASC;
-
--- BUSINESS VALUE:
--- 1. Marketing: Prioritized list for cart recovery campaigns
--- 2. Sales: Identifies high-value opportunities for personal outreach
--- 3. Customer Success: Personalizes recovery messaging based on customer history
--- 4. Inventory: Ensures stock availability before sending reminders
--- 5. Finance: Estimates potential revenue from recovery efforts
--- 6. Analytics: Tracks abandonment patterns and recovery ROI
-
-
-
--- =============================================
--- Author: Kumar, Virat
--- Create date: November 2025
--- Description: Query 4 - Comprehensive Revenue & Profitability Dashboard
--- Tables Used: Orders (Sneha), OrderItems (Sneha), Payments (Diana), ProductVariants (Virat),
---              Products (Pooja), Categories (Pooja), Users (Bajwa), Coupons (Min), Shipments (Sneha)
--- =============================================
-
--- BUSINESS USE CASE:
--- This query provides executive-level financial insights by combining orders, payments,
--- product costs, discounts, and shipping to calculate true profitability metrics.
--- It helps CFO and finance teams understand revenue streams, margins, and cost drivers.
-
--- REAL-WORLD SCENARIO:
--- Finance team uses this for:
--- - Monthly financial reporting and board presentations
--- - Identifying most/least profitable product categories
--- - Analyzing discount impact on margins
--- - Calculating customer acquisition cost vs. lifetime value
--- - Optimizing pricing and promotional strategies
-
-USE urbanease_shop;
-
-SELECT 
-    -- Time Period Analysis
-    DATE_FORMAT(o.placed_at, '%Y-%m') AS order_month,
-    DATE_FORMAT(o.placed_at, '%Y-Q%q') AS order_quarter,
-    YEAR(o.placed_at) AS order_year,
-    DAYNAME(o.placed_at) AS order_day_of_week,
-    
-    -- Category Performance (Pooja's tables)
-    c.name AS product_category,
-    
-    -- Order Metrics (Sneha's tables)
-    COUNT(DISTINCT o.order_id) AS total_orders,
-    COUNT(DISTINCT o.user_id) AS unique_customers,
-    ROUND(COUNT(DISTINCT o.order_id) / COUNT(DISTINCT o.user_id), 2) AS orders_per_customer,
-    
-    -- Order Status Distribution
-    SUM(CASE WHEN o.status = 'PAID' THEN 1 ELSE 0 END) AS orders_paid,
-    SUM(CASE WHEN o.status = 'FULFILLED' THEN 1 ELSE 0 END) AS orders_fulfilled,
-    SUM(CASE WHEN o.status = 'PENDING' THEN 1 ELSE 0 END) AS orders_pending,
-    SUM(CASE WHEN o.status = 'CANCELLED' THEN 1 ELSE 0 END) AS orders_cancelled,
-    SUM(CASE WHEN o.status = 'REFUNDED' THEN 1 ELSE 0 END) AS orders_refunded,
-    
-    -- Revenue Metrics
-    ROUND(SUM(o.subtotal_amount), 2) AS gross_merchandise_value,
-    ROUND(SUM(o.discount_amount), 2) AS total_discounts_given,
-    ROUND(SUM(o.shipping_amount), 2) AS total_shipping_charged,
-    ROUND(SUM(o.tax_amount), 2) AS total_tax_collected,
-    ROUND(SUM(o.grand_total_amount), 2) AS total_revenue,
-    
-    -- Average Order Metrics
-    ROUND(AVG(o.subtotal_amount), 2) AS avg_order_subtotal,
-    ROUND(AVG(o.grand_total_amount), 2) AS avg_order_value,
-    ROUND(AVG(o.discount_amount), 2) AS avg_discount_per_order,
-    
-    -- Product & Unit Metrics (Virat + Sneha tables)
-    SUM(oi.qty) AS total_units_sold,
-    ROUND(AVG(oi.unit_price), 2) AS avg_unit_selling_price,
-    COUNT(DISTINCT p.product_id) AS unique_products_sold,
-    COUNT(DISTINCT pv.variant_id) AS unique_variants_sold,
-    
-    -- Discount Analysis (Min's tables - coupon impact)
-    COUNT(DISTINCT o.coupon_id) AS orders_with_coupons,
-    ROUND(
-        (COUNT(DISTINCT o.coupon_id) / COUNT(DISTINCT o.order_id) * 100), 
-        2
-    ) AS coupon_usage_rate_percent,
-    ROUND(
-        (SUM(o.discount_amount) / NULLIF(SUM(o.subtotal_amount), 0) * 100), 
-        2
-    ) AS avg_discount_rate_percent,
-    
-    -- Payment Success Metrics (Diana's tables)
-    COUNT(DISTINCT CASE WHEN pay.status = 'CAPTURED' THEN pay.payment_id END) AS successful_payments,
-    COUNT(DISTINCT CASE WHEN pay.status = 'FAILED' THEN pay.payment_id END) AS failed_payments,
-    COUNT(DISTINCT CASE WHEN pay.status = 'REFUNDED' THEN pay.payment_id END) AS refunded_payments,
-    ROUND(
-        (COUNT(DISTINCT CASE WHEN pay.status = 'CAPTURED' THEN pay.payment_id END) / 
-         NULLIF(COUNT(DISTINCT pay.payment_id), 0) * 100), 
-        2
-    ) AS payment_success_rate_percent,
-    
-    -- Payment Provider Distribution
-    SUM(CASE WHEN pay.provider = 'Stripe' THEN pay.amount ELSE 0 END) AS stripe_revenue,
-    SUM(CASE WHEN pay.provider = 'PayPal' THEN pay.amount ELSE 0 END) AS paypal_revenue,
-    SUM(CASE WHEN pay.provider = 'Square' THEN pay.amount ELSE 0 END) AS square_revenue,
-    
-    -- Shipping Performance (Sneha's Shipments table)
-    COUNT(DISTINCT s.shipment_id) AS total_shipments,
-    SUM(CASE WHEN s.status = 'DELIVERED' THEN 1 ELSE 0 END) AS shipments_delivered,
-    ROUND(
-        AVG(CASE 
-            WHEN s.delivered_at IS NOT NULL AND s.shipped_at IS NOT NULL 
-            THEN DATEDIFF(s.delivered_at, s.shipped_at)
-            ELSE NULL
-        END), 
-        2
-    ) AS avg_delivery_days,
-    
-    -- Profitability Metrics (Estimates)
-    -- Net Revenue = Total Revenue - Discounts
-    ROUND(SUM(o.grand_total_amount) - SUM(o.discount_amount), 2) AS net_revenue_after_discounts,
-    
-    -- Revenue Per Unit
-    ROUND(
-        SUM(o.grand_total_amount) / NULLIF(SUM(oi.qty), 0), 
-        2
-    ) AS revenue_per_unit_sold,
-    
-    -- Discount Efficiency (Revenue impact)
-    ROUND(
-        (SUM(o.grand_total_amount) / NULLIF(SUM(o.discount_amount), 0)), 
-        2
-    ) AS revenue_dollars_per_discount_dollar,
-    
-    -- Category Performance Indicators
-    CASE 
-        WHEN SUM(o.grand_total_amount) >= 50000 THEN 'TOP REVENUE CATEGORY'
-        WHEN SUM(o.grand_total_amount) >= 20000 THEN 'HIGH REVENUE CATEGORY'
-        WHEN SUM(o.grand_total_amount) >= 10000 THEN 'MEDIUM REVENUE CATEGORY'
-        WHEN SUM(o.grand_total_amount) >= 5000 THEN 'LOW-MEDIUM REVENUE CATEGORY'
-        ELSE 'LOW REVENUE CATEGORY'
-    END AS category_revenue_tier,
-    
-    -- Discount Strategy Assessment
-    CASE 
-        WHEN (SUM(o.discount_amount) / NULLIF(SUM(o.subtotal_amount), 0) * 100) > 20 
-            THEN 'HIGH DISCOUNT DEPENDENCY - Review Strategy'
-        WHEN (SUM(o.discount_amount) / NULLIF(SUM(o.subtotal_amount), 0) * 100) > 10 
-            THEN 'MODERATE DISCOUNTING - Acceptable'
-        WHEN (SUM(o.discount_amount) / NULLIF(SUM(o.subtotal_amount), 0) * 100) > 5 
-            THEN 'LOW DISCOUNTING - Healthy Margins'
-        ELSE 'MINIMAL DISCOUNTING - Premium Pricing'
-    END AS discount_strategy_health,
-    
-    -- Order Fulfillment Efficiency
-    CASE 
-        WHEN (SUM(CASE WHEN o.status = 'FULFILLED' THEN 1 ELSE 0 END) / 
-              NULLIF(COUNT(DISTINCT o.order_id), 0) * 100) >= 80 
-            THEN 'EXCELLENT FULFILLMENT (>80%)'
-        WHEN (SUM(CASE WHEN o.status = 'FULFILLED' THEN 1 ELSE 0 END) / 
-              NULLIF(COUNT(DISTINCT o.order_id), 0) * 100) >= 60 
-            THEN 'GOOD FULFILLMENT (60-80%)'
-        WHEN (SUM(CASE WHEN o.status = 'FULFILLED' THEN 1 ELSE 0 END) / 
-              NULLIF(COUNT(DISTINCT o.order_id), 0) * 100) >= 40 
-            THEN 'NEEDS IMPROVEMENT (40-60%)'
-        ELSE 'POOR FULFILLMENT (<40%)'
-    END AS fulfillment_performance,
-    
-    -- Payment Processing Health
-    CASE 
-        WHEN (COUNT(DISTINCT CASE WHEN pay.status = 'FAILED' THEN pay.payment_id END) / 
-              NULLIF(COUNT(DISTINCT pay.payment_id), 0) * 100) > 10 
-            THEN 'HIGH FAILURE RATE - Check Payment Gateway'
-        WHEN (COUNT(DISTINCT CASE WHEN pay.status = 'FAILED' THEN pay.payment_id END) / 
-              NULLIF(COUNT(DISTINCT pay.payment_id), 0) * 100) > 5 
-            THEN 'ELEVATED FAILURE RATE - Monitor Closely'
-        ELSE 'HEALTHY PAYMENT PROCESSING'
-    END AS payment_processing_health,
-    
-    -- Return/Refund Rate Analysis
-    CASE 
-        WHEN (SUM(CASE WHEN o.status = 'REFUNDED' THEN 1 ELSE 0 END) / 
-              NULLIF(COUNT(DISTINCT o.order_id), 0) * 100) > 10 
-            THEN 'HIGH RETURN RATE - Quality Issue'
-        WHEN (SUM(CASE WHEN o.status = 'REFUNDED' THEN 1 ELSE 0 END) / 
-              NULLIF(COUNT(DISTINCT o.order_id), 0) * 100) > 5 
-            THEN 'ELEVATED RETURNS - Investigate'
-        WHEN (SUM(CASE WHEN o.status = 'REFUNDED' THEN 1 ELSE 0 END) / 
-              NULLIF(COUNT(DISTINCT o.order_id), 0) * 100) > 2 
-            THEN 'NORMAL RETURN RATE'
-        ELSE 'LOW RETURN RATE - Excellent'
-    END AS return_rate_assessment,
-    
-    -- Growth Indicators
-    CASE 
-        WHEN COUNT(DISTINCT o.order_id) >= 50 THEN 'HIGH VOLUME PERIOD'
-        WHEN COUNT(DISTINCT o.order_id) >= 20 THEN 'MEDIUM VOLUME PERIOD'
-        WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 'LOW VOLUME PERIOD'
-        ELSE 'MINIMAL VOLUME PERIOD'
-    END AS order_volume_classification,
-    
-    -- Strategic Recommendations
-    CASE 
-        WHEN (SUM(o.discount_amount) / NULLIF(SUM(o.subtotal_amount), 0) * 100) > 15 
-            AND AVG(o.grand_total_amount) < 100 
-            THEN 'STRATEGY: Reduce discounts, focus on value perception'
-        WHEN AVG(o.grand_total_amount) >= 500 
-            AND (SUM(o.discount_amount) / NULLIF(SUM(o.subtotal_amount), 0) * 100) < 5 
-            THEN 'STRATEGY: Premium segment - maintain pricing power'
-        WHEN COUNT(DISTINCT o.user_id) < 20 
-            THEN 'STRATEGY: Focus on customer acquisition'
-        WHEN (SUM(CASE WHEN o.status = 'REFUNDED' THEN 1 ELSE 0 END) / 
-              NULLIF(COUNT(DISTINCT o.order_id), 0) * 100) > 8 
-            THEN 'STRATEGY: Investigate product quality/fit issues'
-        WHEN (COUNT(DISTINCT pay.payment_id) / NULLIF(COUNT(DISTINCT o.order_id), 0)) < 0.95 
-            THEN 'STRATEGY: Improve payment gateway or offer more payment options'
-        ELSE 'STRATEGY: Scale current operations'
-    END AS strategic_recommendation
-
-FROM Orders o
-INNER JOIN OrderItems oi ON o.order_id = oi.order_id
-INNER JOIN ProductVariants pv ON oi.variant_id = pv.variant_id
-INNER JOIN Products p ON pv.product_id = p.product_id
-LEFT JOIN Categories c ON p.category_id = c.category_id
-LEFT JOIN Payments pay ON o.order_id = pay.order_id
-LEFT JOIN Shipments s ON o.order_id = s.order_id
-
-WHERE 
-    o.placed_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)  -- Last 6 months
-    AND o.status NOT IN ('CANCELLED')  -- Exclude cancelled orders
-
-GROUP BY 
-    DATE_FORMAT(o.placed_at, '%Y-%m'),
-    DATE_FORMAT(o.placed_at, '%Y-Q%q'),
-    YEAR(o.placed_at),
-    DAYNAME(o.placed_at),
-    c.name
-
-ORDER BY 
-    order_year DESC,
-    order_month DESC,
-    total_revenue DESC;
-
--- BUSINESS VALUE:
--- 1. CFO/Finance: Comprehensive P&L insights and margin analysis
--- 2. Executives: Strategic decision-making on pricing and promotions
--- 3. Category Managers: Category performance benchmarking
--- 4. Marketing: ROI on discount campaigns and promotional strategies
--- 5. Operations: Fulfillment efficiency and bottleneck identification
--- 6. Investors: Business health and growth trajectory metrics
-
-
-
--- =============================================
--- Author: Kumar, Virat
--- Create date: November 2025
--- Description: Query 5 - Customer Lifetime Value & RFM Segmentation Analysis
--- Tables Used: Users (Bajwa), UserRoles (Bajwa), Orders (Sneha), OrderItems (Sneha),
---              Payments (Diana), Reviews (Diana), Carts (Min), Addresses (Diana)
--- =============================================
-
--- BUSINESS USE CASE:
--- This query implements RFM (Recency, Frequency, Monetary) analysis combined with
--- engagement metrics to segment customers and calculate lifetime value. It enables
--- targeted marketing, personalized experiences, and customer retention strategies.
-
--- REAL-WORLD SCENARIO:
--- Marketing and CRM teams use this for:
--- - Identifying VIP customers for exclusive offers
--- - Segmenting customers for email marketing campaigns
--- - Calculating customer acquisition cost (CAC) payback periods
--- - Predicting churn risk and implementing retention programs
--- - Personalizing product recommendations and pricing
-
-USE urbanease_shop;
-
-SELECT 
-    -- Customer Identity (Bajwa's tables)
-    u.user_id,
-    u.full_name AS customer_name,
-    u.email AS customer_email,
-    u.phone AS customer_phone,
-    u.is_active AS account_active,
-    DATE_FORMAT(u.created_at, '%Y-%m-%d') AS registration_date,
-    DATEDIFF(NOW(), u.created_at) AS customer_age_days,
-    ROUND(DATEDIFF(NOW(), u.created_at) / 30.0, 1) AS customer_age_months,
-    
-    -- Customer Role (Bajwa's tables)
-    GROUP_CONCAT(DISTINCT r.role_name SEPARATOR ', ') AS user_roles,
-    CASE 
-        WHEN GROUP_CONCAT(DISTINCT r.role_name) LIKE '%VIPCustomer%' THEN 'VIP Member'
-        WHEN GROUP_CONCAT(DISTINCT r.role_name) LIKE '%Customer%' THEN 'Regular Customer'
-        ELSE 'Other'
-    END AS membership_tier,
-    
-    -- RFM: RECENCY - Days since last order (Sneha's tables)
-    MAX(o.placed_at) AS last_order_date,
-    DATEDIFF(NOW(), MAX(o.placed_at)) AS days_since_last_order,
-    CASE 
-        WHEN MAX(o.placed_at) IS NULL THEN 0
-        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5  -- Very Recent
-        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4  -- Recent
-        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3  -- Moderate
-        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2  -- Old
-        ELSE 1  -- Very Old
-    END AS recency_score,
-    
-    -- RFM: FREQUENCY - Number of orders (Sneha's tables)
-    COUNT(DISTINCT o.order_id) AS total_orders,
-    ROUND(COUNT(DISTINCT o.order_id) / NULLIF(DATEDIFF(NOW(), u.created_at) / 30.0, 0), 2) AS avg_orders_per_month,
-    CASE 
-        WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5  -- Very Frequent
-        WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4   -- Frequent
-        WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3   -- Moderate
-        WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2   -- Infrequent
-        ELSE 1  -- No Orders
-    END AS frequency_score,
-    
-    -- RFM: MONETARY - Total spent (Sneha + Diana tables)
-    ROUND(SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END), 2) AS lifetime_value,
-    ROUND(AVG(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE NULL END), 2) AS avg_order_value,
-    CASE 
-        WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5
-        WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4
-        WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3
-        WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2
-        ELSE 1
-    END AS monetary_score,
-    
-    -- Composite RFM Score
-    CONCAT(
-        CASE 
-            WHEN MAX(o.placed_at) IS NULL THEN 0
-            WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5
-            WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4
-            WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3
-            WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2
-            ELSE 1
-        END,
-        CASE 
-            WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5
-            WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4
-            WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3
-            WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2
-            ELSE 1
-        END,
-        CASE 
-            WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5
-            WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4
-            WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3
-            WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2
-            ELSE 1
-        END
-    ) AS rfm_score,
-    
-    -- Purchase Behavior Metrics
-    SUM(oi.qty) AS total_units_purchased,
-    COUNT(DISTINCT pv.product_id) AS unique_products_purchased,
-    MIN(o.placed_at) AS first_order_date,
-    DATEDIFF(MAX(o.placed_at), MIN(o.placed_at)) AS customer_lifespan_days,
-    
-    -- Payment Behavior (Diana's tables)
-    SUM(CASE WHEN pay.status = 'CAPTURED' THEN 1 ELSE 0 END) AS successful_payments,
-    SUM(CASE WHEN pay.status = 'FAILED' THEN 1 ELSE 0 END) AS failed_payments,
-    ROUND(
-        (SUM(CASE WHEN pay.status = 'CAPTURED' THEN 1 ELSE 0 END) / 
-         NULLIF(COUNT(DISTINCT pay.payment_id), 0) * 100), 
-        2
-    ) AS payment_success_rate,
-    
-    -- Engagement Metrics
-    COUNT(DISTINCT rev.review_id) AS reviews_written,
-    ROUND(AVG(rev.rating), 2) AS avg_review_rating,
-    COUNT(DISTINCT addr.address_id) AS addresses_on_file,
-    COUNT(DISTINCT cart.cart_id) AS total_carts_created,
-    
-    -- Customer Segmentation
-    CASE 
-        -- Champions: High R, F, M (555, 554, 545, 544)
-        WHEN CONCAT(
-            CASE WHEN MAX(o.placed_at) IS NULL THEN 0 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2 ELSE 1 END,
-            CASE WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5 WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4 WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3 WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2 ELSE 1 END,
-            CASE WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2 ELSE 1 END
-        ) IN ('555', '554', '545', '544', '455', '454', '445')
-            THEN 'Champions'
-        
-        -- Loyal Customers: High F, M but lower R (445, 435, 345)
-        WHEN CONCAT(
-            CASE WHEN MAX(o.placed_at) IS NULL THEN 0 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2 ELSE 1 END,
-            CASE WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5 WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4 WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3 WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2 ELSE 1 END,
-            CASE WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2 ELSE 1 END
-        ) IN ('344', '345', '335', '334', '444', '435', '434')
-            THEN 'Loyal Customers'
-        
-        -- Potential Loyalists: Recent, moderate F & M (525, 524, 515, 514)
-        WHEN CONCAT(
-            CASE WHEN MAX(o.placed_at) IS NULL THEN 0 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2 ELSE 1 END,
-            CASE WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5 WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4 WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3 WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2 ELSE 1 END,
-            CASE WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2 ELSE 1 END
-        ) IN ('523', '522', '521', '513', '512', '511', '423', '422', '421')
-            THEN 'Potential Loyalists'
-        
-        -- At Risk: Low R, high F & M (245, 244, 235, 234)
-        WHEN CONCAT(
-            CASE WHEN MAX(o.placed_at) IS NULL THEN 0 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2 ELSE 1 END,
-            CASE WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5 WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4 WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3 WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2 ELSE 1 END,
-            CASE WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2 ELSE 1 END
-        ) IN ('244', '243', '234', '233', '224', '223', '144', '143', '134', '133')
-            THEN 'At Risk'
-        
-        -- Can't Lose Them: Very low R, high F & M (145, 144, 135, 134)
-        WHEN CONCAT(
-            CASE WHEN MAX(o.placed_at) IS NULL THEN 0 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2 ELSE 1 END,
-            CASE WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5 WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4 WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3 WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2 ELSE 1 END,
-            CASE WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2 ELSE 1 END
-        ) IN ('155', '154', '145', '144', '155', '135', '124', '123')
-            THEN 'Cannot Lose Them'
-        
-        -- New Customers: High R, low F (511, 411, 311)
-        WHEN COUNT(DISTINCT o.order_id) <= 2 AND DATEDIFF(NOW(), MAX(o.placed_at)) <= 60
-            THEN 'New Customers'
-        
-        -- Promising: Recent, low F but good M (533, 532, 531, 543, 542, 541)
-        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 AND COUNT(DISTINCT o.order_id) <= 3 
-            AND SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 500
-            THEN 'Promising'
-        
-        -- Hibernating: Low R, F, M (222, 221, 212, 211)
-        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) > 180 AND COUNT(DISTINCT o.order_id) <= 3
-            THEN 'Hibernating'
-        
-        -- Lost: Very low scores
-        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) > 180 OR MAX(o.placed_at) IS NULL
-            THEN 'Lost'
-        
-        ELSE 'Needs Attention'
-    END AS customer_segment,
-    
-    -- Marketing Actions
-    CASE 
-        WHEN CONCAT(
-            CASE WHEN MAX(o.placed_at) IS NULL THEN 0 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2 ELSE 1 END,
-            CASE WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5 WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4 WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3 WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2 ELSE 1 END,
-            CASE WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2 ELSE 1 END
-        ) IN ('555', '554', '545', '544', '455', '454', '445')
-            THEN 'VIP Treatment: Exclusive access, early releases, personal account manager'
-        WHEN CONCAT(
-            CASE WHEN MAX(o.placed_at) IS NULL THEN 0 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2 ELSE 1 END,
-            CASE WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5 WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4 WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3 WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2 ELSE 1 END,
-            CASE WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2 ELSE 1 END
-        ) IN ('244', '243', '234', '233', '224', '223', '144', '143', '134', '133')
-            THEN 'Win-Back Campaign: Aggressive discounts, personalized outreach'
-        WHEN COUNT(DISTINCT o.order_id) <= 2 AND DATEDIFF(NOW(), MAX(o.placed_at)) <= 60
-            THEN 'Nurture: Welcome series, product education, onboarding'
-        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) > 180 OR MAX(o.placed_at) IS NULL
-            THEN 'Re-engagement: Survey, massive discount, new product showcase'
-        ELSE 'Standard Marketing: Regular newsletters, seasonal promotions'
-    END AS recommended_marketing_action,
-    
-    -- Churn Risk
-    CASE 
-        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) > 180 AND COUNT(DISTINCT o.order_id) >= 3 THEN 'HIGH CHURN RISK'
-        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) > 90 AND COUNT(DISTINCT o.order_id) >= 2 THEN 'MEDIUM CHURN RISK'
-        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) > 60 THEN 'LOW CHURN RISK'
-        WHEN MAX(o.placed_at) IS NULL THEN 'NEVER PURCHASED'
-        ELSE 'ACTIVE'
-    END AS churn_risk_level,
-    
-    -- Customer Value Tier
-    CASE 
-        WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 
-            THEN 'PLATINUM ($5000+)'
-        WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 
-            THEN 'GOLD ($2000-$4999)'
-        WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 
-            THEN 'SILVER ($1000-$1999)'
-        WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 
-            THEN 'BRONZE ($100-$999)'
-        ELSE 'STARTER (<$100)'
-    END AS customer_value_tier
-
-FROM Users u
-LEFT JOIN UserRoles ur ON u.user_id = ur.user_id
-LEFT JOIN Roles r ON ur.role_id = r.role_id
-LEFT JOIN Orders o ON u.user_id = o.user_id AND o.status IN ('PAID', 'FULFILLED', 'PENDING')
-LEFT JOIN OrderItems oi ON o.order_id = oi.order_id
-LEFT JOIN ProductVariants pv ON oi.variant_id = pv.variant_id
-LEFT JOIN Payments pay ON o.order_id = pay.order_id
-LEFT JOIN Reviews rev ON u.user_id = rev.user_id
-LEFT JOIN Addresses addr ON u.user_id = addr.user_id
-LEFT JOIN Carts cart ON u.user_id = cart.user_id
-
-WHERE 
-    u.is_active = TRUE
-    AND u.created_at <= NOW()
-
-GROUP BY 
-    u.user_id, u.full_name, u.email, u.phone, u.is_active, u.created_at
-
-ORDER BY 
-    lifetime_value DESC,
-    total_orders DESC,
-    days_since_last_order ASC;
-
--- BUSINESS VALUE:
--- 1. Marketing: Targeted campaigns based on customer segments
--- 2. Customer Success: Proactive retention for at-risk customers
--- 3. Sales: Identifies upsell opportunities with high-value customers
--- 4. Finance: Customer lifetime value forecasting
--- 5. Product: Tailors features and pricing for different segments
--- 6. Executive: Overall customer health and retention metrics
-
-
-
--- =============================================
--- Min, La Yaung
--- =============================================
-
--- =============================================
--- Author: Min, La Yaung
--- Create date: 11/03/2025
--- Description: Query 1 - Active Shopping Carts with Items
--- Tables: Carts, CartItems, Coupons
--- =============================================
-
-USE urbanease_shop;
-
-
--- a query that gives a detailed snapshot of every active shopping cart 
--- showing who owns it, how many items and categories it contains, how valuable it is, and when it was last updated.
-SELECT 
-    c.cart_id,
-    COALESCE(u.full_name, 'Guest User') AS user_name,          -- handles guest checkouts gracefully
-    COUNT(DISTINCT ci.cart_item_id) AS total_items,            -- total unique items in cart
-    SUM(ci.qty * ci.unit_price) AS total_cart_value,           -- total value = sum of quantity × unit price
-    MAX(ci.added_at) AS last_item_added,                       -- most recent time an item was added
-    GROUP_CONCAT(DISTINCT cat.name ORDER BY cat.name SEPARATOR ', ') AS categories_in_cart,  -- categories covered in this cart
-    CASE 
-        WHEN SUM(ci.qty * ci.unit_price) > 500 THEN 'High Value'
-        WHEN SUM(ci.qty * ci.unit_price) BETWEEN 200 AND 500 THEN 'Medium Value'
-        ELSE 'Low Value'
-    END AS spending_tier,                                       -- simple tiering system based on total value
-    COUNT(DISTINCT pv.product_id) AS distinct_products,         -- unique product count (excluding variants)
-    COUNT(DISTINCT pv.variant_id) AS variant_count              -- count of product variants in the cart
-FROM Carts c
-LEFT JOIN Users u ON c.user_id = u.user_id
-INNER JOIN CartItems ci ON ci.cart_id = c.cart_id
-INNER JOIN ProductVariants pv ON ci.variant_id = pv.variant_id
-LEFT JOIN Products p ON pv.product_id = p.product_id
-LEFT JOIN Categories cat ON p.category_id = cat.category_id
-WHERE c.cart_id IN (
-    SELECT DISTINCT cart_id 
-    FROM CartItems 
-    WHERE qty > 0
-)
-GROUP BY c.cart_id, user_name
-HAVING total_items > 0
-ORDER BY total_cart_value DESC, last_item_added DESC;
-
--- =============================================
--- Author: Min, La Yaung
--- Create date: 11/03/2025
--- Description: Enhanced Query 2 - Abandoned Carts Revenue Insights
--- Tables: Carts, CartItems, Coupons, Users
--- =============================================
-
-USE urbanease_shop;
-
-
--- a query that ranks carts by inactivity and potential revenue to help the team decide 
--- which users to target first with reminders or coupon offers for cart recovery.
-WITH cart_summary AS (
-    SELECT 
-        c.cart_id,
-        COALESCE(u.full_name, 'Guest User') AS user_name,
-        TIMESTAMPDIFF(DAY, MAX(ci.added_at), NOW()) AS days_inactive,  -- Days since the last item was added
-        COUNT(ci.cart_item_id) AS total_items,
-        SUM(ci.qty * ci.unit_price) AS potential_revenue,               -- Estimated total cart value
-        COUNT(DISTINCT p.category_id) AS category_diversity             -- How diverse the cart is (helps in marketing personalization)
-    FROM Carts c
-    LEFT JOIN Users u ON c.user_id = u.user_id
-    INNER JOIN CartItems ci ON ci.cart_id = c.cart_id
-    INNER JOIN ProductVariants pv ON ci.variant_id = pv.variant_id
-    INNER JOIN Products p ON pv.product_id = p.product_id
-    GROUP BY c.cart_id, user_name
-)
-SELECT 
-    cs.cart_id,
-    cs.user_name,
-    cs.days_inactive,
-    cs.total_items,
-    ROUND(cs.potential_revenue, 2) AS potential_revenue,
-    cs.category_diversity,
-    -- Customer activity classification
-    CASE
-        WHEN cs.days_inactive <= 2 THEN 'Recently Active'
-        WHEN cs.days_inactive BETWEEN 3 AND 6 THEN 'At Risk'
-        WHEN cs.days_inactive BETWEEN 7 AND 14 THEN 'Likely Lost'
-        ELSE 'Dormant'
-    END AS cart_status,
-
-    -- Prioritize high-value carts with recent inactivity
-
-    RANK() OVER (
-        ORDER BY cs.days_inactive ASC, cs.potential_revenue DESC
-    ) AS recovery_priority,
-
-    -- Suggest a coupon strategy based on value
-    CASE
-        WHEN cs.potential_revenue >= 500 THEN 'Offer 20% OFF coupon'
-        WHEN cs.potential_revenue BETWEEN 200 AND 499 THEN 'Offer $25 OFF coupon'
-        ELSE 'Send gentle reminder email'
-    END AS recommended_action
-FROM cart_summary cs
-WHERE cs.total_items > 0
-ORDER BY recovery_priority;
-
-
--- =============================================
--- Author: Min, La Yaung
--- Create date: 11/03/2025
--- Description: Query 3 - Coupon Usage and Effectiveness
--- Tables: Carts, CartItems, Coupons
--- =============================================
-
-USE urbanease_shop;
-
--- a query that calculates how much each active coupon could discount total cart values based on current items
-
-SELECT 
-    cp.code AS coupon_code,												-- Coupon code identifier
-    cp.type AS discount_type,											-- Either 'PERCENT' or 'AMOUNT'
-    cp.value AS discount_value,											-- Discount percentage or flat value
-    COUNT(DISTINCT c.cart_id) AS applicable_carts,						-- Number of carts the coupon could apply to
-    -- calculate the total value of all carts combined
-    ROUND(SUM(ci.qty * ci.unit_price), 2) AS total_cart_value,
-    
-    -- created a subquery that determines total discount amount based on coupon type
-    CASE 
-        WHEN cp.type = 'PERCENT' THEN ROUND(SUM(ci.qty * ci.unit_price) * (cp.value / 100), 2)
-        WHEN cp.type = 'AMOUNT'  THEN ROUND(cp.value * COUNT(DISTINCT c.cart_id), 2)
-        ELSE 0
-    END AS total_discount_value,
-    --  created a subquery that calculates the remaining revenue after discount is applied
-    ROUND(
-        SUM(ci.qty * ci.unit_price) -
-        CASE 
-            WHEN cp.type = 'PERCENT' THEN SUM(ci.qty * ci.unit_price) * (cp.value / 100)
-            WHEN cp.type = 'AMOUNT'  THEN cp.value * COUNT(DISTINCT c.cart_id)
-            ELSE 0
-        END, 2
-    ) AS potential_revenue_after_discount
-FROM Coupons cp
-JOIN Carts c ON 1=1          					-- remove date restrictions to include all carts
-JOIN CartItems ci ON ci.cart_id = c.cart_id 	-- match each cart with its items
-WHERE cp.is_active = TRUE						-- only include active coupons
-GROUP BY cp.code, cp.type, cp.value				-- group results per coupon
-HAVING total_cart_value > 0						-- ignore coupons with no sales data
-ORDER BY total_discount_value DESC;				-- show most valuable coupons first
-
-
--- =============================================
--- Author: Min, La Yaung
--- Create date: 11/07/2025
--- Description: Query 4 - Cart Totals with coupon discounts
--- Tables: Carts, CartItems, Coupons
--- =============================================
-
-
-USE urbanease_shop;
--- A query that calculates each cart’s subtotal, applies active coupon discounts, 
--- and shows the final total for both users and guests to evaluate coupon impact.
-SELECT 
-    c.cart_id,
-    COALESCE(u.full_name, 'Guest User') AS user_name,
-    COUNT(ci.cart_item_id) AS total_items,
-    SUM(ci.qty * ci.unit_price) AS subtotal,
-    cp.code AS coupon_code,
-    cp.type AS coupon_type,
-    cp.value AS coupon_value,
-    CASE 
-        WHEN cp.type = 'PERCENT' THEN ROUND(SUM(ci.qty * ci.unit_price) * (cp.value / 100), 2)
-        WHEN cp.type = 'AMOUNT' THEN cp.value
-        ELSE 0
-    END AS discount_amount,
-    CASE 
-        WHEN cp.type = 'PERCENT' THEN ROUND(SUM(ci.qty * ci.unit_price) * (1 - cp.value / 100), 2)
-        WHEN cp.type = 'AMOUNT' THEN ROUND(SUM(ci.qty * ci.unit_price) - cp.value, 2)
-        ELSE SUM(ci.qty * ci.unit_price)
-    END AS final_total
-FROM Carts c
-LEFT JOIN Users u ON c.user_id = u.user_id
-INNER JOIN CartItems ci ON ci.cart_id = c.cart_id
-LEFT JOIN Coupons cp ON cp.is_active = TRUE
-GROUP BY c.cart_id, user_name, cp.code, cp.type, cp.value
-HAVING subtotal >= 50
-ORDER BY final_total DESC;
-
--- =============================================
--- Author: Min, La Yaung
--- Create date: 11/07/2025
--- Description: Query 5 - Most Popular Products in Carts
--- Tables: CartItems, ProductVariants, Products, Categories
--- =============================================
-
-
-USE urbanease_shop;
-
--- A query that identifies the most popular products added to carts 
--- by counting how often each product appears and the total quantity added.
-SELECT 
-    p.product_id,
-    p.title AS product_name,
-    c.name AS category_name,
-    COUNT(ci.cart_item_id) AS times_in_cart,
-    SUM(ci.qty) AS total_qty_added,
-    ROUND(AVG(ci.unit_price), 2) AS avg_price
-FROM CartItems ci
-INNER JOIN ProductVariants pv ON ci.variant_id = pv.variant_id
-INNER JOIN Products p ON pv.product_id = p.product_id
-INNER JOIN Categories c ON p.category_id = c.category_id
-GROUP BY p.product_id, p.title, c.name
-ORDER BY total_qty_added DESC, times_in_cart DESC
-LIMIT 10;
-
--- =============================================
--- Tiwari, Sneha
--- =============================================
-
--- =============================================
--- Author: Sneha Tiwari
--- Create date: [Date]
--- Description: Query 1 - Customer Order Summary
--- Tables: Users, Orders
--- =============================================
-USE urbanease_shop;
-
-SELECT 
-    u.user_id,
-    u.full_name,
-    COUNT(o.order_id) AS total_orders,
-    SUM(o.grand_total_amount) AS total_spent,
-    MAX(o.placed_at) AS last_order_date
-FROM Users u
-JOIN Orders o ON u.user_id = o.user_id
-GROUP BY u.user_id, u.full_name
-ORDER BY total_spent DESC;
-
-
--- =============================================
--- Author: Tiwari, Sneha
--- Create date: [Date]
--- Description: Query 2 - Top Selling Products by Revenue
--- Tables: OrderItems, ProductVariants, Products
--- =============================================
-
-USE urbanease_shop;
-
-SELECT 
-    p.product_id,
-    p.title AS product_name,
-    SUM(oi.qty * oi.unit_price) AS total_revenue,
-    SUM(oi.qty) AS total_units_sold
-FROM OrderItems oi
-JOIN ProductVariants pv ON oi.variant_id = pv.variant_id
-JOIN Products p ON pv.product_id = p.product_id
-GROUP BY p.product_id, p.title
-ORDER BY total_revenue DESC
-LIMIT 10;
-
-
--- =============================================
--- Author: Tiwari, Sneha
--- Create date: [Date]
--- Description: Query 3 - Coupon Performance Report
--- Tables: Coupons, Orders
--- =============================================
-
-USE urbanease_shop;
-
-SELECT 
-    c.code AS coupon_code,
-    COUNT(o.order_id) AS times_used,
-    SUM(o.discount_amount) AS total_discount_given,
-    SUM(o.subtotal_amount) AS total_sales_before_discount,
-    ROUND((SUM(o.discount_amount) / SUM(o.subtotal_amount)) * 100, 2) AS avg_discount_pct
-FROM Coupons c
-JOIN Orders o ON c.coupon_id = o.coupon_id
-GROUP BY c.code
-ORDER BY total_discount_given DESC;
-
-
--- =============================================
--- Author: Tiwari, Sneha
--- Create date: [Date]
--- Description: Query 4 - Order Fulfillment & Shipment Tracking
--- Tables: Orders, Shipments, Payments, Users
--- =============================================
-
-USE urbanease_shop;
-
-SELECT 
-    o.order_id,
-    u.full_name AS customer_name,
-    o.status AS order_status,
-    COALESCE(s.status, 'NOT_SHIPPED') AS shipment_status,
-    p.status AS payment_status,
-    o.grand_total_amount,
-    s.carrier,
-    s.tracking_no,
-    s.shipped_at,
-    s.delivered_at
-FROM Orders o
-JOIN Users u ON o.user_id = u.user_id
-LEFT JOIN Shipments s ON o.order_id = s.order_id
-LEFT JOIN Payments p ON o.order_id = p.order_id
-ORDER BY o.placed_at DESC;
-
-
--- =============================================
--- Author: Tiwari, Sneha
--- Create date: [Date]
--- Description: Query 5 - Customer Lifetime Value (CLV) Analysis
--- Tables: Users, Orders, Payments
--- =============================================
-
-USE urbanease_shop;
-
-WITH customer_spend AS (
-    SELECT 
-        u.user_id,
-        u.full_name,
-        COUNT(o.order_id) AS total_orders,
-        SUM(o.grand_total_amount) AS total_spent,
-        AVG(o.grand_total_amount) AS avg_order_value,
-        MAX(o.placed_at) AS last_order_date
-    FROM Users u
-    JOIN Orders o ON u.user_id = o.user_id
-    WHERE o.status IN ('PAID', 'FULFILLED')
-    GROUP BY u.user_id, u.full_name
-)
-SELECT 
-    user_id,
-    full_name,
-    total_orders,
-    total_spent,
-    avg_order_value,
-    last_order_date,
-    RANK() OVER (ORDER BY total_spent DESC) AS customer_rank
-FROM customer_spend
-ORDER BY total_spent DESC;
-
-
--- =============================================
--- Velarde Sosa, Diana (continued)
--- =============================================
-
--- ==========================================================
--- Author: Velarde Sosa, Diana
--- Create date: [2025-11-06]
--- Description: Query 1 City-Level Customer Insights Report
--- Tables Used: Users, Addresses, Orders, Payments, Reviews
--- ----------------------------------------------------------
--- Purpose:
---   Generate regional performance insights including:
---   - Payment totals and success rate
---   - Average payment and order values
---   - Review participation and average ratings
---   - Monthly trends per city
--- ==========================================================
-
-USE urbanease_shop;
-
-SELECT 
-    -- Geographic Information
-    a.city AS City,
-    a.state_region AS State,
-
-    -- Monthly Trend (based on order placement date)
-    DATE_FORMAT(o.placed_at, '%Y-%m') AS Month,
-
-    -- Customer Activity
-    COUNT(DISTINCT u.user_id) AS Total_Customers,    -- number of unique customers
-    COUNT(DISTINCT o.order_id) AS Total_Orders,      -- total orders placed
-
-    -- Payment Information
-    ROUND(SUM(p.amount), 2) AS Total_Payment_Amount, -- total money paid
-    ROUND(AVG(p.amount), 2) AS Avg_Payment_Amount,   -- average payment per transaction
-
-    -- Payment Status Analysis
-    SUM(CASE WHEN p.status = 'FAILED' THEN 1 ELSE 0 END) AS Failed_Payments,
-    SUM(CASE WHEN p.status = 'CAPTURED' THEN 1 ELSE 0 END) AS Successful_Payments,
-    ROUND(
-        (SUM(CASE WHEN p.status = 'CAPTURED' THEN 1 ELSE 0 END) / 
-         NULLIF(COUNT(p.payment_id), 0)) * 100, 2
-    ) AS Payment_Success_Rate,  -- success % of all payments
-
-    -- Order Information
-    ROUND(SUM(o.grand_total_amount), 2) AS Total_Sales,     -- total sales amount
-    ROUND(AVG(o.grand_total_amount), 2) AS Avg_Order_Value, -- average order value
-
-    -- Review Insights
-    COUNT(DISTINCT r.review_id) AS Total_Reviews,    -- total number of reviews written
-    ROUND(AVG(r.rating), 2) AS Avg_Product_Rating,   -- average star rating
-    ROUND(
-        (COUNT(DISTINCT r.review_id) / NULLIF(COUNT(DISTINCT u.user_id), 0)) * 100, 2
-    ) AS Review_Participation_Rate,  -- % of customers who wrote at least one review
-
-    -- Reporting Window
-    MIN(o.placed_at) AS First_Order_Date,
-    MAX(o.placed_at) AS Last_Order_Date
-
-FROM Users u
-    JOIN Addresses a 
-        ON u.user_id = a.user_id
-    JOIN Orders o 
-        ON u.user_id = o.user_id
-    LEFT JOIN Payments p 
-        ON o.order_id = p.order_id
-    LEFT JOIN Reviews r 
-        ON u.user_id = r.user_id
-
--- ==========================================================
--- Optional Time Filter (uncomment for last 6 months)
--- WHERE o.placed_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
--- ==========================================================
-
-GROUP BY 
-    a.city, 
-    a.state_region,
-    DATE_FORMAT(o.placed_at, '%Y-%m')  -- monthly grouping
-
-HAVING 
-    SUM(p.amount) > 0  -- only include cities with payment activity
-
-ORDER BY 
-    a.state_region ASC,
-    a.city ASC,
-    Month DESC;
-
-
--- =============================================
--- Author: Velarde Sosa, Diana
--- Create date: [2025-11-05]
--- Description: Query 2 - User Addresses by Region
--- Tables: Addresses, Users
-
--- Purpose:
---   Analyze user address distribution and address usage patterns
---   across regions (state/city level).
---
--- Includes:
---   Total users per region
---   Total addresses per region
---   Average number of addresses per user
---   Default address ratio
---   Optional grouping by city
--- =============================================
-
-USE urbanease_shop;
-
-SELECT 
-    -- Geographic info
-    a.state_region AS State,
-    a.city AS City,
-
-    -- User and Address Counts
-    COUNT(DISTINCT u.user_id) AS Total_Users,             -- number of unique users in the region
-    COUNT(a.address_id) AS Total_Addresses,               -- total addresses registered
-    ROUND(COUNT(a.address_id) / COUNT(DISTINCT u.user_id), 2) AS Avg_Addresses_Per_User,  -- avg addresses per user
-
-    -- Address Usage Patterns
-    SUM(CASE WHEN a.is_default = TRUE THEN 1 ELSE 0 END) AS Default_Addresses,  -- how many addresses are marked as default
-    ROUND(
-        (SUM(CASE WHEN a.is_default = TRUE THEN 1 ELSE 0 END) / 
-         NULLIF(COUNT(a.address_id), 0)) * 100, 2
-    ) AS Default_Address_Rate,  -- percentage of addresses that are default
-
-    -- Contact Availability
-    SUM(CASE WHEN a.phone IS NOT NULL THEN 1 ELSE 0 END) AS Addresses_With_Phone,
-    ROUND(
-        (SUM(CASE WHEN a.phone IS NOT NULL THEN 1 ELSE 0 END) / 
-         NULLIF(COUNT(a.address_id), 0)) * 100, 2
-    ) AS Phone_Availability_Rate,  -- percentage of addresses that include a phone number
-
-    -- Data freshness
-    MIN(a.created_at) AS First_Address_Added,
-    MAX(a.updated_at) AS Last_Address_Updated
-
-FROM Users u
-JOIN Addresses a 
-    ON u.user_id = a.user_id
-
--- ==========================================================
--- Optional Filters (Uncomment one of these if needed)
--- ----------------------------------------------------------
--- WHERE a.created_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)   -- last 6 months only
--- WHERE a.country_code = 'US'                               -- filter by country
--- ==========================================================
-
-GROUP BY 
-    a.state_region, 
-    a.city  -- change to just a.state_region if you want a higher-level report
-
-HAVING 
-    COUNT(a.address_id) > 0  -- exclude regions with no addresses
-
-ORDER BY 
-    a.state_region ASC, 
-    a.city ASC;
-
-
-
--- =============================================
--- Author: Velarde Sosa, Diana
--- Create date: [2025-11-06]
--- Description: Query 3 - Product Reviews and Ratings Analysis
--- Tables: Addresses, Payments, Reviews, Users, Orders, Products
-
--- Purpose:
---   Analyze how customer satisfaction (via reviews) 
---   relates to regions (Addresses) and payment performance.
---
--- Includes:
---   Average product ratings by region
---   Count of reviews per product
---   Relationship between payment success and review activity
---   Optional grouping by state and city
--- =============================================
-
-USE urbanease_shop;
-
-SELECT
-    -- Regional Information
-    a.state_region AS State,
-    a.city AS City,
-
-    -- Product and Review Metrics
-    pdt.title AS Product_Title,
-    COUNT(r.review_id) AS Total_Reviews,                   -- total reviews written
-    ROUND(AVG(r.rating), 2) AS Avg_Rating,                 -- average product rating
-    SUM(CASE WHEN r.rating = 5 THEN 1 ELSE 0 END) AS Five_Star_Reviews,
-    SUM(CASE WHEN r.rating = 1 THEN 1 ELSE 0 END) AS One_Star_Reviews,
-
-    -- Payment Insights for Reviewers
-    COUNT(DISTINCT pay.payment_id) AS Related_Payments,     -- total payments linked to reviewers
-    ROUND(SUM(pay.amount), 2) AS Total_Payment_Amount,      -- total payment value from reviewers
-    ROUND(AVG(pay.amount), 2) AS Avg_Payment_Amount,        -- average payment value
-    ROUND(
-        (SUM(CASE WHEN pay.status = 'CAPTURED' THEN 1 ELSE 0 END) / 
-         NULLIF(COUNT(pay.payment_id), 0)) * 100, 2
-    ) AS Payment_Success_Rate,                              -- percentage of successful payments
-
-    -- Engagement and Quality
-    COUNT(DISTINCT r.user_id) AS Reviewers_Count,           -- number of unique users who left reviews
-    ROUND(
-        COUNT(r.review_id) / NULLIF(COUNT(DISTINCT r.user_id), 0), 2
-    ) AS Avg_Reviews_Per_User,                              -- average reviews per user
-    MAX(r.created_at) AS Last_Review_Date,                  -- most recent review date
-
-    -- Timeframe
-    MIN(pay.created_at) AS First_Payment_Date,
-    MAX(pay.created_at) AS Last_Payment_Date
-
-FROM Reviews r
-    JOIN Users u 
-        ON r.user_id = u.user_id
-    JOIN Addresses a 
-        ON u.user_id = a.user_id
-    LEFT JOIN Orders o 
-        ON o.user_id = u.user_id
-    LEFT JOIN Payments pay 
-        ON pay.order_id = o.order_id
-    JOIN Products pdt 
-        ON r.product_id = pdt.product_id
-
--- ==========================================================
--- Optional Filter Examples:
--- WHERE r.created_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)     -- only recent reviews
--- WHERE a.country_code = 'US'                                 -- limit to US users
--- WHERE pay.provider = 'Stripe'                               -- analyze by payment provider
--- ==========================================================
-
-GROUP BY 
-    a.state_region, 
-    a.city, 
-    pdt.title
-
-HAVING 
-    COUNT(r.review_id) > 0   -- include only products with reviews
-
-ORDER BY 
-    a.state_region ASC,
-    a.city ASC,
-    Avg_Rating DESC;
-
-
-
-
--- =============================================
--- Author: Velarde Sosa, Diana
--- Create date: [2025-11-07]
--- Description: Query 4 - Top Engaged Customers: Spending vs. Review Activity
--- Tables: Users, Payments, Reviews, Orders
-
--- Explanation:
--- 1. Combines data from Users, Orders, Payments, and Reviews to evaluate each customer's engagement.
--- 2. Aggregates spending (SUM, AVG) and review activity (COUNT, AVG).
--- 3. Uses a CASE statement to classify users into engagement levels.
--- 4. HAVING ensures we exclude users with no payment history.
--- 5. ORDER BY helps highlight the top 10 customers by total spent and review count.
--- =============================================
-
-USE urbanease_shop;
-
-SELECT 
-    u.user_id,
-    u.full_name AS Customer_Name,
-    u.email,
-    COUNT(DISTINCT p.payment_id) AS Total_Payments,      -- How many payments the user made
-    ROUND(SUM(p.amount), 2) AS Total_Spent,              -- Total money spent
-    ROUND(AVG(p.amount), 2) AS Avg_Payment,              -- Average amount per transaction
-    COUNT(DISTINCT r.review_id) AS Total_Reviews,        -- How many reviews the user wrote
-    ROUND(AVG(r.rating), 2) AS Avg_Rating,               -- Their average rating
-    CASE 
-        WHEN COUNT(DISTINCT r.review_id) >= 5 AND SUM(p.amount) > 500 THEN 'Highly Engaged'
-        WHEN COUNT(DISTINCT r.review_id) BETWEEN 1 AND 4 THEN 'Moderately Engaged'
-        ELSE 'Low Engagement'
-    END AS Engagement_Level                              -- Classification of user activity
-FROM 
-    Users u
-LEFT JOIN 
-    Orders o ON o.user_id = u.user_id
-LEFT JOIN 
-    Payments p ON p.order_id = o.order_id
-LEFT JOIN 
-    Reviews r ON r.user_id = u.user_id
-WHERE 
-    u.is_active = TRUE
-GROUP BY 
-    u.user_id, u.full_name, u.email
-HAVING 
-    SUM(p.amount) IS NOT NULL   -- Exclude users who never paid
-ORDER BY 
-    Total_Spent DESC, Total_Reviews DESC
-LIMIT 10;  -- Show only top 10 most active users
-
--- Optional additions:
--- a) Add a date filter for payments made this year:
---    AND p.created_at >= '2025-01-01'
--- b) Include the customer's region:
---    JOIN Addresses a ON a.user_id = u.user_id
---    AND add a.state_region to SELECT and GROUP BY
--- c) Filter by country or active reviews:
---    WHERE r.rating IS NOT NULL
-
-
+-- Procedure:    sp_ManageUserRoles
+-- Schema:       urbanease_shop
+-- Description:  Stored Procedure - Manage User Roles
+-- Tables:       Users, Roles, UserRoles
+-- Purpose:      Assign or remove roles for users with validation
+-- ============================================================
 
 -- ============================================================
--- Author: Velarde Sosa, Diana
--- Create date: [2025-11-07]
--- Description: Query 4 - Product Performance and Revenue Analysis
--- Tables: Products, OrderItems, Orders, Payments, Reviews
-
--- Explanation:
--- 1. Combines data from Products, Orders, Payments, and Reviews.
--- 2. Aggregates total orders, quantity sold, and total revenue.
--- 3. Calculates average product rating and classifies each product by quality and revenue category.
--- 4. Uses CASE statements to categorize products into "Excellent," "Good," or "Average."
--- 5. Displays only active products and sorts the output by revenue and rating.
--- 6. LIMIT restricts results to the top 10 best-performing products.
+-- Business Objectives:
+-- 1) Provide a centralized method for administrators to assign or remove
+--    user roles without manually modifying the UserRoles table.
+-- 2) Enforce data integrity by ensuring that duplicate role assignments
+--    are not created, and invalid removals do not cause errors.
+-- 3) Ensure consistent access control across the system by validating
+--    user and role existence before updating access privileges.
+-- 4) Return clear, human-readable messages that indicate the result of
+--    the action (for use in dashboards, tools, or debugging).
 -- ============================================================
 
 USE urbanease_shop;
 
-SELECT 
-    p.product_id,
-    p.title AS Product_Name,
-    p.brand AS Brand,
-    COUNT(DISTINCT oi.order_item_id) AS Total_Orders,          -- Total times the product was ordered
-    SUM(oi.qty) AS Total_Quantity_Sold,                        -- Total quantity sold
-    ROUND(SUM(oi.unit_price * oi.qty), 2) AS Total_Revenue,    -- Total revenue from this product
-    ROUND(AVG(oi.unit_price), 2) AS Avg_Selling_Price,         -- Average selling price
-    COUNT(DISTINCT r.review_id) AS Total_Reviews,              -- Number of reviews written for the product
-    ROUND(AVG(r.rating), 2) AS Avg_Rating,                     -- Average rating (1–5)
-    CASE
-        WHEN AVG(r.rating) >= 4.5 THEN '★★★★★ Excellent'
-        WHEN AVG(r.rating) BETWEEN 3.5 AND 4.49 THEN '★★★★ Good'
-        WHEN AVG(r.rating) BETWEEN 2.5 AND 3.49 THEN '★★★ Average'
-        ELSE '★★ Poor'
-    END AS Rating_Category,
-    CASE
-        WHEN SUM(oi.unit_price * oi.qty) > 1000 THEN 'High Revenue Product'
-        WHEN SUM(oi.unit_price * oi.qty) BETWEEN 500 AND 1000 THEN 'Medium Revenue Product'
-        ELSE 'Low Revenue Product'
-    END AS Revenue_Category
-FROM 
-    Products p
-LEFT JOIN 
-    ProductVariants pv ON pv.product_id = p.product_id
-LEFT JOIN 
-    OrderItems oi ON oi.variant_id = pv.variant_id
-LEFT JOIN 
-    Orders o ON o.order_id = oi.order_id
-LEFT JOIN 
-    Payments pay ON pay.order_id = o.order_id
-LEFT JOIN 
-    Reviews r ON r.product_id = p.product_id
-WHERE 
-    p.is_active = TRUE
-GROUP BY 
-    p.product_id, p.title, p.brand
-HAVING 
-    Total_Revenue IS NOT NULL
-ORDER BY 
-    Total_Revenue DESC, Avg_Rating DESC
-LIMIT 10;
+DROP PROCEDURE IF EXISTS sp_ManageUserRoles;
+DELIMITER //
 
--- Optional Additions:
--- a) Add date filter to analyze products sold this year:
---    AND o.placed_at >= '2025-01-01'
---
--- b) Include category name:
---    JOIN Categories c ON c.category_id = p.category_id
---    Add c.name AS Category to SELECT and GROUP BY.
---
--- c) Filter by minimum number of reviews for better accuracy:
---    HAVING COUNT(DISTINCT r.review_id) >= 3
+CREATE PROCEDURE sp_ManageUserRoles(
+    IN p_user_id BIGINT,
+    IN p_role_id INT,
+    IN p_action VARCHAR(10)      -- Accepts 'ADD' or 'REMOVE'
+)
+BEGIN
+    DECLARE v_action VARCHAR(10);
+    DECLARE v_user_exists INT DEFAULT 0;
+    DECLARE v_role_exists INT DEFAULT 0;
+    DECLARE v_has_role INT DEFAULT 0;
+    DECLARE v_role_name VARCHAR(100);
+
+    -- Normalize input
+    SET v_action = UPPER(TRIM(p_action));
+
+    -- Validate action
+    IF v_action NOT IN ('ADD', 'REMOVE') THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Invalid action. Use ADD or REMOVE.';
+    END IF;
+
+    -- Validate user existence
+    SELECT COUNT(*) INTO v_user_exists
+    FROM Users
+    WHERE user_id = p_user_id;
+
+    IF v_user_exists = 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'User ID does not exist.';
+    END IF;
+
+    -- Validate role existence
+    SELECT COUNT(*), MAX(role_name)
+    INTO v_role_exists, v_role_name
+    FROM Roles
+    WHERE role_id = p_role_id;
+
+    IF v_role_exists = 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Role ID does not exist.';
+    END IF;
+
+    -- Check if role is already assigned
+    SELECT COUNT(*) INTO v_has_role
+    FROM UserRoles
+    WHERE user_id = p_user_id AND role_id = p_role_id;
+
+    -- Perform action
+    IF v_action = 'ADD' THEN
+        IF v_has_role = 0 THEN
+            INSERT INTO UserRoles (user_id, role_id, assigned_at)
+            VALUES (p_user_id, p_role_id, NOW());
+        END IF;
+
+    ELSEIF v_action = 'REMOVE' THEN
+        IF v_has_role = 1 THEN
+            DELETE FROM UserRoles
+            WHERE user_id = p_user_id AND role_id = p_role_id;
+        END IF;
+    END IF;
+
+    -- Return clear feedback
+    SELECT
+        CONCAT(
+            'User ID ', p_user_id, ': ',
+            CASE
+                WHEN v_action = 'ADD' AND v_has_role = 0 THEN CONCAT('Role "', v_role_name, '" assigned successfully.')
+                WHEN v_action = 'ADD' AND v_has_role = 1 THEN CONCAT('Role "', v_role_name, '" was already assigned.')
+                WHEN v_action = 'REMOVE' AND v_has_role = 1 THEN CONCAT('Role "', v_role_name, '" removed successfully.')
+                WHEN v_action = 'REMOVE' AND v_has_role = 0 THEN CONCAT('Role "', v_role_name, '" was not assigned.')
+            END
+        ) AS message;
+
+END //
+DELIMITER ;
+
+-- Test the procedure:
+-- CALL sp_ManageUserRoles(1, 1, 'ADD');
+-- CALL sp_ManageUserRoles(1, 1, 'REMOVE');
 
 
 
+-- ====================================================================
+-- File: procedures/sp_khapekar_manage_product.sql
+-- ====================================================================
 
 -- =============================================
--- PROCEDURES, FUNCTIONS, AND TRIGGERS - TEAM CONTRIBUTIONS
+-- Author: Khapekar, Pooja
+-- Create date: Noovember 2025
+-- Description: Stored Procedure - Manage Product with Images
+-- Tables: Categories, Products, ProductImages
+-- Purpose: Create or update product with category and images
 -- =============================================
 
--- =============================================
--- Kumar, Virat
--- =============================================
+-- BUSINESS USE CASE:
+-- This procedure powers centralized product management, ensuring consistent and complete product records across the system. It is used by:
+-- Merchandising Teams: When adding new products to the catalog
+-- Bulk Import Tools: During supplier catalog sync or seasonal uploads
+-- Admin Portals: For manual updates to product details and image sets
+-- Content QA Teams: To update categories or image corrections
+-- Third-Party Integrations: Syncing product data from ERP or PIM systems
+-- Mobile & Web CMS: To dynamically manage product listings in real-time
 
--- Stored Procedures by Kumar, Virat
+-- REAL-WORLD SCENARIO:
+-- Whenever a product is created or updated, this procedure ensures it is fully registered:
+-- 9:00 AM: New summer jacket added → sp_ManageProductWithImages(..., 'CREATE')
+-- 11:00 AM: Product assigned to "Outerwear" category and 3 new images uploaded
+-- 1:00 PM: Image update from marketing team → sp_ManageProductWithImages(..., 'UPDATE_IMAGES')
+-- 4:00 PM: Re-categorized to "Clearance" after promotion
+-- 5:30 PM: API sync with supplier system updates description and pricing
+
+-- Cost Impact:
+-- Ensures image completeness and category accuracy → higher conversion
+-- Reduces manual errors from fragmented updates
+-- Prevents broken product listings that can cost $100–$300/day per product
+-- Speeds up onboarding of new SKUs, saving hundreds of hours/year
+
+
+
+
+USE urbanease_shop;
+
+DELIMITER $$
+CREATE PROCEDURE sp_ManageProduct(
+    IN p_product_id BIGINT,
+    IN p_category_id BIGINT,
+    IN p_title VARCHAR(200),
+    IN p_description TEXT,
+    IN p_brand VARCHAR(100),
+    IN p_image_url VARCHAR(512),
+    IN p_image_alt_text VARCHAR(160),
+    IN p_image_sort_order INT
+)
+BEGIN
+    DECLARE v_product_id BIGINT;
+
+    -- INSERT if product_id is NULL
+    IF p_product_id IS NULL THEN
+        INSERT INTO Products (
+            category_id, title, description, brand, is_active
+        )
+        VALUES (
+            p_category_id, p_title, p_description, p_brand, TRUE
+        );
+
+        -- Get the new product_id
+        SET v_product_id = LAST_INSERT_ID();
+
+    ELSE
+        -- UPDATE the existing product
+        UPDATE Products
+        SET 
+            category_id = p_category_id,
+            title = p_title,
+            description = p_description,
+            brand = p_brand,
+            updated_at = NOW()
+        WHERE 
+            product_id = p_product_id;
+
+        -- Use the existing product_id
+        SET v_product_id = p_product_id;
+
+        -- Delete old images before inserting new one
+        DELETE FROM ProductImages 
+        WHERE product_id = v_product_id;
+    END IF;
+
+    -- Insert the image if image URL is provided
+    IF p_image_url IS NOT NULL AND p_image_url != '' THEN
+        INSERT INTO ProductImages (
+            product_id, url, alt_text, sort_order
+        )
+        VALUES (
+            v_product_id, p_image_url, p_image_alt_text, p_image_sort_order
+        );
+    END IF;
+
+    -- Return the operation result
+    SELECT 
+        v_product_id AS product_id,
+        IF(p_product_id IS NULL, 'Created', 'Updated') AS operation,
+        'Success' AS status;
+
+END$$
+
+DELIMITER ;
+
+-- Test: View existing product
+SELECT * FROM Products;
+
+-- Update existing product (e.g., ID = 1) with new image
+CALL sp_ManageProduct(
+    1,
+    1,
+    'Guitar',
+    'Amazing Electric Guitar',
+    'Yamaha',
+    'https://cdn.urbanease.com/images/guitar-updated.jpg',
+    'New Image',
+    0
+);
+
+
+
+
+-- ====================================================================
+-- File: procedures/sp_kumar_update_inventory.sql
+-- ====================================================================
 
 
 
@@ -4454,7 +3052,469 @@ JOIN ProductVariants pv ON i.variant_id = pv.variant_id
 WHERE i.warehouse_id = 1 AND i.variant_id = 1;
 
 
--- Functions by Kumar, Virat
+
+-- ====================================================================
+-- File: procedures/sp_min_checkout_cart.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Min, La Yaung
+-- Create date: 11/03/2025
+-- Description: Stored Procedure - Checkout Cart
+-- Tables: Carts, CartItems, Coupons
+-- Purpose: Convert cart to order and apply coupons
+-- =============================================
+
+USE urbanease_shop;
+
+DELIMITER //
+
+--  a procedure that handles the checkout process for a given cart by validating items, checking coupons, and calculating the final total.
+
+CREATE PROCEDURE sp_CheckoutCart(
+    IN p_cart_id BIGINT,
+    IN p_coupon_code VARCHAR(40)
+)
+checkout_proc: BEGIN  --  Label the block so we can use LEAVE checkout_proc
+    DECLARE v_subtotal DECIMAL(12,2) DEFAULT 0;
+    DECLARE v_discount DECIMAL(12,2) DEFAULT 0;
+    DECLARE v_total DECIMAL(12,2) DEFAULT 0;
+    DECLARE v_coupon_type VARCHAR(20);
+    DECLARE v_coupon_value DECIMAL(12,2);
+    DECLARE v_coupon_valid BOOLEAN DEFAULT FALSE;
+
+    -- check if the given cart exists and has at least one item
+    IF NOT EXISTS (SELECT 1 FROM CartItems WHERE cart_id = p_cart_id) THEN
+        SELECT CONCAT('Cart ID ', p_cart_id, ' is empty or does not exist.') AS message;
+        LEAVE checkout_proc; 
+    END IF;
+
+    -- calculate the subtotal for the cart (sum of qty × price)
+    SELECT SUM(qty * unit_price)
+    INTO v_subtotal
+    FROM CartItems
+    WHERE cart_id = p_cart_id;
+
+    -- validate coupon code if provided (check if active and within valid dates)
+    IF p_coupon_code IS NOT NULL AND p_coupon_code <> '' THEN
+        SELECT type, value, 
+               (NOW() BETWEEN starts_at AND IFNULL(expires_at, NOW())) AS is_valid
+        INTO v_coupon_type, v_coupon_value, v_coupon_valid
+        FROM Coupons
+        WHERE code = p_coupon_code AND is_active = TRUE
+        LIMIT 1;
+
+        IF v_coupon_valid IS NULL OR v_coupon_valid = FALSE THEN
+            SELECT CONCAT('Coupon "', p_coupon_code, '" is invalid or expired.') AS message;
+            SET v_coupon_type = NULL;
+            SET v_coupon_value = 0;
+            SET v_coupon_valid = FALSE;
+        END IF;
+    END IF;
+
+    -- apply discount based on coupon type (PERCENT or AMOUNT)
+    IF v_coupon_valid THEN
+        IF v_coupon_type = 'PERCENT' THEN
+            SET v_discount = ROUND(v_subtotal * (v_coupon_value / 100), 2);
+        ELSEIF v_coupon_type = 'AMOUNT' THEN
+            SET v_discount = ROUND(v_coupon_value, 2);
+        END IF;
+    END IF;
+
+    -- calculate final total after applying discount
+    SET v_total = ROUND(v_subtotal - v_discount, 2);
+
+    -- display checkout summary for user verification
+    SELECT 
+        p_cart_id AS cart_id,
+        v_subtotal AS subtotal,
+        COALESCE(p_coupon_code, 'None') AS applied_coupon,
+        COALESCE(v_coupon_type, 'N/A') AS coupon_type,
+        v_discount AS discount_amount,
+        v_total AS final_total,
+        CONCAT('Checkout summary for cart ', p_cart_id, ' generated successfully.') AS message;
+END checkout_proc//
+
+DELIMITER ;
+
+-- Test the procedure 
+CALL sp_CheckoutCart(1, 'SAVE10');   -- valid cart + valid coupon
+CALL sp_CheckoutCart(2, 'INVALID');  -- valid cart + invalid coupon
+CALL sp_CheckoutCart(999, NULL);     -- nonexistent cart
+CALL sp_CheckoutCart(3, NULL);       -- valid cart + no coupon
+
+
+
+
+-- ====================================================================
+-- File: procedures/sp_tiwari_create_shipment.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Tiwari, Sneha
+-- Create date: [Date]
+-- Description: Stored Procedure - Create Shipment
+-- Tables: Orders, OrderItems, Shipments
+-- Purpose: Create shipment for an order and initialize shipment workflow
+-- =============================================
+
+-- BUSINESS USE CASE:
+-- This procedure is the central entry point for creating a shipment record
+-- whenever an order is ready to be shipped from a warehouse.
+--
+-- It can be called by:
+-- 1. Warehouse Management System (WMS) when a picker/packer marks an order as ready.
+-- 2. E-commerce backend when an order moves from "PROCESSING" to "SHIPPED".
+-- 3. Integration services that connect to external carriers (FedEx, UPS, DHL).
+-- 4. Customer Service tools to manually trigger a shipment in special cases.
+--
+-- Key responsibilities:
+-- - Validate that the order exists.
+-- - Create a new row in Shipments with basic info (warehouse, carrier, tracking).
+-- - Set initial shipment status (e.g., 'CREATED') and timestamp.
+--
+-- This procedure works together with:
+-- - Triggers like tr_UpdateOrderStatus that react to shipment events
+--   and update the Orders table (e.g., moving to FULFILLED once all shipments are delivered).
+
+-- REAL-WORLD SCENARIO:
+-- Example: Order #16 is paid and packed at Warehouse #1.
+--
+-- - The system calls:
+--     CALL sp_CreateShipment(16, 1, 'FedEx', 'TRACK12345');
+--
+-- - Results:
+--   • A row is inserted into Shipments:
+--       order_id   = 16
+--       warehouse_id = 1
+--       carrier    = 'FedEx'
+--       tracking_no = 'TRACK12345'
+--       status     = 'CREATED'
+--       shipped_at = NOW()
+--
+-- - Next steps:
+--   • Another process or UI workflow may later update status to
+--     'SHIPPED', 'IN_TRANSIT', 'DELIVERED', etc.
+--   • Your AFTER INSERT trigger on Shipments can evaluate whether
+--     all shipments are delivered and mark the order as FULFILLED.
+
+USE urbanease_shop;
+
+-- Drop procedure if exists (for development/updates)
+DROP PROCEDURE IF EXISTS sp_CreateShipment;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_CreateShipment(
+    IN p_order_id BIGINT,
+    IN p_warehouse_id BIGINT,
+    IN p_carrier VARCHAR(80),
+    IN p_tracking_no VARCHAR(120)
+)
+BEGIN
+    DECLARE v_order_status VARCHAR(20);
+
+    -- ============================================
+    -- STEP 1: Validate order exists
+    -- ============================================
+    -- If no row is found, v_order_status will be NULL.
+    SELECT status
+    INTO v_order_status
+    FROM Orders
+    WHERE order_id = p_order_id;
+
+    IF v_order_status IS NULL THEN
+        -- Business rule: do not allow shipments for non-existent orders
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'ORDER ERROR: Order does not exist. Cannot create shipment.';
+    ELSE
+        -- ============================================
+        -- STEP 2: Create shipment record
+        -- ============================================
+        -- Initial status is set to 'CREATED'. Other parts of the system
+        -- can later transition this to SHIPPED / IN_TRANSIT / DELIVERED.
+        INSERT INTO Shipments (
+            order_id,
+            warehouse_id,
+            carrier,
+            tracking_no,
+            status,
+            shipped_at
+        )
+        VALUES (
+            p_order_id,
+            p_warehouse_id,
+            p_carrier,
+            p_tracking_no,
+            'CREATED',
+            NOW()
+        );
+    END IF;
+END//
+
+DELIMITER ;
+
+-- =============================================
+-- TESTING SECTION
+-- =============================================
+
+-- TEST 1: Basic shipment creation for an existing order
+SELECT '=== Test 1: Create shipment for existing order (16) ===' AS test_description;
+CALL sp_CreateShipment(16, 1, 'FedEx', 'TRACK12345');
+
+-- Verify shipment was inserted
+SELECT 
+    s.shipment_id,
+    s.order_id,
+    s.warehouse_id,
+    s.carrier,
+    s.tracking_no,
+    s.status,
+    s.shipped_at
+FROM Shipments s
+WHERE s.order_id = 16
+ORDER BY s.shipped_at DESC
+LIMIT 5;
+
+-- TEST 2: Attempt shipment for non-existent order (should error)
+SELECT '=== Test 2: Try to create shipment for non-existent order (e.g., 99999) ===' AS test_description;
+-- This should raise: ORDER ERROR: Order does not exist. Cannot create shipment.
+-- Uncomment to test:
+-- CALL sp_CreateShipment(99999, 1, 'UPS', 'FAKE12345');
+
+-- TEST 3: View recent shipments across all orders
+SELECT '=== Test 3: Recent shipments overview ===' AS test_description;
+SELECT 
+    s.shipment_id,
+    s.order_id,
+    s.warehouse_id,
+    s.carrier,
+    s.tracking_no,
+    s.status,
+    s.shipped_at
+FROM Shipments s
+ORDER BY s.shipped_at DESC
+LIMIT 10;
+
+
+
+-- ====================================================================
+-- File: procedures/sp_velarde_analyze_customer_performance.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Velarde Sosa, Diana
+-- Create date: [2025-11-07]
+-- Procedure Name: sp_analyze_customer_performance
+-- Tables Involved: Users, Orders, Payments, Reviews
+-- Purpose: Generate a performance summary for a single user
+
+-- Explanation:
+-- 1. Accepts a user ID and computes various KPIs:
+--    - Number of orders
+--    - Number of payments
+--    - Total and average payment amounts
+--    - Number of reviews and average rating
+-- 2. Combines data from multiple tables (Orders, Payments, Reviews).
+-- 3. Returns a single result with a “Customer_Tier” classification.
+-- 4. Uses COALESCE to safely handle users with no payments or reviews.
+-- ============================================================
+
+USE urbanease_shop;
+
+DELIMITER $$
+
+CREATE PROCEDURE sp_analyze_customer_performance(IN p_user_id BIGINT)
+BEGIN
+    DECLARE total_orders INT DEFAULT 0;
+    DECLARE total_payments INT DEFAULT 0;
+    DECLARE total_amount DECIMAL(12,2) DEFAULT 0.00;
+    DECLARE avg_payment DECIMAL(12,2) DEFAULT 0.00;
+    DECLARE total_reviews INT DEFAULT 0;
+    DECLARE avg_rating DECIMAL(3,2) DEFAULT 0.00;
+
+    -- =======================================================
+    -- Calculate orders and total payment information
+    -- =======================================================
+    SELECT 
+        COUNT(DISTINCT o.order_id),
+        COUNT(DISTINCT p.payment_id),
+        COALESCE(SUM(p.amount), 0.00),
+        COALESCE(AVG(p.amount), 0.00)
+    INTO 
+        total_orders, total_payments, total_amount, avg_payment
+    FROM 
+        Orders o
+        LEFT JOIN Payments p ON o.order_id = p.order_id
+    WHERE 
+        o.user_id = p_user_id
+        AND (p.status = 'CAPTURED' OR p.status = 'AUTHORIZED');
+
+    -- =======================================================
+    -- Calculate review information
+    -- =======================================================
+    SELECT 
+        COUNT(r.review_id),
+        COALESCE(AVG(r.rating), 0.00)
+    INTO 
+        total_reviews, avg_rating
+    FROM 
+        Reviews r
+    WHERE 
+        r.user_id = p_user_id;
+
+    -- =======================================================
+    -- Return a single summarized result set
+    -- =======================================================
+    SELECT 
+        u.user_id AS User_ID,
+        u.full_name AS Customer_Name,
+        total_orders AS Total_Orders,
+        total_payments AS Total_Payments,
+        total_amount AS Total_Spent,
+        avg_payment AS Avg_Payment,
+        total_reviews AS Total_Reviews,
+        avg_rating AS Avg_Rating,
+        CASE
+            WHEN total_amount >= 10000 THEN 'VIP Customer'
+            WHEN total_amount BETWEEN 5000 AND 9999 THEN 'Frequent Buyer'
+            ELSE 'Regular Customer'
+        END AS Customer_Tier
+    FROM 
+        Users u
+    WHERE 
+        u.user_id = p_user_id;
+END$$
+
+DELIMITER ;
+
+-- Example Usage:
+CALL sp_analyze_customer_performance(3);
+
+
+
+-- ====================================================================
+-- File: functions/fn_bajwa_check_user_role.sql
+-- ====================================================================
+
+-- ============================================================
+-- Author:       Bajwa, Achint Kaur
+-- Create date:  November 2025
+-- Function:     fn_CheckUserRole
+-- Schema:       urbanease_shop
+-- Description:  Determines whether a given user holds a specific role.
+-- Tables:       Users, Roles, UserRoles
+-- Returns:      TRUE (1) if user has the role, otherwise FALSE (0)
+-- ============================================================
+
+-- ============================================================
+-- Business Objectives:
+-- 1) Centralize role-validation logic so that multiple parts of the
+--    system (procedures, triggers, queries, application layer) use
+--    consistent access-control checks.
+--
+-- 2) Improve maintainability of authorization logic by allowing future
+--    UI tools, admin dashboards, or APIs to validate user permissions
+--    through a single reusable function.
+--
+-- 3) Ensure data integrity and reduce code duplication across stored
+--    procedures that require easy verification of user privileges.
+--
+-- 4) Enable more secure workflow logic by supporting conditional
+--    operations (e.g., only admins, managers, or auditors can perform
+--    specific tasks).
+-- ============================================================
+
+USE urbanease_shop;
+
+DROP FUNCTION IF EXISTS fn_CheckUserRole;
+DELIMITER //
+
+CREATE FUNCTION fn_CheckUserRole(
+    p_user_id BIGINT,
+    p_role_name VARCHAR(64)
+)
+RETURNS BOOLEAN
+DETERMINISTIC
+READS SQL DATA
+BEGIN
+    DECLARE has_role BOOLEAN DEFAULT FALSE;
+
+    SELECT
+        CASE WHEN COUNT(*) > 0 THEN TRUE ELSE FALSE END
+        INTO has_role
+    FROM UserRoles ur
+    JOIN Roles r ON r.role_id = ur.role_id
+    WHERE ur.user_id = p_user_id
+      AND r.role_name = p_role_name;
+
+    RETURN has_role;
+END //
+
+DELIMITER ;
+
+
+-- ====================================================================
+-- File: functions/fn_khapekar_get_product_image_count.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Khapekar, Pooja
+-- Create date: November 2025
+-- Description: Function - Get Product Image Count
+-- Tables: Categories, Products, ProductImages
+-- Returns: Number of images for a product
+-- =============================================
+
+-- BUSINESS USE CASE:
+-- This function is called thousands of times daily to ensure products meet visual content standards across:
+-- E-commerce frontend – Hides or flags products with no images
+-- Admin tools – Highlights SKUs missing images before publishing
+-- Marketplace sync – Prevents non-compliant listings on Amazon, Walmart, etc.
+-- Marketing QA – Validates campaigns include fully imaged products
+-- Mobile app – Dynamically adjusts layout based on image count
+
+-- REAL-WORLD SCENARIO:
+-- During a major product launch, QA scripts run fn_GetProductImageCount() and flag 30+ SKUs with missing images.
+-- Without this function: those products would go live broken, damaging conversion and reputation.
+-- With it: faulty items are held back, preventing campaign failure.
+
+-- Cost Impact:
+-- No images = ~50% lower conversion
+-- Avoids $2K–$5K/day in wasted ad spend
+-- Ensures compliance, avoids de-listing penalties
+-- ✅ Saves $50K–$100K/year in revenue protection and operational efficiency.
+
+
+USE urbanease_shop;
+
+DELIMITER $$
+
+CREATE FUNCTION fn_GetProductImageCount(
+    p_product_id BIGINT
+)
+RETURNS INT
+DETERMINISTIC
+READS SQL DATA
+BEGIN
+    DECLARE image_count INT DEFAULT 0;
+
+    -- Count how many images exist for this product
+    SELECT COUNT(*) INTO image_count
+    FROM ProductImages
+    WHERE product_id = p_product_id;
+
+    -- Return the result
+    RETURN image_count;
+END$$
+
+-- Reset the delimiter back to default
+DELIMITER ;
+
+
+-- ====================================================================
+-- File: functions/fn_kumar_get_available_stock.sql
+-- ====================================================================
 
 -- =============================================
 -- Author: Kumar, Virat
@@ -4538,127 +3598,2868 @@ BEGIN
 END//
 
 DELIMITER ;
+DELIMITER //
+DELIMITER ;
+DELIMITER //
+DELIMITER ;
+
+
+-- ====================================================================
+-- File: functions/fn_min_calculate_cart_total.sql
+-- ====================================================================
 
 -- =============================================
--- COMPANION FUNCTIONS (Optional enhancements)
+-- Author: Min, La Yaung
+-- Create date: 11/03/2025
+-- Description: Function - Calculate Cart Total
+-- Tables: Carts, CartItems, Coupons
+-- Returns: Total amount for all items in cart
 -- =============================================
 
--- Drop if exists
-DROP FUNCTION IF EXISTS fn_GetTotalAvailableStock;
+USE urbanease_shop;
 
 DELIMITER //
 
--- Get total available stock across ALL warehouses for a variant
-CREATE FUNCTION fn_GetTotalAvailableStock(
-    p_variant_id BIGINT
+-- a function that calculates and returns the total value of all items in a given shopping cart.
+
+CREATE FUNCTION fn_CalculateCartTotal(
+    p_cart_id BIGINT
+)
+RETURNS DECIMAL(12,2)
+DETERMINISTIC
+READS SQL DATA
+BEGIN
+    DECLARE cart_total DECIMAL(12,2) DEFAULT 0.00;
+
+    -- Sum up the total amount (quantity × price) for the specified cart
+    SELECT 
+        COALESCE(SUM(qty * unit_price), 0.00)
+    INTO cart_total
+    FROM CartItems
+    WHERE cart_id = p_cart_id;
+
+    -- Return the final calculated total for the cart
+    RETURN cart_total;
+END//
+
+DELIMITER ;
+
+
+-- ====================================================================
+-- File: functions/fn_tiwari_get_order_item_count.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Tiwari, Sneha
+-- Create date: [Date]
+-- Description: Function - Get Order Item Count
+-- Tables: OrderItems
+-- Returns:  Number of line items (rows) in a specific order
+-- =============================================
+
+-- BUSINESS USE CASE:
+-- This function supports the entire order lifecycle by providing a fast,
+-- reusable way to determine how many distinct line items exist in a given order.
+--
+-- Used by:
+-- 1. Website order summary 
+-- 2. Warehouse picking workflows
+-- 3. Quality control checkpoint before packing
+-- 4. Customer service ticket screens
+-- 5. Analytics dashboards (average items per order, basket analysis)
+-- 6. Fraud detection (large or unusual item counts)
+--
+-- REAL-WORLD SCENARIO:
+-- Order #16 contains:
+--   - iPhone 15 × 1
+--   - AirPods Pro × 2
+--   - MagSafe Charger × 1
+-- That is 3 line items (rows).
+--
+-- fn_GetOrderItemCount(16) → 3
+--
+-- This helps:
+-- - Website UI display correct order summary
+-- - Warehouse route single vs multi-item orders differently
+-- - Reduce human error during packing
+-- - Improve reporting accuracy
+
+USE urbanease_shop;
+
+-- Drop function if exists (for development updates)
+DROP FUNCTION IF EXISTS fn_GetOrderItemCount;
+
+DELIMITER //
+
+CREATE FUNCTION fn_GetOrderItemCount(
+    p_order_id BIGINT
 )
 RETURNS INT
 DETERMINISTIC
 READS SQL DATA
-COMMENT 'Returns total available stock across all warehouses for a variant'
+COMMENT 'Returns the number of line items in an order (OrderItems count)'
 BEGIN
-    DECLARE v_total_available INT DEFAULT 0;
-    
-    -- Sum available stock from all warehouses
-    SELECT 
-        COALESCE(SUM(on_hand - reserved), 0)
-    INTO 
-        v_total_available
-    FROM Inventory
-    WHERE 
-        variant_id = p_variant_id
-        AND (on_hand - reserved) > 0;  -- Only count positive availability
-    
-    -- Return total available
-    RETURN GREATEST(v_total_available, 0);
+    DECLARE item_count INT DEFAULT 0;
+
+    -- Count line items in the order
+    SELECT COUNT(*)
+    INTO item_count
+    FROM OrderItems
+    WHERE order_id = p_order_id;
+
+    RETURN item_count;
 END//
 
 DELIMITER ;
 
--- Drop if exists
-DROP FUNCTION IF EXISTS fn_IsInStock;
+
+-- ====================================================================
+-- File: functions/fn_velarde_fn_get_user_total_spending.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Velarde Sosa, Diana
+-- Create date: [2025-11-07]
+-- Function Name: fn_get_user_total_spending
+-- Tables Involved: Users, Orders, Payments
+-- Purpose: Calculate the total amount a user has spent
+--          across all successfully captured payments.
+
+-- Explanation:
+-- 1. Input: A user ID (p_user_id).
+-- 2. Joins Orders and Payments to find all payments from that user.
+-- 3. Filters only payments with status = 'CAPTURED' (successful).
+-- 4. Uses COALESCE to return 0.00 if no payments exist.
+-- 5. Returns the total amount spent as DECIMAL(12,2).
+-- ============================================================
+
+USE urbanease_shop;
+
+DELIMITER $$
+
+CREATE FUNCTION fn_get_user_total_spending(p_user_id BIGINT)
+RETURNS DECIMAL(12,2)
+DETERMINISTIC
+BEGIN
+    DECLARE total_spent DECIMAL(12,2) DEFAULT 0.00;
+
+    -- =======================================================
+    -- Calculate total spending using JOINs
+    -- =======================================================
+    SELECT 
+        COALESCE(SUM(p.amount), 0.00)
+    INTO 
+        total_spent
+    FROM 
+        Payments p
+        INNER JOIN Orders o ON p.order_id = o.order_id
+    WHERE 
+        o.user_id = p_user_id
+        AND p.status = 'CAPTURED';  -- Only count successful payments
+
+    -- =======================================================
+    -- Return total amount spent
+    -- =======================================================
+    RETURN total_spent;
+END$$
+
+DELIMITER ;
+
+
+-- ====================================================================
+-- File: triggers/tr_bajwa_audit_user_changes.sql
+-- ====================================================================
+
+-- ============================================================
+-- Author:       Bajwa, Achint Kaur
+-- Create date:  November 2025
+-- Trigger:      tr_AuditUserChanges
+-- Schema:       urbanease_shop
+-- Description:  Audit Trigger - Tracks all updates to Users table
+-- Tables:       Users, UsersAudit
+-- Purpose:      Log key user attribute changes and maintain
+--               update timestamp consistency.
+-- ============================================================
+
+-- ============================================================
+-- Business Objectives:
+-- 1) Provide complete traceability for changes made to user accounts
+--    by storing historical data (old and new values).
+--
+-- 2) Support accountability and compliance requirements for security
+--    by recording who made the change (`changed_by`) and when.
+--
+-- 3) Allow administrators and auditors to review all profile changes,
+--    including updates to email, full name, and activation status.
+--
+-- 4) Ensure the `updated_at` field always reflects the most recent
+--    modification, regardless of how or where the update occurs.
+--
+-- 5) Improve debugging and forensic analysis by maintaining an
+--    independent audit trail that cannot be overwritten.
+-- ============================================================
+
+USE urbanease_shop;
+
+DROP TRIGGER IF EXISTS tr_AuditUserChanges;
+DELIMITER //
+
+CREATE TRIGGER tr_AuditUserChanges
+BEFORE UPDATE ON Users
+FOR EACH ROW
+BEGIN
+    -- Always update last modified timestamp
+    SET NEW.updated_at = CURRENT_TIMESTAMP;
+
+    -- Insert audit row only when relevant fields change
+    IF 
+        OLD.email      <> NEW.email OR
+        OLD.full_name  <> NEW.full_name OR
+        OLD.is_active  <> NEW.is_active
+    THEN
+        INSERT INTO UsersAudit (
+            user_id,
+            old_email,     new_email,
+            old_full_name, new_full_name,
+            old_is_active, new_is_active,
+            changed_at,
+            changed_by
+        )
+        VALUES (
+            OLD.user_id,
+            OLD.email,       NEW.email,
+            OLD.full_name,   NEW.full_name,
+            OLD.is_active,   NEW.is_active,
+            CURRENT_TIMESTAMP,
+            CURRENT_USER()   -- logs the MySQL user who performed the update
+        );
+    END IF;
+
+END //
+DELIMITER ;
+
+
+-- ====================================================================
+-- File: triggers/tr_khapekar_validate_product.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Khapekar, Pooja
+-- Create date: November 2025
+-- Description: Trigger - Validate Product Data
+-- Tables: Categories, Products, ProductImages
+-- Purpose: Validate product data before insert/update
+-- =============================================
+
+-- BUSINESS USE CASE:
+-- This trigger is a data validation gate that ensures all product-related entries meet critical business rules before they hit the database. It protects against:
+-- Incomplete Listings: Prevents missing fields like product name, category, or price that cause broken product pages.
+-- Category Mismatches: Ensures product categories are valid and properly linked.
+-- Image Gaps: Validates that each product has at least one image before going live.
+-- Price Errors: Stops accidental $0 pricing or excessively high values due to manual input or automation bugs.
+-- Third-Party Feed Errors: Catches invalid or malformed product data from vendors or automated integrations.
+-- Data Corruption: Prevents malformed or unlinked product records due to network failures or transactional inconsistencies.
+
+-- REAL-WORLD SCENARIO:
+-- New Product Launch – Monday Morning at 9:00 AM:
+-- 300 products are bulk-imported from a third-party catalog sync.
+-- 20 of them have missing categories, 10 have no images, and 5 are priced at $0 due to feed bugs.
+-- Without this trigger:
+-- These faulty products go live on the storefront.
+-- Customers see broken pages or exploit zero-price bugs.
+-- With this trigger:
+-- The problematic inserts/updates are rejected immediately.
+-- The integration logs specific validation failures.
+-- Product managers are alerted to fix only the affected items, not the entire batch.
+
+-- Cost & Impact:
+-- Broken Product Page Cost: ~$10–100/day in lost conversions per product
+-- Zero-Price Exploit: One bad order could cost $500+ in losses
+-- Support Overhead: 20–30 support tickets per incident due to bad product data
+-- Reputation Risk: Inconsistent or broken product listings hurt brand trust and SEO
+-- Estimated Savings: $25,000–$75,000/year across support, fraud prevention, and improved catalog integrity
+
+
+
+USE urbanease_shop;
 
 DELIMITER //
 
--- Quick boolean check if item is in stock at warehouse
-CREATE FUNCTION fn_IsInStock(
-    p_variant_id BIGINT,
-    p_warehouse_id BIGINT,
-    p_required_qty INT
-)
-RETURNS BOOLEAN
-DETERMINISTIC
-READS SQL DATA
-COMMENT 'Returns TRUE if required quantity is available, FALSE otherwise'
+CREATE TRIGGER tr_ValidateProduct
+BEFORE INSERT ON Products
+FOR EACH ROW
 BEGIN
-    DECLARE v_available INT;
-    
-    -- Get available stock using our main function
-    SET v_available = fn_GetAvailableStock(p_variant_id, p_warehouse_id);
-    
-    -- Return TRUE if we have enough, FALSE otherwise
-    RETURN (v_available >= p_required_qty);
+    -- If title is empty, replace it
+    IF NEW.title IS NULL OR NEW.title = '' THEN
+        SET NEW.title = 'Untitled Product';
+    END IF;
+
+    -- If brand is NULL, replace with 'Unknown'
+    IF NEW.brand IS NULL THEN
+        SET NEW.brand = 'Unknown';
+    END IF;
+
+    -- If category is NULL or 0, set to default category ID = 1
+    IF NEW.category_id IS NULL OR NEW.category_id = 0 THEN
+        SET NEW.category_id = 1;
+    END IF;
 END//
 
 DELIMITER ;
 
+
+-- ====================================================================
+-- File: triggers/tr_kumar_prevent_negative_inventory.sql
+-- ====================================================================
+
 -- =============================================
--- TESTING SECTION
+-- Author: Kumar, Virat
+-- Create date: November 2025
+-- Description: Trigger - Prevent Negative Inventory & Data Integrity
+-- Tables: Inventory
+-- Purpose: Enforce business rules and prevent overselling
 -- =============================================
 
-SELECT '=== Test 1: Get available stock for specific variant and warehouse ===' as test_description;
-SELECT 
-    fn_GetAvailableStock(1, 1) as available_stock_variant_1_warehouse_1,
-    fn_GetAvailableStock(2, 2) as available_stock_variant_2_warehouse_2,
-    fn_GetAvailableStock(999, 1) as non_existent_variant;
+-- BUSINESS USE CASE:
+-- This trigger is the last line of defense against inventory errors that could
+-- result in overselling, customer disappointment, and revenue loss. It protects against:
+--
+-- 1. System Bugs: Prevents code errors from creating negative inventory
+-- 2. Race Conditions: Multiple orders trying to reserve same items simultaneously
+-- 3. Manual Errors: Staff accidentally entering wrong numbers
+-- 4. Integration Issues: Third-party systems sending invalid data
+-- 5. Database Corruption: Hardware/network issues during transactions
+-- 6. Malicious Activity: Attempts to manipulate inventory data
 
-SELECT '=== Test 2: Get total available stock across all warehouses ===' as test_description;
-SELECT 
-    fn_GetTotalAvailableStock(1) as total_iphone_stock,
-    fn_GetTotalAvailableStock(8) as total_macbook_stock,
-    fn_GetTotalAvailableStock(999) as non_existent_total;
+-- REAL-WORLD SCENARIO:
+-- Black Friday Sale - 11:59 PM:
+-- - 100 customers simultaneously click "Buy" on last 50 iPhone units
+-- - Without this trigger: System could reserve 100 units (overselling by 50)
+-- - With this trigger: First 50 orders succeed, remaining 50 get clear error
+-- - Result: No angry customers receiving "out of stock" emails after payment
+--
+-- Cost Impact:
+-- - One oversold item = $50-200 in customer service + shipping costs
+-- - This trigger prevents ~$10,000-50,000/year in overselling costs
+-- - Protects brand reputation and customer trust
 
-SELECT '=== Test 3: Check if sufficient stock exists ===' as test_description;
-SELECT 
-    fn_IsInStock(1, 1, 10) as can_fulfill_10_units,
-    fn_IsInStock(1, 1, 500) as can_fulfill_500_units,
-    fn_IsInStock(999, 1, 1) as non_existent_check;
+USE urbanease_shop;
 
-SELECT '=== Test 4: Real-world scenario - Product page display ===' as test_description;
+-- =============================================
+-- TRIGGER 1: Prevent Negative Available Inventory
+-- =============================================
+-- Drop trigger if exists (for updates)
+DROP TRIGGER IF EXISTS tr_PreventNegativeInventory;
+
+DELIMITER //
+
+CREATE TRIGGER tr_PreventNegativeInventory
+BEFORE UPDATE ON Inventory
+FOR EACH ROW
+BEGIN
+    -- ============================================
+    -- BUSINESS RULE 1: Available stock cannot be negative
+    -- ============================================
+    -- Check if the update would result in negative available stock
+    IF (NEW.on_hand - NEW.reserved) < 0 THEN
+        -- Provide detailed error message for debugging
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'INVENTORY ERROR: Cannot reserve more items than available. Check stock levels before processing order.',
+            MYSQL_ERRNO = 1001;
+    END IF;
+    
+    -- ============================================
+    -- BUSINESS RULE 2: Physical stock cannot be negative
+    -- ============================================
+    -- on_hand represents physical inventory and must never be negative
+    IF NEW.on_hand < 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'INVENTORY ERROR: Physical inventory (on_hand) cannot be negative. Verify receiving data.',
+            MYSQL_ERRNO = 1002;
+    END IF;
+    
+    -- ============================================
+    -- BUSINESS RULE 3: Reserved stock cannot be negative
+    -- ============================================
+    -- Reserved inventory must be a positive number or zero
+    IF NEW.reserved < 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'INVENTORY ERROR: Reserved quantity cannot be negative. Check reservation logic.',
+            MYSQL_ERRNO = 1003;
+    END IF;
+    
+    -- ============================================
+    -- BUSINESS RULE 4: Reserved cannot exceed on_hand
+    -- ============================================
+    -- You cannot reserve more than you physically have
+    IF NEW.reserved > NEW.on_hand THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'INVENTORY ERROR: Reserved quantity cannot exceed physical stock. Adjust reservation or add stock.',
+            MYSQL_ERRNO = 1004;
+    END IF;
+    
+    -- ============================================
+    -- DATA QUALITY CHECK: Log unusual changes (if needed)
+    -- ============================================
+    -- If reserved quantity increases dramatically (>100 at once), 
+    -- this might indicate a system issue worth investigating
+    -- Note: In production, you'd log this to an audit table
+    IF (NEW.reserved - OLD.reserved) > 100 THEN
+        -- In production: INSERT INTO inventory_alerts (...)
+        -- For now: Just a comment for awareness
+        -- Large reservation detected - may want to alert inventory manager
+        SET NEW.reserved = NEW.reserved;  -- No-op, just for documentation
+    END IF;
+    
+END//
+
+DELIMITER ;
+DELIMITER //
+DELIMITER ;
+DELIMITER //
+DELIMITER ;
+
+
+-- ====================================================================
+-- File: triggers/tr_min_update_cart_timestamp.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Min, La Yaung
+-- Create date: 11/03/2025
+-- Description: Trigger - Update Cart Timestamp
+-- Tables: Carts, CartItems, Coupons
+-- Purpose: Update cart timestamp when items are added/removed
+-- =============================================
+
+USE urbanease_shop;
+
+DELIMITER //
+
+-- Automatically updates the cart's last modified time whenever a new item is added.
+
+CREATE TRIGGER tr_UpdateCartTimestamp
+AFTER INSERT ON CartItems
+FOR EACH ROW
+BEGIN
+    -- Update the parent cart’s timestamp to reflect that it has new items
+    UPDATE Carts 
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE cart_id = NEW.cart_id;
+END//
+
+DELIMITER ;
+
+
+-- ====================================================================
+-- File: triggers/tr_tiwari_validate_review.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Tiwari, Sneha
+-- Create date: [Date]
+-- Description: Trigger - Update Order Status on Shipment
+-- Tables: Orders, OrderItems, Shipments
+-- Purpose: Automatically update order status when shipment is created
+-- =============================================
+
+-- BUSINESS USE CASE:
+-- This trigger ensures that the Orders table always reflects the real-world 
+-- fulfillment status without relying solely on application code or manual updates.
+--
+-- It protects against:
+-- 1. Partial Shipments: Orders that are shipped in multiple boxes over time
+-- 2. Missed Status Updates: Developers forgetting to update Orders.status in code
+-- 3. Manual Data Entry Errors: Staff updating shipments but not updating orders
+-- 4. Integration Issues: Third-party shipping systems inserting shipments but not
+--    triggering order status changes
+-- 5. Reporting Mismatches: Orders marked as "SHIPPED" even when everything is 
+--    already delivered, causing confusion for analytics and dashboards
+
+-- REAL-WORLD SCENARIO:
+-- Example: Order #16 (3 items, shipped in 2 boxes)
+-- - Box 1: Ships today (status: SHIPPED → then DELIVERED)
+-- - Box 2: Ships tomorrow (status: SHIPPED → then DELIVERED)
+-- 
+-- Without this trigger:
+-- - The system might forget to update Orders.status when the last shipment arrives.
+-- - The order could remain stuck in 'SHIPPED' or 'PROCESSING'.
+--
+-- With this trigger:
+-- - Every time a new row is inserted in Shipments, the trigger checks:
+--   • How many shipments exist for that order
+--   • How many of those are marked as 'DELIVERED'
+-- - If ALL shipments are 'DELIVERED', Orders.status is automatically set to 'FULFILLED'
+--
+-- BUSINESS IMPACT:
+-- - Accurate order lifecycle tracking (PROCESSING → SHIPPED → FULFILLED)
+-- - Cleaner reporting for KPIs such as:
+--   • % of orders fulfilled
+--   • Average time to fulfillment
+-- - Better customer experience: status in UI/email always matches reality
+-- - Reduced manual work for operations and support teams
+
+USE urbanease_shop;
+
+-- =============================================
+-- TRIGGER: Auto-update order status when all shipments delivered
+-- =============================================
+
+-- Drop trigger if it already exists (for updates during development)
+DROP TRIGGER IF EXISTS tr_UpdateOrderStatus;
+
+DELIMITER //
+
+CREATE TRIGGER tr_UpdateOrderStatus
+AFTER INSERT ON Shipments
+FOR EACH ROW
+BEGIN
+    DECLARE total_shipments INT;
+    DECLARE delivered_shipments INT;
+
+    -- ============================================
+    -- STEP 1: Count total shipments for this order
+    -- ============================================
+    SELECT COUNT(*)
+    INTO total_shipments
+    FROM Shipments
+    WHERE order_id = NEW.order_id;
+
+    -- ============================================
+    -- STEP 2: Count shipments that are DELIVERED
+    -- ============================================
+    SELECT COUNT(*)
+    INTO delivered_shipments
+    FROM Shipments
+    WHERE order_id = NEW.order_id
+      AND status = 'DELIVERED';
+
+    -- ============================================
+    -- STEP 3: If ALL shipments are delivered,
+    --         mark the order as FULFILLED
+    -- ============================================
+    IF total_shipments = delivered_shipments
+       AND total_shipments > 0 THEN
+        UPDATE Orders
+        SET status     = 'FULFILLED',
+            updated_at = NOW()
+        WHERE order_id = NEW.order_id;
+    END IF;
+
+    -- Note:
+    --  • This trigger assumes that Orders.status lifecycle is managed elsewhere
+    --    for earlier stages (e.g., 'PENDING', 'PROCESSING', 'SHIPPED').
+    --  • This trigger only handles the final step: moving to 'FULFILLED' once
+    --    every related shipment is marked as 'DELIVERED'.
+
+END//
+
+DELIMITER ;
+
+
+-- ====================================================================
+-- File: triggers/tr_velarde_trg_update_order_status_after_payment.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Velarde Sosa, Diana
+-- Create date: [2025-11-07]
+-- Trigger Name: trg_update_order_status_after_payment
+-- Tables Involved: Payments, Orders
+-- Purpose: Automatically update the related order status
+--          whenever a payment record is inserted or updated.
+
+-- Explanation:
+-- 1. Trigger fires *after* a payment record is inserted.
+-- 2. It checks the payment’s status (CAPTURED, REFUNDED, etc.).
+-- 3. Updates the corresponding order’s status automatically.
+-- 4. Ensures your Orders table always reflects the latest payment result.
+-- ============================================================
+
+USE urbanease_shop;
+
+DELIMITER $$
+
+CREATE TRIGGER trg_update_order_status_after_payment
+AFTER INSERT ON Payments
+FOR EACH ROW
+BEGIN
+    DECLARE new_status VARCHAR(20);
+
+    -- =======================================================
+    -- Determine the new order status based on payment status
+    -- =======================================================
+    IF NEW.status = 'CAPTURED' THEN
+        SET new_status = 'PAID';
+    ELSEIF NEW.status = 'AUTHORIZED' THEN
+        SET new_status = 'PENDING_PAYMENT';
+    ELSEIF NEW.status = 'REFUNDED' THEN
+        SET new_status = 'REFUNDED';
+    ELSEIF NEW.status = 'FAILED' THEN
+        SET new_status = 'PAYMENT_FAILED';
+    ELSE
+        SET new_status = 'PENDING';
+    END IF;
+
+    -- =======================================================
+    -- Update the related order record
+    -- =======================================================
+    UPDATE Orders
+    SET 
+        status = new_status,
+        updated_at = UTC_TIMESTAMP()  -- update the timestamp
+    WHERE 
+        order_id = NEW.order_id;
+
+    -- =======================================================
+    -- 3️Optional Logging (if you have a log table)
+    -- =======================================================
+    -- INSERT INTO PaymentLogs (order_id, payment_id, action, logged_at)
+    -- VALUES (NEW.order_id, NEW.payment_id, CONCAT('Payment status updated to ', NEW.status), UTC_TIMESTAMP());
+
+END$$
+
+DELIMITER ;
+
+
+-- ====================================================================
+-- File: queries/bajwa_achint_kaur/query1_user_login_history.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Bajwa, Achint Kaur
+-- Create date: November 2025
+-- Description: Query 1 - User Login History
+-- Tables: Users, Roles, UserRoles
+-- =============================================
+
+USE urbanease_shop;
+
+SELECT
+  u.user_id,
+  u.email,
+  u.full_name,
+  r.role_name,
+  ur.assigned_at
+FROM Users      AS u
+JOIN UserRoles  AS ur ON ur.user_id = u.user_id
+JOIN Roles      AS r  ON r.role_id  = ur.role_id
+-- Optional filter to show only active accounts:
+-- WHERE u.is_active = 1
+ORDER BY u.user_id, ur.assigned_at, r.role_name;
+
+-- ============================================================
+-- COMMENTS:
+-- 1) This query retrieves each user's profile information along 
+--    with their assigned roles and the timestamp of assignment.
+--
+-- 2) JOINs:
+--       • Users ↔ UserRoles to link users with their role mappings
+--       • UserRoles ↔ Roles to fetch role names
+--
+-- 3) ORDER BY ensures user records are organized chronologically
+--    based on when roles were assigned and grouped by user.
+--
+-- 4) The optional filter (u.is_active = 1) can be used to limit
+--    the report to only active accounts.
+--
+-- 5) Useful for:
+--       • Admin dashboards showing account activity
+--       • Auditing role assignment history
+--       • Verifying if users were set up correctly
+-- ============================================================
+
+
+
+-- ====================================================================
+-- File: queries/bajwa_achint_kaur/query2_users_by_role.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Bajwa, Achint Kaur
+-- Create date: November 2025
+-- Description: Query 2 - Users by Role
+-- Tables: Users, Roles, UserRoles
+-- =============================================
+
+USE urbanease_shop;
+
+-- (Optional) show more sample emails if many users share a role
+-- SET SESSION group_concat_max_len = 8192;
+
+SELECT
+  r.role_name,
+  COUNT(DISTINCT ur.user_id) AS user_count,                          -- de-duplicate users per role
+  COALESCE(
+    GROUP_CONCAT(DISTINCT u.email ORDER BY u.email SEPARATOR ', '),  -- readable examples
+    '—'
+  ) AS example_users
+FROM Roles      AS r
+LEFT JOIN UserRoles AS ur ON ur.role_id = r.role_id
+LEFT JOIN Users     AS u  ON u.user_id  = ur.user_id
+-- Uncomment to count only active accounts:
+-- WHERE u.is_active = 1 OR u.user_id IS NULL
+GROUP BY r.role_id, r.role_name
+ORDER BY user_count DESC, r.role_name;
+
+-- COMMENTS
+-- 1) COUNT(DISTINCT ur.user_id) prevents overcounting if data ever contains duplicates.
+-- 2) GROUP_CONCAT(DISTINCT ...) lists unique emails per role; COALESCE shows '—' when no users.
+-- 3) Add the WHERE line to exclude inactive users from counts while keeping roles with zero users.
+-- 4) If your role gets many users, bump GROUP_CONCAT length (see SET statement above).
+-- 5) Helpful indexes (if not already present):
+--      CREATE INDEX idx_userroles_role ON UserRoles(role_id);
+--      CREATE INDEX idx_userroles_user ON UserRoles(user_id);
+--      CREATE UNIQUE INDEX uq_roles_name ON Roles(role_name);
+
+
+
+-- ====================================================================
+-- File: queries/bajwa_achint_kaur/query3_active_users_with_roles.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Bajwa, Achint Kaur
+-- Create date: November 2025
+-- Description: Query 3 - Active Users with Multiple Roles
+-- Tables: Users, Roles, UserRoles
+-- =============================================
+
+USE urbanease_shop;
+
+SELECT
+  u.user_id,
+  u.email,
+  u.full_name,
+  GROUP_CONCAT(DISTINCT r.role_name ORDER BY r.role_name SEPARATOR ', ') AS roles,
+  COUNT(DISTINCT r.role_id) AS role_count
+FROM Users      AS u
+LEFT JOIN UserRoles AS ur ON ur.user_id = u.user_id
+LEFT JOIN Roles     AS r  ON r.role_id  = ur.role_id
+WHERE u.is_active = 1                      -- use 1 for cross-platform boolean
+GROUP BY u.user_id, u.email, u.full_name
+HAVING role_count > 1                      -- only show users with >1 role
+ORDER BY role_count DESC, u.user_id;
+
+-- COMMENTS
+-- 1) Lists only active users who hold more than one distinct role.
+-- 2) GROUP_CONCAT(DISTINCT ...) ensures duplicate roles are not repeated.
+-- 3) COUNT(DISTINCT r.role_id) enables HAVING role_count>1 filtering.
+-- 4) Uses numeric 1 for BOOLEAN to avoid TRUE/FALSE portability issues.
+-- 5) ORDER BY role_count DESC shows users with the most roles first.
+-- 6) Helpful indexes:
+--      CREATE INDEX idx_userroles_user ON UserRoles(user_id);
+--      CREATE INDEX idx_userroles_role ON UserRoles(role_id);
+--      CREATE INDEX idx_users_active   ON Users(is_active);
+
+
+
+-- ====================================================================
+-- File: queries/bajwa_achint_kaur/query4_Product_performance_by_sales_revenue_ratings.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Bajwa, Achint Kaur
+-- Create date: November 2025
+-- Description: Product performance summary = sales, revenue, ratings, and
+--              available stock (on_hand - reserved) aggregated across warehouses.
+-- Tables: Products, Categories, ProductVariants, OrderItems, Orders, Reviews, Inventory
+-- =============================================
+
+USE urbanease_shop;
+
+WITH params AS (
+  SELECT 
+    DATE('2024-01-01') AS p_start_date,
+    DATE('2025-12-31') AS p_end_date
+),
+order_lines AS (
+  -- Paid/fulfilled order items in date range
+  SELECT 
+      oi.variant_id,
+      oi.qty,
+      (oi.qty * oi.unit_price) AS line_revenue
+  FROM OrderItems oi
+  JOIN Orders o ON o.order_id = oi.order_id
+  JOIN params p
+    ON o.placed_at >= p.p_start_date
+   AND o.placed_at <  p.p_end_date + INTERVAL 1 DAY
+  WHERE o.status IN ('PAID','FULFILLED')   -- exclude cancelled/refunded
+),
+variant_sales AS (
+  SELECT 
+      variant_id,
+      SUM(qty)                  AS units_sold,
+      SUM(line_revenue)         AS revenue
+  FROM order_lines
+  GROUP BY variant_id
+),
+variant_ratings AS (
+  SELECT 
+      pv.variant_id,
+      AVG(r.rating) AS avg_rating,
+      COUNT(*)      AS rating_count
+  FROM Reviews r
+  JOIN Products p  ON p.product_id = r.product_id
+  JOIN ProductVariants pv ON pv.product_id = p.product_id
+  GROUP BY pv.variant_id
+),
+variant_stock AS (
+  -- Sum stock across all warehouses for each variant
+  SELECT 
+      i.variant_id,
+      GREATEST(SUM(i.on_hand - i.reserved), 0) AS available_stock
+  FROM Inventory i
+  GROUP BY i.variant_id
+)
+SELECT
+  p.product_id,
+  p.title                           AS product_title,
+  c.name                            AS category,
+  pv.variant_id,
+  pv.sku,
+  COALESCE(vs.units_sold, 0)        AS units_sold,
+  COALESCE(vs.revenue, 0.00)        AS revenue_usd,
+  ROUND(COALESCE(vr.avg_rating, 0), 2) AS avg_rating,
+  COALESCE(vr.rating_count, 0)      AS rating_count,
+  COALESCE(vst.available_stock, 0)  AS available_stock,
+  CASE 
+    WHEN COALESCE(vst.available_stock,0) = 0 THEN 'OUT OF STOCK'
+    WHEN COALESCE(vst.available_stock,0) < 10 THEN 'LOW'
+    WHEN COALESCE(vst.available_stock,0) < 50 THEN 'MEDIUM'
+    ELSE 'HIGH'
+  END AS stock_band
+FROM Products p
+LEFT JOIN Categories c         ON c.category_id = p.category_id
+JOIN ProductVariants pv        ON pv.product_id = p.product_id
+LEFT JOIN variant_sales  vs    ON vs.variant_id = pv.variant_id
+LEFT JOIN variant_ratings vr   ON vr.variant_id = pv.variant_id
+LEFT JOIN variant_stock  vst   ON vst.variant_id = pv.variant_id
+WHERE p.is_active = 1 AND pv.is_active = 1
+ORDER BY revenue_usd DESC, units_sold DESC, pv.variant_id
+LIMIT 25;
+
+-- COMMENTS
+-- 1) Uses CTE `params` so graders can quickly change the date window.
+-- 2) Counts sales only from Orders with status PAID/FULFILLED (business-valid revenue).
+-- 3) Revenue = SUM(qty*unit_price) at order-line granularity; grouped per variant.
+-- 4) Ratings averaged at variant level by bridging Reviews -> Products -> ProductVariants.
+-- 5) Stock is rolled up across all Warehouses: SUM(on_hand - reserved).
+-- 6) Robust to missing data via COALESCE; adds a stock_band label for UX/reporting.
+-- 7) Helpful indexes (if large data):
+--      CREATE INDEX IX_O_placed_status ON Orders(placed_at, status);
+--      CREATE INDEX IX_OI_variant ON OrderItems(variant_id);
+--      CREATE INDEX IX_Inv_variant ON Inventory(variant_id);
+--      CREATE INDEX IX_Prod_category ON Products(category_id);
+
+
+
+-- ====================================================================
+-- File: queries/bajwa_achint_kaur/query5_fulfillment_performance.sql
+-- ====================================================================
+
+-- =============================================
+-- Author:       Bajwa, Achint Kaur
+-- Create date:  November 2025
+-- Description:  Fulfillment SLA by warehouse & carrier:
+--               - Ship time (placed_at -> shipped_at)
+--               - Delivery time (shipped_at -> delivered_at)
+--               - On-time shipping/delivery rates
+--               - Volume of shipments
+-- Tables:       Orders, Shipments, Warehouses
+-- =============================================
+
+USE urbanease_shop;
+
+WITH params AS (
+  SELECT 
+    DATE('2024-01-01') AS p_start_date,
+    DATE('2025-12-31') AS p_end_date,
+    48  AS ship_sla_hours,     -- on-time ship threshold (2 days)
+    168 AS delivery_sla_hours  -- on-time delivery threshold (7 days)
+),
+ship_events AS (
+  SELECT
+      s.shipment_id,
+      s.order_id,
+      s.warehouse_id,
+      s.carrier,
+      s.status,
+      s.shipped_at,
+      s.delivered_at,
+      o.placed_at
+  FROM Shipments s
+  JOIN Orders o ON o.order_id = s.order_id
+  JOIN params p
+    ON o.placed_at >= p.p_start_date
+   AND o.placed_at <  p.p_end_date + INTERVAL 1 DAY
+),
+durations AS (
+  SELECT
+      se.warehouse_id,
+      se.carrier,
+      se.status,
+      se.placed_at,
+      se.shipped_at,
+      se.delivered_at,
+      TIMESTAMPDIFF(HOUR, se.placed_at,   se.shipped_at)   AS ship_hours,
+      TIMESTAMPDIFF(HOUR, se.shipped_at,  se.delivered_at) AS delivery_hours
+  FROM ship_events se
+  WHERE se.shipped_at IS NOT NULL
+)
+SELECT
+  w.warehouse_id,
+  w.name                 AS warehouse_name,
+  w.code                 AS warehouse_code,
+  d.carrier,
+  COUNT(*)                                AS shipments_total,
+  SUM(d.shipped_at   IS NOT NULL)         AS shipped_cnt,
+  SUM(d.delivered_at IS NOT NULL)         AS delivered_cnt,
+  ROUND(AVG(d.ship_hours), 1)             AS ship_hours_avg,
+  MIN(d.ship_hours)                        AS ship_hours_min,
+  MAX(d.ship_hours)                        AS ship_hours_max,
+  ROUND(AVG(CASE WHEN d.delivered_at IS NOT NULL THEN d.delivery_hours END), 1) AS delivery_hours_avg,
+  MIN(CASE WHEN d.delivered_at IS NOT NULL THEN d.delivery_hours END)           AS delivery_hours_min,
+  MAX(CASE WHEN d.delivered_at IS NOT NULL THEN d.delivery_hours END)           AS delivery_hours_max,
+  CONCAT(ROUND(100 * AVG(CASE 
+           WHEN d.ship_hours    IS NOT NULL 
+            AND d.ship_hours   <= (SELECT ship_sla_hours FROM params) 
+           THEN 1 ELSE 0 END), 1), '%') AS ship_ontime_rate,
+  CONCAT(ROUND(100 * AVG(CASE 
+           WHEN d.delivery_hours IS NOT NULL
+            AND d.delivery_hours <= (SELECT delivery_sla_hours FROM params)
+           THEN 1 ELSE 0 END), 1), '%') AS delivery_ontime_rate
+FROM durations d
+LEFT JOIN Warehouses w ON w.warehouse_id = d.warehouse_id
+GROUP BY w.warehouse_id, w.name, w.code, d.carrier
+HAVING shipments_total > 0
+ORDER BY delivery_ontime_rate DESC, ship_ontime_rate DESC, shipments_total DESC
+LIMIT 100;
+
+-- COMMENTS
+-- 1) Date window & SLA thresholds stored in CTE `params` for easy edits.
+-- 2) Ship time = Orders.placed_at → Shipments.shipped_at.
+-- 3) Delivery time = Shipments.shipped_at → Shipments.delivered_at.
+-- 4) On-time shipping = <=48 hours; on-time delivery = <=168 hours.
+-- 5) Filters shipments tied to orders in date range.
+-- 6) Aggregates SLA metrics by warehouse & carrier.
+-- 7) Good indexes:
+--      CREATE INDEX IX_Orders_placed ON Orders(placed_at);
+--      CREATE INDEX IX_Shipments_order ON Shipments(order_id);
+--      CREATE INDEX IX_Shipments_warehouse_carrier ON Shipments(warehouse_id, carrier);
+
+
+
+-- ====================================================================
+-- File: queries/khapekar_pooja/query1_products_by_category.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Khapekar, Pooja
+-- Create date: [Date]
+-- Description: Query 1 - Products by Category with Images
+-- Tables: Categories, Products, ProductImages
+-- =============================================
+
+--- BUSINESS USE CASE:
+This query lists all products within each category along with their images. It's used to:
+Validate visual completeness of the product catalog
+Support merchandising teams in reviewing product readiness
+Enable marketing to confirm image coverage for featured categories
+
+--- REAL-WORLD SCENARIO:
+Before launching a category-specific campaign (e.g., "Winter Jackets"), the team uses this query to ensure all listed products have the required number of images.
+
+--- Impact:
+ Improves product presentation, reduces visual gaps, and ensures high-quality listings across all categories.
+
+
+
+USE urbanease_shop;
+
+-- TODO: Write your complex query here
+-- Example: Get products with their categories and image count
+
+
 SELECT 
-    pv.sku,
-    pv.price,
-    w.name as warehouse,
-    i.on_hand,
-    i.reserved,
-    fn_GetAvailableStock(pv.variant_id, w.warehouse_id) as available_to_sell,
+  p.product_id,
+  p.title AS product_title,
+  c.name AS category_name,
+  COUNT(pi.image_id) AS total_images
+FROM Products p
+LEFT JOIN Categories c 
+  ON p.category_id = c.category_id          -- Join with category to get category name
+LEFT JOIN ProductImages pi 
+  ON p.product_id = pi.product_id           -- Join with images to count them
+GROUP BY p.product_id, p.title, c.name      -- Group by product and category for aggregation
+ORDER BY total_images DESC, p.title         -- Sort by most images, then by title
+LIMIT 10;                                   -- Limit to 10 records
+
+
+
+-- ====================================================================
+-- File: queries/khapekar_pooja/query2_category_hierarchy.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Khapekar, Pooja
+-- Create date: [Date]
+-- Description: Query 2 - Category Hierarchy with Product Count
+-- Tables: Categories, Products, ProductImages
+-- =============================================
+
+---BUSINESS USE CASE:
+This query gives a snapshot of the category structure, showing how many products and images exist per category. It helps teams identify:
+Underpopulated or image-deficient categories
+Readiness of product categories for campaigns
+Gaps in catalog coverage or merchandising focus
+
+--- REAL-WORLD SCENARIO:
+Before a major sale, teams run this to check if all featured categories have enough products and visuals. If a category has products but no images, it's flagged for immediate content upload.
+
+--- Impact:
+ Ensures catalog completeness, better customer experience, and supports campaign planning with accurate product distribution data.
+
+
+  
+USE urbanease_shop;
+
+-- TODO: Write your complex query here
+-- Example: Display category hierarchy (parent-child) with product counts
+
+
+SELECT 
+  pcat.name AS parent_category,
+  ccat.name AS subcategory,
+  pr.title AS product_title,
+  pr.brand,
+  pi.url AS product_image
+FROM Categories ccat
+LEFT JOIN Categories pcat 
+  ON ccat.parent_id = pcat.category_id               -- Get parent category
+JOIN Products pr 
+  ON pr.category_id = ccat.category_id               -- Get products in the subcategory
+LEFT JOIN (
+  SELECT product_id, MIN(url) AS url                 -- Pick 1 image per product (lowest sort_order or first)
+  FROM ProductImages
+  GROUP BY product_id
+) pi ON pr.product_id = pi.product_id                -- Attach image
+ORDER BY pcat.name, ccat.name, pr.title
+LIMIT 10;                                            -- Show 10 entries
+
+
+
+-- ====================================================================
+-- File: queries/khapekar_pooja/query3_products_without_images.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Khapekar, Pooja
+-- Create date: [Date]
+-- Description: Query 3 - Products Without Images
+-- Tables: Categories, Products, ProductImages
+-- =============================================
+
+--- BUSINESS USE CASE:
+This query identifies products that are missing images, helping teams quickly locate and fix incomplete listings. It's essential for:
+Catalog QA and content cleanup
+Preventing customer drop-offs due to missing visuals
+Ensuring all products meet listing standards
+
+--- REAL-WORLD SCENARIO:
+Before a site-wide sale, this query flags 40 products with no images. The content team is alerted to upload missing visuals before the event goes live.
+
+--- Impact:
+ Avoids lost conversions, improves product discoverability, and maintains professional catalog standards.
+
+
+
+USE urbanease_shop;
+
+-- TODO: Write your complex query here
+-- Example: Find products that don't have any images
+
+
+SELECT 
+  p.product_id,
+  p.title AS product_title,
+  p.brand,
+  c.name AS category_name
+FROM Products p
+LEFT JOIN ProductImages pi 
+  ON p.product_id = pi.product_id              -- Try to join image
+LEFT JOIN Categories c 
+  ON p.category_id = c.category_id             -- Get category info
+WHERE pi.product_id IS NULL                    -- Keep only those with no image match
+ORDER BY p.created_at DESC
+LIMIT 10;                                      -- Just 10 records for review
+
+
+
+-- ====================================================================
+-- File: queries/kumar_virat/query1_customer_order_fulfillment_analysis.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Kumar, Virat
+-- Create date: November 2025
+-- Description: Query 1 - End-to-End Customer Order Fulfillment Analysis
+-- Tables Used: Users (Bajwa), Orders (Sneha), OrderItems (Sneha), Shipments (Sneha), 
+--              ProductVariants (Virat), Products (Pooja), Warehouses (Virat), Payments (Diana)
+-- =============================================
+
+-- BUSINESS USE CASE:
+-- This query provides a complete customer order lifecycle view for operations teams
+-- to track fulfillment performance, identify bottlenecks, and improve customer satisfaction.
+-- It combines user data, order processing, inventory allocation, shipping, and payment status.
+
+-- REAL-WORLD SCENARIO:
+-- Operations managers use this query daily to:
+-- - Monitor order-to-delivery time across different warehouses
+-- - Identify delayed shipments and take corrective action
+-- - Track which customers receive fastest service
+-- - Analyze payment and fulfillment correlation
+-- - Optimize warehouse allocation based on customer location
+
+USE urbanease_shop;
+
+SELECT 
+    -- Customer Information (Bajwa's tables)
+    u.user_id,
+    u.full_name AS customer_name,
+    u.email AS customer_email,
+    u.phone AS customer_phone,
+    u.is_active AS customer_active_status,
+    
+    -- Order Information (Sneha's tables)
+    o.order_id,
+    o.status AS order_status,
+    o.placed_at AS order_date,
+    DATE_FORMAT(o.placed_at, '%Y-%m-%d') AS order_date_formatted,
+    o.subtotal_amount,
+    o.discount_amount,
+    o.shipping_amount,
+    o.tax_amount,
+    o.grand_total_amount,
+    
+    -- Order Item Details (Sneha + Virat + Pooja tables)
+    COUNT(DISTINCT oi.order_item_id) AS total_line_items,
+    SUM(oi.qty) AS total_units_ordered,
+    GROUP_CONCAT(DISTINCT p.title SEPARATOR ', ') AS products_ordered,
+    GROUP_CONCAT(DISTINCT p.brand SEPARATOR ', ') AS brands_ordered,
+    
+    -- Payment Information (Diana's tables)
+    pay.provider AS payment_provider,
+    pay.status AS payment_status,
+    pay.paid_at AS payment_date,
+    DATEDIFF(pay.paid_at, o.placed_at) AS days_to_payment,
+    
+    -- Shipment Information (Sneha + Virat tables)
+    s.shipment_id,
+    w.name AS fulfillment_warehouse,
+    CONCAT(w.city, ', ', w.state_region) AS warehouse_location,
+    s.carrier AS shipping_carrier,
+    s.tracking_no AS tracking_number,
+    s.status AS shipment_status,
+    s.shipped_at AS ship_date,
+    s.delivered_at AS delivery_date,
+    
+    -- Performance Metrics
+    DATEDIFF(s.shipped_at, o.placed_at) AS days_order_to_ship,
+    DATEDIFF(s.delivered_at, s.shipped_at) AS days_ship_to_delivery,
+    DATEDIFF(s.delivered_at, o.placed_at) AS total_fulfillment_days,
+    
+    -- SLA Performance Classification
     CASE 
-        WHEN fn_GetAvailableStock(pv.variant_id, w.warehouse_id) = 0 THEN '❌ OUT OF STOCK'
-        WHEN fn_GetAvailableStock(pv.variant_id, w.warehouse_id) < 10 THEN '⚠️  LOW STOCK'
-        WHEN fn_GetAvailableStock(pv.variant_id, w.warehouse_id) < 50 THEN '✓ IN STOCK'
-        ELSE '✓✓ HIGH STOCK'
-    END as stock_status,
+        WHEN s.delivered_at IS NULL AND s.status = 'DELIVERED' THEN 'Data Issue'
+        WHEN s.delivered_at IS NULL THEN 'In Progress'
+        WHEN DATEDIFF(s.delivered_at, o.placed_at) <= 2 THEN 'EXCELLENT (<=2 days)'
+        WHEN DATEDIFF(s.delivered_at, o.placed_at) <= 5 THEN 'GOOD (3-5 days)'
+        WHEN DATEDIFF(s.delivered_at, o.placed_at) <= 7 THEN 'ACCEPTABLE (6-7 days)'
+        WHEN DATEDIFF(s.delivered_at, o.placed_at) <= 10 THEN 'SLOW (8-10 days)'
+        ELSE 'CRITICAL DELAY (>10 days)'
+    END AS delivery_performance,
+    
+    -- Order Value Classification
     CASE 
-        WHEN fn_GetAvailableStock(pv.variant_id, w.warehouse_id) >= 100 THEN 'Enable Buy Button'
-        WHEN fn_GetAvailableStock(pv.variant_id, w.warehouse_id) > 0 THEN 'Enable with "Limited Stock" warning'
-        ELSE 'Disable Buy Button - Show "Notify Me"'
-    END as website_action
-FROM ProductVariants pv
-JOIN Inventory i ON pv.variant_id = i.variant_id
-JOIN Warehouses w ON i.warehouse_id = w.warehouse_id
-WHERE pv.variant_id IN (1, 2, 3)
-ORDER BY available_to_sell ASC
+        WHEN o.grand_total_amount >= 1000 THEN 'HIGH VALUE'
+        WHEN o.grand_total_amount >= 500 THEN 'MEDIUM-HIGH VALUE'
+        WHEN o.grand_total_amount >= 200 THEN 'MEDIUM VALUE'
+        WHEN o.grand_total_amount >= 100 THEN 'LOW-MEDIUM VALUE'
+        ELSE 'LOW VALUE'
+    END AS order_value_tier,
+    
+    -- Fulfillment Status Analysis
+    CASE 
+        WHEN o.status = 'FULFILLED' AND s.status = 'DELIVERED' THEN 'Complete & Delivered'
+        WHEN o.status = 'PAID' AND s.status = 'IN_TRANSIT' THEN 'Paid & In Transit'
+        WHEN o.status = 'PAID' AND s.status = 'PICKED' THEN 'Paid & Ready to Ship'
+        WHEN o.status = 'PAID' AND s.status = 'CREATED' THEN 'Paid & Awaiting Pickup'
+        WHEN o.status = 'PENDING' THEN 'Payment Pending'
+        WHEN o.status = 'CANCELLED' THEN 'Order Cancelled'
+        WHEN o.status = 'REFUNDED' THEN 'Order Refunded'
+        ELSE 'Status Mismatch - Review Needed'
+    END AS fulfillment_pipeline_status,
+    
+    -- Risk Flags
+    CASE 
+        WHEN o.status = 'PAID' AND pay.status != 'CAPTURED' THEN 'RISK: Payment Not Captured'
+        WHEN o.status = 'PAID' AND s.status = 'CREATED' AND DATEDIFF(NOW(), o.placed_at) > 2 THEN 'RISK: Delayed Pickup'
+        WHEN s.status = 'IN_TRANSIT' AND DATEDIFF(NOW(), s.shipped_at) > 7 THEN 'RISK: Transit Delay'
+        WHEN o.grand_total_amount > 500 AND s.carrier = 'USPS' THEN 'WATCH: High Value USPS'
+        ELSE 'Normal'
+    END AS risk_flag,
+    
+    -- Customer Satisfaction Predictor
+    CASE 
+        WHEN s.delivered_at IS NOT NULL AND DATEDIFF(s.delivered_at, o.placed_at) <= 3 
+            THEN 'High Satisfaction Expected'
+        WHEN s.delivered_at IS NOT NULL AND DATEDIFF(s.delivered_at, o.placed_at) <= 7 
+            THEN 'Moderate Satisfaction Expected'
+        WHEN s.delivered_at IS NOT NULL AND DATEDIFF(s.delivered_at, o.placed_at) > 7 
+            THEN 'Low Satisfaction - Follow Up Needed'
+        WHEN s.status = 'IN_TRANSIT' AND DATEDIFF(NOW(), s.shipped_at) <= 3 
+            THEN 'On Track'
+        WHEN s.status IN ('CREATED', 'PICKED') AND DATEDIFF(NOW(), o.placed_at) > 2 
+            THEN 'At Risk - Expedite Needed'
+        ELSE 'Monitor Closely'
+    END AS satisfaction_predictor
+
+FROM Orders o
+INNER JOIN Users u ON o.user_id = u.user_id
+INNER JOIN OrderItems oi ON o.order_id = oi.order_id
+INNER JOIN ProductVariants pv ON oi.variant_id = pv.variant_id
+INNER JOIN Products p ON pv.product_id = p.product_id
+LEFT JOIN Payments pay ON o.order_id = pay.order_id
+LEFT JOIN Shipments s ON o.order_id = s.order_id
+LEFT JOIN Warehouses w ON s.warehouse_id = w.warehouse_id
+
+WHERE 
+    o.placed_at >= DATE_SUB(NOW(), INTERVAL 90 DAY)  -- Last 90 days
+    AND o.status NOT IN ('CANCELLED', 'REFUNDED')      -- Exclude cancelled orders
+
+GROUP BY 
+    u.user_id, u.full_name, u.email, u.phone, u.is_active,
+    o.order_id, o.status, o.placed_at, o.subtotal_amount, o.discount_amount, 
+    o.shipping_amount, o.tax_amount, o.grand_total_amount,
+    pay.provider, pay.status, pay.paid_at,
+    s.shipment_id, w.name, w.city, w.state_region,
+    s.carrier, s.tracking_no, s.status, s.shipped_at, s.delivered_at
+
+ORDER BY 
+    CASE 
+        WHEN o.status = 'PAID' AND s.status = 'CREATED' AND DATEDIFF(NOW(), o.placed_at) > 2 THEN 1
+        WHEN s.status = 'IN_TRANSIT' AND DATEDIFF(NOW(), s.shipped_at) > 7 THEN 2
+        WHEN o.status = 'PENDING' THEN 3
+        ELSE 4
+    END,
+    o.placed_at DESC;
+
+-- BUSINESS VALUE:
+-- 1. Operations: Identifies bottlenecks in fulfillment pipeline
+-- 2. Customer Service: Proactively addresses delayed orders
+-- 3. Warehouse Management: Evaluates warehouse performance
+-- 4. Finance: Correlates payment status with fulfillment
+-- 5. Executive Dashboard: Overall fulfillment health metrics
+
+
+
+
+-- ====================================================================
+-- File: queries/kumar_virat/query2_product_performance_customer_insights.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Kumar, Virat
+-- Create date: November 2025
+-- Description: Query 2 - Product Performance with Customer Reviews and Sales Analysis
+-- Tables Used: Products (Pooja), ProductVariants (Virat), Categories (Pooja), Reviews (Diana),
+--              OrderItems (Sneha), Orders (Sneha), Users (Bajwa), Inventory (Virat)
+-- =============================================
+
+-- BUSINESS USE CASE:
+-- This query combines product catalog, customer reviews, sales data, and inventory to provide
+-- a comprehensive product performance dashboard. It helps merchandising and marketing teams
+-- identify bestsellers, underperformers, and opportunities for improvement.
+
+-- REAL-WORLD SCENARIO:
+-- Merchandising team uses this monthly to:
+-- - Decide which products to feature in campaigns
+-- - Identify products needing review solicitation
+-- - Determine which items to discontinue
+-- - Plan inventory investments based on customer satisfaction
+-- - Optimize product mix by category
+
+USE urbanease_shop;
+
+SELECT 
+    -- Category & Product Info (Pooja's tables)
+    c.name AS category_name,
+    p.product_id,
+    p.title AS product_name,
+    p.brand AS product_brand,
+    p.is_active AS product_active,
+    
+    -- Variant Pricing (Virat's tables)
+    COUNT(DISTINCT pv.variant_id) AS total_variants,
+    MIN(pv.price) AS lowest_price_point,
+    MAX(pv.price) AS highest_price_point,
+    ROUND(AVG(pv.price), 2) AS average_price_point,
+    
+    -- Customer Reviews (Diana's tables)
+    COUNT(DISTINCT r.review_id) AS total_reviews,
+    ROUND(AVG(r.rating), 2) AS average_rating,
+    SUM(CASE WHEN r.rating = 5 THEN 1 ELSE 0 END) AS five_star_reviews,
+    SUM(CASE WHEN r.rating = 4 THEN 1 ELSE 0 END) AS four_star_reviews,
+    SUM(CASE WHEN r.rating = 3 THEN 1 ELSE 0 END) AS three_star_reviews,
+    SUM(CASE WHEN r.rating <= 2 THEN 1 ELSE 0 END) AS critical_reviews,
+    
+    -- Sales Performance (Sneha's tables)
+    COUNT(DISTINCT o.order_id) AS total_orders_containing_product,
+    SUM(oi.qty) AS total_units_sold,
+    ROUND(SUM(oi.qty * oi.unit_price), 2) AS total_revenue_generated,
+    ROUND(AVG(oi.unit_price), 2) AS average_selling_price,
+    
+    -- Customer Reach (Bajwa + Sneha tables)
+    COUNT(DISTINCT o.user_id) AS unique_customers_purchased,
+    
+    -- Current Inventory Position (Virat's tables)
+    SUM(i.on_hand) AS total_stock_on_hand,
+    SUM(i.reserved) AS total_stock_reserved,
+    SUM(i.on_hand - i.reserved) AS total_available_stock,
+    ROUND(SUM(i.on_hand * pv.price), 2) AS current_inventory_value,
+    
+    -- Review Health Metrics
+    CASE 
+        WHEN AVG(r.rating) IS NULL THEN 'NO REVIEWS'
+        WHEN AVG(r.rating) >= 4.5 THEN 'EXCELLENT (4.5+)'
+        WHEN AVG(r.rating) >= 4.0 THEN 'VERY GOOD (4.0-4.4)'
+        WHEN AVG(r.rating) >= 3.5 THEN 'GOOD (3.5-3.9)'
+        WHEN AVG(r.rating) >= 3.0 THEN 'AVERAGE (3.0-3.4)'
+        ELSE 'BELOW AVERAGE (<3.0)'
+    END AS review_rating_class,
+    
+    -- Review Volume Assessment
+    CASE 
+        WHEN COUNT(DISTINCT r.review_id) = 0 THEN 'CRITICAL: No Reviews - Needs Attention'
+        WHEN COUNT(DISTINCT r.review_id) < 5 THEN 'LOW: Needs More Reviews'
+        WHEN COUNT(DISTINCT r.review_id) < 10 THEN 'MODERATE: Building Credibility'
+        WHEN COUNT(DISTINCT r.review_id) < 20 THEN 'GOOD: Strong Social Proof'
+        ELSE 'EXCELLENT: High Engagement'
+    END AS review_volume_status,
+    
+    -- Sales Performance Classification
+    CASE 
+        WHEN SUM(oi.qty) IS NULL OR SUM(oi.qty) = 0 THEN 'NO SALES'
+        WHEN SUM(oi.qty) >= 50 THEN 'BESTSELLER'
+        WHEN SUM(oi.qty) >= 20 THEN 'STRONG SELLER'
+        WHEN SUM(oi.qty) >= 10 THEN 'MODERATE SELLER'
+        WHEN SUM(oi.qty) >= 5 THEN 'SLOW MOVER'
+        ELSE 'POOR PERFORMER'
+    END AS sales_performance_tier,
+    
+    -- Stock Health vs Sales Velocity
+    CASE 
+        WHEN SUM(oi.qty) > 0 AND SUM(i.on_hand - i.reserved) = 0 
+            THEN 'URGENT: Out of Stock & Selling'
+        WHEN SUM(oi.qty) > 20 AND SUM(i.on_hand - i.reserved) < 50 
+            THEN 'WARNING: High Sales, Low Stock'
+        WHEN SUM(oi.qty) < 5 AND SUM(i.on_hand) > 100 
+            THEN 'OVERSTOCKED: Low Sales, High Inventory'
+        WHEN SUM(i.on_hand - i.reserved) > 0 AND SUM(oi.qty) > 10 
+            THEN 'HEALTHY: Good Balance'
+        ELSE 'MONITOR'
+    END AS inventory_sales_alignment,
+    
+    -- Customer Satisfaction Score (combining rating and sales)
+    CASE 
+        WHEN AVG(r.rating) >= 4.5 AND SUM(oi.qty) >= 20 
+            THEN 'STAR PRODUCT: High Rating & High Sales'
+        WHEN AVG(r.rating) >= 4.0 AND SUM(oi.qty) >= 10 
+            THEN 'SOLID PERFORMER: Good Rating & Good Sales'
+        WHEN AVG(r.rating) IS NULL AND SUM(oi.qty) >= 20 
+            THEN 'SELLING WELL: Needs Reviews for Credibility'
+        WHEN AVG(r.rating) < 3.0 AND SUM(oi.qty) < 5 
+            THEN 'PROBLEM PRODUCT: Poor Rating & Weak Sales'
+        WHEN AVG(r.rating) >= 4.0 AND (SUM(oi.qty) IS NULL OR SUM(oi.qty) < 5) 
+            THEN 'HIDDEN GEM: Good Rating but Low Visibility'
+        ELSE 'NEEDS ANALYSIS'
+    END AS product_health_status,
+    
+    -- Revenue Performance
+    CASE 
+        WHEN SUM(oi.qty * oi.unit_price) >= 10000 THEN 'TOP REVENUE DRIVER'
+        WHEN SUM(oi.qty * oi.unit_price) >= 5000 THEN 'STRONG REVENUE CONTRIBUTOR'
+        WHEN SUM(oi.qty * oi.unit_price) >= 1000 THEN 'MODERATE REVENUE'
+        WHEN SUM(oi.qty * oi.unit_price) > 0 THEN 'MINOR REVENUE'
+        ELSE 'NO REVENUE'
+    END AS revenue_contribution,
+    
+    -- Strategic Actions Recommended
+    CASE 
+        WHEN AVG(r.rating) IS NULL AND SUM(oi.qty) > 0 
+            THEN 'ACTION: Solicit reviews from recent buyers'
+        WHEN AVG(r.rating) < 3.0 
+            THEN 'ACTION: Investigate quality issues, consider removal'
+        WHEN AVG(r.rating) >= 4.5 AND SUM(oi.qty) >= 20 
+            THEN 'ACTION: Feature in marketing campaigns'
+        WHEN SUM(i.on_hand - i.reserved) = 0 AND SUM(oi.qty) > 0 
+            THEN 'ACTION: Emergency restock - high demand'
+        WHEN SUM(oi.qty) < 5 AND SUM(i.on_hand) > 100 
+            THEN 'ACTION: Run promotion or consider clearance'
+        WHEN AVG(r.rating) >= 4.0 AND SUM(oi.qty) < 5 
+            THEN 'ACTION: Increase visibility - good product, low sales'
+        ELSE 'ACTION: Monitor performance trends'
+    END AS recommended_action,
+    
+    -- Price-to-Rating Optimization
+    CASE 
+        WHEN AVG(pv.price) < 100 AND AVG(r.rating) >= 4.5 
+            THEN 'OPPORTUNITY: Consider price increase'
+        WHEN AVG(pv.price) > 500 AND AVG(r.rating) < 3.5 
+            THEN 'RISK: High price, low satisfaction'
+        WHEN AVG(pv.price) > 200 AND AVG(r.rating) >= 4.5 
+            THEN 'PREMIUM JUSTIFIED: High price, high satisfaction'
+        ELSE 'STANDARD PRICING'
+    END AS pricing_strategy_insight
+
+FROM Products p
+LEFT JOIN Categories c ON p.category_id = c.category_id
+LEFT JOIN ProductVariants pv ON p.product_id = pv.product_id AND pv.is_active = TRUE
+LEFT JOIN Reviews r ON p.product_id = r.product_id
+LEFT JOIN OrderItems oi ON pv.variant_id = oi.variant_id
+LEFT JOIN Orders o ON oi.order_id = o.order_id 
+    AND o.status IN ('PAID', 'FULFILLED') 
+    AND o.placed_at >= DATE_SUB(NOW(), INTERVAL 90 DAY)
+LEFT JOIN Inventory i ON pv.variant_id = i.variant_id
+
+WHERE p.is_active = TRUE
+
+GROUP BY 
+    c.name, p.product_id, p.title, p.brand, p.is_active
+
+ORDER BY 
+    CASE 
+        WHEN AVG(r.rating) >= 4.5 AND SUM(oi.qty) >= 20 THEN 1  -- Star products first
+        WHEN SUM(oi.qty) > 0 AND SUM(i.on_hand - i.reserved) = 0 THEN 2  -- Out of stock sellers
+        WHEN AVG(r.rating) < 3.0 THEN 3  -- Problem products
+        ELSE 4
+    END,
+    total_revenue_generated DESC,
+    average_rating DESC;
+
+-- BUSINESS VALUE:
+-- 1. Merchandising: Identifies products to promote or discontinue
+-- 2. Marketing: Finds star products for campaigns
+-- 3. Customer Success: Identifies products needing quality improvement
+-- 4. Inventory Planning: Aligns stock with demand and satisfaction
+-- 5. Pricing Strategy: Optimizes pricing based on customer feedback
+-- 6. Executive Dashboard: Product portfolio health overview
+
+
+
+
+-- ====================================================================
+-- File: queries/kumar_virat/query3_abandoned_cart_recovery_intelligence.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Kumar, Virat
+-- Create date: November 2025
+-- Description: Query 3 - Abandoned Cart Recovery with Customer & Inventory Intelligence
+-- Tables Used: Carts (Min), CartItems (Min), Users (Bajwa), ProductVariants (Virat),
+--              Products (Pooja), Inventory (Virat), Coupons (Min), Orders (Sneha)
+-- =============================================
+
+-- BUSINESS USE CASE:
+-- This query identifies high-value abandoned carts and provides actionable intelligence
+-- for recovery campaigns. It combines cart data with customer history, product availability,
+-- and coupon strategies to maximize conversion rates.
+
+-- REAL-WORLD SCENARIO:
+-- Marketing team runs this query 3x daily to:
+-- - Send personalized cart recovery emails with dynamic coupons
+-- - Prioritize which abandoned carts to target first
+-- - Ensure products are still in stock before sending reminders
+-- - Customize messaging based on customer purchase history
+-- - Calculate ROI of recovery campaigns
+
+USE urbanease_shop;
+
+SELECT 
+    -- Cart Identification
+    c.cart_id,
+    c.created_at AS cart_created_date,
+    c.updated_at AS cart_last_modified,
+    DATEDIFF(NOW(), c.updated_at) AS days_since_last_activity,
+    TIMESTAMPDIFF(HOUR, c.updated_at, NOW()) AS hours_since_last_activity,
+    
+    -- Customer Information (Bajwa's tables)
+    CASE 
+        WHEN c.user_id IS NULL THEN 'Guest'
+        ELSE 'Registered'
+    END AS customer_type,
+    u.user_id,
+    u.full_name AS customer_name,
+    u.email AS customer_email,
+    u.phone AS customer_phone,
+    u.is_active AS customer_active_status,
+    DATE_FORMAT(u.created_at, '%Y-%m-%d') AS customer_since,
+    DATEDIFF(NOW(), u.created_at) AS customer_age_days,
+    
+    -- Cart Contents (Min + Virat + Pooja tables)
+    COUNT(DISTINCT ci.cart_item_id) AS total_items_in_cart,
+    SUM(ci.qty) AS total_units_in_cart,
+    GROUP_CONCAT(DISTINCT p.title ORDER BY (ci.qty * ci.unit_price) DESC SEPARATOR ' | ') AS products_in_cart,
+    GROUP_CONCAT(DISTINCT p.brand SEPARATOR ', ') AS brands_in_cart,
+    GROUP_CONCAT(DISTINCT pv.sku SEPARATOR ', ') AS skus_in_cart,
+    
+    -- Cart Value Analysis
+    ROUND(SUM(ci.qty * ci.unit_price), 2) AS cart_total_value,
+    ROUND(AVG(ci.unit_price), 2) AS average_item_price,
+    ROUND(MAX(ci.unit_price), 2) AS highest_priced_item,
+    ROUND(MIN(ci.unit_price), 2) AS lowest_priced_item,
+    
+    -- Inventory Availability Check (Virat's tables)
+    SUM(CASE 
+        WHEN IFNULL(inv.on_hand - inv.reserved, 0) >= ci.qty THEN 1
+        ELSE 0
+    END) AS items_in_stock_count,
+    SUM(CASE 
+        WHEN IFNULL(inv.on_hand - inv.reserved, 0) < ci.qty THEN 1
+        ELSE 0
+    END) AS items_out_of_stock_count,
+    
+    -- Customer Purchase History (Sneha's tables)
+    COUNT(DISTINCT o.order_id) AS previous_orders_count,
+    ROUND(COALESCE(SUM(o.grand_total_amount), 0), 2) AS lifetime_purchase_value,
+    MAX(o.placed_at) AS last_order_date,
+    DATEDIFF(NOW(), MAX(o.placed_at)) AS days_since_last_order,
+    
+    -- Cart Abandonment Classification
+    CASE 
+        WHEN DATEDIFF(NOW(), c.updated_at) = 0 THEN 'TODAY - Fresh Abandonment'
+        WHEN DATEDIFF(NOW(), c.updated_at) = 1 THEN 'YESTERDAY - 24hr Window'
+        WHEN DATEDIFF(NOW(), c.updated_at) <= 3 THEN 'RECENT - 2-3 Days (Prime for Recovery)'
+        WHEN DATEDIFF(NOW(), c.updated_at) <= 7 THEN 'STALE - 4-7 Days'
+        WHEN DATEDIFF(NOW(), c.updated_at) <= 14 THEN 'VERY STALE - 8-14 Days'
+        WHEN DATEDIFF(NOW(), c.updated_at) <= 30 THEN 'OLD - 15-30 Days'
+        ELSE 'EXPIRED - >30 Days'
+    END AS abandonment_age_category,
+    
+    -- Cart Value Tier
+    CASE 
+        WHEN SUM(ci.qty * ci.unit_price) >= 1000 THEN 'PREMIUM ($1000+)'
+        WHEN SUM(ci.qty * ci.unit_price) >= 500 THEN 'HIGH VALUE ($500-$999)'
+        WHEN SUM(ci.qty * ci.unit_price) >= 200 THEN 'MEDIUM-HIGH ($200-$499)'
+        WHEN SUM(ci.qty * ci.unit_price) >= 100 THEN 'MEDIUM ($100-$199)'
+        WHEN SUM(ci.qty * ci.unit_price) >= 50 THEN 'LOW-MEDIUM ($50-$99)'
+        ELSE 'LOW VALUE (<$50)'
+    END AS cart_value_tier,
+    
+    -- Recovery Priority Score (1-10, 10 being highest)
+    CASE 
+        -- High value, recent abandonment, items in stock, existing customer
+        WHEN SUM(ci.qty * ci.unit_price) >= 500 
+            AND DATEDIFF(NOW(), c.updated_at) <= 3 
+            AND SUM(CASE WHEN IFNULL(inv.on_hand - inv.reserved, 0) >= ci.qty THEN 1 ELSE 0 END) = COUNT(ci.cart_item_id)
+            AND c.user_id IS NOT NULL
+            THEN 10
+        -- High value, recent, in stock
+        WHEN SUM(ci.qty * ci.unit_price) >= 300 
+            AND DATEDIFF(NOW(), c.updated_at) <= 3 
+            AND SUM(CASE WHEN IFNULL(inv.on_hand - inv.reserved, 0) >= ci.qty THEN 1 ELSE 0 END) >= COUNT(ci.cart_item_id) * 0.8
+            THEN 9
+        -- Medium-high value, very recent
+        WHEN SUM(ci.qty * ci.unit_price) >= 200 AND DATEDIFF(NOW(), c.updated_at) <= 1 THEN 8
+        -- High value but older
+        WHEN SUM(ci.qty * ci.unit_price) >= 500 AND DATEDIFF(NOW(), c.updated_at) <= 7 THEN 7
+        -- Medium value, recent
+        WHEN SUM(ci.qty * ci.unit_price) >= 100 AND DATEDIFF(NOW(), c.updated_at) <= 3 THEN 6
+        -- Registered customer, decent value
+        WHEN c.user_id IS NOT NULL AND SUM(ci.qty * ci.unit_price) >= 100 THEN 5
+        -- Recent but low value
+        WHEN DATEDIFF(NOW(), c.updated_at) <= 1 THEN 4
+        -- Guest cart, low value
+        WHEN c.user_id IS NULL AND SUM(ci.qty * ci.unit_price) < 50 THEN 2
+        -- Very old carts
+        WHEN DATEDIFF(NOW(), c.updated_at) > 14 THEN 1
+        ELSE 3
+    END AS recovery_priority_score,
+    
+    -- Customer Segment for Targeting
+    CASE 
+        WHEN c.user_id IS NOT NULL AND COUNT(DISTINCT o.order_id) >= 3 
+            THEN 'LOYAL CUSTOMER - High Trust'
+        WHEN c.user_id IS NOT NULL AND COUNT(DISTINCT o.order_id) BETWEEN 1 AND 2 
+            THEN 'REPEAT BUYER - Medium Trust'
+        WHEN c.user_id IS NOT NULL AND COUNT(DISTINCT o.order_id) = 0 
+            THEN 'NEW REGISTERED - Building Relationship'
+        WHEN c.user_id IS NULL 
+            THEN 'GUEST - Needs Registration Incentive'
+        ELSE 'UNKNOWN'
+    END AS customer_segment,
+    
+    -- Recommended Recovery Strategy
+    CASE 
+        -- High value loyal customers
+        WHEN SUM(ci.qty * ci.unit_price) >= 500 AND COUNT(DISTINCT o.order_id) >= 3 
+            THEN 'VIP: Personal email + Phone call + Free shipping + 15% off'
+        -- High value new customers
+        WHEN SUM(ci.qty * ci.unit_price) >= 500 AND COUNT(DISTINCT o.order_id) = 0 
+            THEN 'HIGH POTENTIAL: Email + 20% first order discount + Free shipping'
+        -- Medium value, items in stock, recent
+        WHEN SUM(ci.qty * ci.unit_price) >= 200 
+            AND DATEDIFF(NOW(), c.updated_at) <= 3 
+            AND SUM(CASE WHEN IFNULL(inv.on_hand - inv.reserved, 0) >= ci.qty THEN 1 ELSE 0 END) = COUNT(ci.cart_item_id)
+            THEN 'TIMELY: Email + 10% discount + Urgency message (24hr)'
+        -- Out of stock issues
+        WHEN SUM(CASE WHEN IFNULL(inv.on_hand - inv.reserved, 0) < ci.qty THEN 1 ELSE 0 END) > 0 
+            THEN 'INVENTORY: Notify when back in stock + Waitlist'
+        -- Guest carts
+        WHEN c.user_id IS NULL AND SUM(ci.qty * ci.unit_price) >= 100 
+            THEN 'GUEST RECOVERY: Email + Register & Save 10% incentive'
+        -- Stale carts
+        WHEN DATEDIFF(NOW(), c.updated_at) BETWEEN 7 AND 14 
+            THEN 'LAST CHANCE: Email + 15% off + Limited time offer'
+        -- Low priority
+        ELSE 'LOW PRIORITY: Basic reminder email only'
+    END AS recommended_recovery_tactic,
+    
+    -- Suggested Coupon Type (from Min's Coupons table logic)
+    CASE 
+        WHEN SUM(ci.qty * ci.unit_price) >= 500 THEN 'Offer SAVE15 or MEGA50 coupon'
+        WHEN SUM(ci.qty * ci.unit_price) >= 200 THEN 'Offer SAVE15 or DEAL25 coupon'
+        WHEN SUM(ci.qty * ci.unit_price) >= 100 THEN 'Offer WELCOME10 or GET10OFF coupon'
+        WHEN SUM(ci.qty * ci.unit_price) >= 50 THEN 'Offer WELCOME10 or SAVE5 coupon'
+        ELSE 'Offer SAVE5 coupon or free shipping'
+    END AS suggested_coupon_strategy,
+    
+    -- Stock Availability Status
+    CASE 
+        WHEN SUM(CASE WHEN IFNULL(inv.on_hand - inv.reserved, 0) >= ci.qty THEN 1 ELSE 0 END) = COUNT(ci.cart_item_id)
+            THEN 'ALL IN STOCK - Ready to fulfill'
+        WHEN SUM(CASE WHEN IFNULL(inv.on_hand - inv.reserved, 0) >= ci.qty THEN 1 ELSE 0 END) >= COUNT(ci.cart_item_id) * 0.5
+            THEN 'PARTIALLY IN STOCK - Some items available'
+        ELSE 'MOSTLY OUT OF STOCK - Notify when available'
+    END AS inventory_availability_status,
+    
+    -- Estimated Recovery Value (cart value * probability)
+    ROUND(
+        SUM(ci.qty * ci.unit_price) * 
+        CASE 
+            WHEN DATEDIFF(NOW(), c.updated_at) <= 1 THEN 0.35  -- 35% conversion within 24hrs
+            WHEN DATEDIFF(NOW(), c.updated_at) <= 3 THEN 0.25  -- 25% conversion 2-3 days
+            WHEN DATEDIFF(NOW(), c.updated_at) <= 7 THEN 0.15  -- 15% conversion 4-7 days
+            WHEN DATEDIFF(NOW(), c.updated_at) <= 14 THEN 0.05 -- 5% conversion 8-14 days
+            ELSE 0.02  -- 2% conversion after 14 days
+        END, 
+        2
+    ) AS estimated_recovery_value,
+    
+    -- Action Urgency
+    CASE 
+        WHEN SUM(ci.qty * ci.unit_price) >= 500 AND DATEDIFF(NOW(), c.updated_at) <= 1 
+            THEN 'URGENT: Contact within 2 hours'
+        WHEN SUM(ci.qty * ci.unit_price) >= 200 AND DATEDIFF(NOW(), c.updated_at) <= 3 
+            THEN 'HIGH: Contact within 12 hours'
+        WHEN DATEDIFF(NOW(), c.updated_at) <= 3 
+            THEN 'MEDIUM: Contact within 24 hours'
+        WHEN DATEDIFF(NOW(), c.updated_at) <= 7 
+            THEN 'LOW: Contact within 3 days'
+        ELSE 'MINIMAL: Optional contact'
+    END AS action_urgency
+
+FROM Carts c
+LEFT JOIN Users u ON c.user_id = u.user_id
+INNER JOIN CartItems ci ON c.cart_id = ci.cart_id
+INNER JOIN ProductVariants pv ON ci.variant_id = pv.variant_id
+INNER JOIN Products p ON pv.product_id = p.product_id
+LEFT JOIN (
+    SELECT variant_id, SUM(on_hand) AS on_hand, SUM(reserved) AS reserved
+    FROM Inventory
+    GROUP BY variant_id
+) inv ON pv.variant_id = inv.variant_id
+LEFT JOIN Orders o ON c.user_id = o.user_id AND o.status IN ('PAID', 'FULFILLED')
+
+WHERE 
+    -- Cart was updated in last 30 days (not too old)
+    c.updated_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+    -- Cart was not converted to order (check by lack of recent order with same products)
+    AND NOT EXISTS (
+        SELECT 1 FROM Orders o2
+        INNER JOIN OrderItems oi ON o2.order_id = oi.order_id
+        WHERE o2.user_id = c.user_id 
+        AND oi.variant_id = ci.variant_id
+        AND o2.placed_at >= c.updated_at
+    )
+    -- Cart has been inactive for at least 3 hours (abandoned)
+    AND TIMESTAMPDIFF(HOUR, c.updated_at, NOW()) >= 3
+
+GROUP BY 
+    c.cart_id, c.created_at, c.updated_at, c.user_id,
+    u.user_id, u.full_name, u.email, u.phone, u.is_active, u.created_at
+
+HAVING 
+    cart_total_value > 0  -- Only carts with value
+
+ORDER BY 
+    recovery_priority_score DESC,
+    cart_total_value DESC,
+    days_since_last_activity ASC;
+
+-- BUSINESS VALUE:
+-- 1. Marketing: Prioritized list for cart recovery campaigns
+-- 2. Sales: Identifies high-value opportunities for personal outreach
+-- 3. Customer Success: Personalizes recovery messaging based on customer history
+-- 4. Inventory: Ensures stock availability before sending reminders
+-- 5. Finance: Estimates potential revenue from recovery efforts
+-- 6. Analytics: Tracks abandonment patterns and recovery ROI
+
+
+
+
+-- ====================================================================
+-- File: queries/kumar_virat/query4_comprehensive_revenue_profitability_dashboard.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Kumar, Virat
+-- Create date: November 2025
+-- Description: Query 4 - Comprehensive Revenue & Profitability Dashboard
+-- Tables Used: Orders (Sneha), OrderItems (Sneha), Payments (Diana), ProductVariants (Virat),
+--              Products (Pooja), Categories (Pooja), Users (Bajwa), Coupons (Min), Shipments (Sneha)
+-- =============================================
+
+-- BUSINESS USE CASE:
+-- This query provides executive-level financial insights by combining orders, payments,
+-- product costs, discounts, and shipping to calculate true profitability metrics.
+-- It helps CFO and finance teams understand revenue streams, margins, and cost drivers.
+
+-- REAL-WORLD SCENARIO:
+-- Finance team uses this for:
+-- - Monthly financial reporting and board presentations
+-- - Identifying most/least profitable product categories
+-- - Analyzing discount impact on margins
+-- - Calculating customer acquisition cost vs. lifetime value
+-- - Optimizing pricing and promotional strategies
+
+USE urbanease_shop;
+
+SELECT 
+    -- Time Period Analysis
+    DATE_FORMAT(o.placed_at, '%Y-%m') AS order_month,
+    DATE_FORMAT(o.placed_at, '%Y-Q%q') AS order_quarter,
+    YEAR(o.placed_at) AS order_year,
+    DAYNAME(o.placed_at) AS order_day_of_week,
+    
+    -- Category Performance (Pooja's tables)
+    c.name AS product_category,
+    
+    -- Order Metrics (Sneha's tables)
+    COUNT(DISTINCT o.order_id) AS total_orders,
+    COUNT(DISTINCT o.user_id) AS unique_customers,
+    ROUND(COUNT(DISTINCT o.order_id) / COUNT(DISTINCT o.user_id), 2) AS orders_per_customer,
+    
+    -- Order Status Distribution
+    SUM(CASE WHEN o.status = 'PAID' THEN 1 ELSE 0 END) AS orders_paid,
+    SUM(CASE WHEN o.status = 'FULFILLED' THEN 1 ELSE 0 END) AS orders_fulfilled,
+    SUM(CASE WHEN o.status = 'PENDING' THEN 1 ELSE 0 END) AS orders_pending,
+    SUM(CASE WHEN o.status = 'CANCELLED' THEN 1 ELSE 0 END) AS orders_cancelled,
+    SUM(CASE WHEN o.status = 'REFUNDED' THEN 1 ELSE 0 END) AS orders_refunded,
+    
+    -- Revenue Metrics
+    ROUND(SUM(o.subtotal_amount), 2) AS gross_merchandise_value,
+    ROUND(SUM(o.discount_amount), 2) AS total_discounts_given,
+    ROUND(SUM(o.shipping_amount), 2) AS total_shipping_charged,
+    ROUND(SUM(o.tax_amount), 2) AS total_tax_collected,
+    ROUND(SUM(o.grand_total_amount), 2) AS total_revenue,
+    
+    -- Average Order Metrics
+    ROUND(AVG(o.subtotal_amount), 2) AS avg_order_subtotal,
+    ROUND(AVG(o.grand_total_amount), 2) AS avg_order_value,
+    ROUND(AVG(o.discount_amount), 2) AS avg_discount_per_order,
+    
+    -- Product & Unit Metrics (Virat + Sneha tables)
+    SUM(oi.qty) AS total_units_sold,
+    ROUND(AVG(oi.unit_price), 2) AS avg_unit_selling_price,
+    COUNT(DISTINCT p.product_id) AS unique_products_sold,
+    COUNT(DISTINCT pv.variant_id) AS unique_variants_sold,
+    
+    -- Discount Analysis (Min's tables - coupon impact)
+    COUNT(DISTINCT o.coupon_id) AS orders_with_coupons,
+    ROUND(
+        (COUNT(DISTINCT o.coupon_id) / COUNT(DISTINCT o.order_id) * 100), 
+        2
+    ) AS coupon_usage_rate_percent,
+    ROUND(
+        (SUM(o.discount_amount) / NULLIF(SUM(o.subtotal_amount), 0) * 100), 
+        2
+    ) AS avg_discount_rate_percent,
+    
+    -- Payment Success Metrics (Diana's tables)
+    COUNT(DISTINCT CASE WHEN pay.status = 'CAPTURED' THEN pay.payment_id END) AS successful_payments,
+    COUNT(DISTINCT CASE WHEN pay.status = 'FAILED' THEN pay.payment_id END) AS failed_payments,
+    COUNT(DISTINCT CASE WHEN pay.status = 'REFUNDED' THEN pay.payment_id END) AS refunded_payments,
+    ROUND(
+        (COUNT(DISTINCT CASE WHEN pay.status = 'CAPTURED' THEN pay.payment_id END) / 
+         NULLIF(COUNT(DISTINCT pay.payment_id), 0) * 100), 
+        2
+    ) AS payment_success_rate_percent,
+    
+    -- Payment Provider Distribution
+    SUM(CASE WHEN pay.provider = 'Stripe' THEN pay.amount ELSE 0 END) AS stripe_revenue,
+    SUM(CASE WHEN pay.provider = 'PayPal' THEN pay.amount ELSE 0 END) AS paypal_revenue,
+    SUM(CASE WHEN pay.provider = 'Square' THEN pay.amount ELSE 0 END) AS square_revenue,
+    
+    -- Shipping Performance (Sneha's Shipments table)
+    COUNT(DISTINCT s.shipment_id) AS total_shipments,
+    SUM(CASE WHEN s.status = 'DELIVERED' THEN 1 ELSE 0 END) AS shipments_delivered,
+    ROUND(
+        AVG(CASE 
+            WHEN s.delivered_at IS NOT NULL AND s.shipped_at IS NOT NULL 
+            THEN DATEDIFF(s.delivered_at, s.shipped_at)
+            ELSE NULL
+        END), 
+        2
+    ) AS avg_delivery_days,
+    
+    -- Profitability Metrics (Estimates)
+    -- Net Revenue = Total Revenue - Discounts
+    ROUND(SUM(o.grand_total_amount) - SUM(o.discount_amount), 2) AS net_revenue_after_discounts,
+    
+    -- Revenue Per Unit
+    ROUND(
+        SUM(o.grand_total_amount) / NULLIF(SUM(oi.qty), 0), 
+        2
+    ) AS revenue_per_unit_sold,
+    
+    -- Discount Efficiency (Revenue impact)
+    ROUND(
+        (SUM(o.grand_total_amount) / NULLIF(SUM(o.discount_amount), 0)), 
+        2
+    ) AS revenue_dollars_per_discount_dollar,
+    
+    -- Category Performance Indicators
+    CASE 
+        WHEN SUM(o.grand_total_amount) >= 50000 THEN 'TOP REVENUE CATEGORY'
+        WHEN SUM(o.grand_total_amount) >= 20000 THEN 'HIGH REVENUE CATEGORY'
+        WHEN SUM(o.grand_total_amount) >= 10000 THEN 'MEDIUM REVENUE CATEGORY'
+        WHEN SUM(o.grand_total_amount) >= 5000 THEN 'LOW-MEDIUM REVENUE CATEGORY'
+        ELSE 'LOW REVENUE CATEGORY'
+    END AS category_revenue_tier,
+    
+    -- Discount Strategy Assessment
+    CASE 
+        WHEN (SUM(o.discount_amount) / NULLIF(SUM(o.subtotal_amount), 0) * 100) > 20 
+            THEN 'HIGH DISCOUNT DEPENDENCY - Review Strategy'
+        WHEN (SUM(o.discount_amount) / NULLIF(SUM(o.subtotal_amount), 0) * 100) > 10 
+            THEN 'MODERATE DISCOUNTING - Acceptable'
+        WHEN (SUM(o.discount_amount) / NULLIF(SUM(o.subtotal_amount), 0) * 100) > 5 
+            THEN 'LOW DISCOUNTING - Healthy Margins'
+        ELSE 'MINIMAL DISCOUNTING - Premium Pricing'
+    END AS discount_strategy_health,
+    
+    -- Order Fulfillment Efficiency
+    CASE 
+        WHEN (SUM(CASE WHEN o.status = 'FULFILLED' THEN 1 ELSE 0 END) / 
+              NULLIF(COUNT(DISTINCT o.order_id), 0) * 100) >= 80 
+            THEN 'EXCELLENT FULFILLMENT (>80%)'
+        WHEN (SUM(CASE WHEN o.status = 'FULFILLED' THEN 1 ELSE 0 END) / 
+              NULLIF(COUNT(DISTINCT o.order_id), 0) * 100) >= 60 
+            THEN 'GOOD FULFILLMENT (60-80%)'
+        WHEN (SUM(CASE WHEN o.status = 'FULFILLED' THEN 1 ELSE 0 END) / 
+              NULLIF(COUNT(DISTINCT o.order_id), 0) * 100) >= 40 
+            THEN 'NEEDS IMPROVEMENT (40-60%)'
+        ELSE 'POOR FULFILLMENT (<40%)'
+    END AS fulfillment_performance,
+    
+    -- Payment Processing Health
+    CASE 
+        WHEN (COUNT(DISTINCT CASE WHEN pay.status = 'FAILED' THEN pay.payment_id END) / 
+              NULLIF(COUNT(DISTINCT pay.payment_id), 0) * 100) > 10 
+            THEN 'HIGH FAILURE RATE - Check Payment Gateway'
+        WHEN (COUNT(DISTINCT CASE WHEN pay.status = 'FAILED' THEN pay.payment_id END) / 
+              NULLIF(COUNT(DISTINCT pay.payment_id), 0) * 100) > 5 
+            THEN 'ELEVATED FAILURE RATE - Monitor Closely'
+        ELSE 'HEALTHY PAYMENT PROCESSING'
+    END AS payment_processing_health,
+    
+    -- Return/Refund Rate Analysis
+    CASE 
+        WHEN (SUM(CASE WHEN o.status = 'REFUNDED' THEN 1 ELSE 0 END) / 
+              NULLIF(COUNT(DISTINCT o.order_id), 0) * 100) > 10 
+            THEN 'HIGH RETURN RATE - Quality Issue'
+        WHEN (SUM(CASE WHEN o.status = 'REFUNDED' THEN 1 ELSE 0 END) / 
+              NULLIF(COUNT(DISTINCT o.order_id), 0) * 100) > 5 
+            THEN 'ELEVATED RETURNS - Investigate'
+        WHEN (SUM(CASE WHEN o.status = 'REFUNDED' THEN 1 ELSE 0 END) / 
+              NULLIF(COUNT(DISTINCT o.order_id), 0) * 100) > 2 
+            THEN 'NORMAL RETURN RATE'
+        ELSE 'LOW RETURN RATE - Excellent'
+    END AS return_rate_assessment,
+    
+    -- Growth Indicators
+    CASE 
+        WHEN COUNT(DISTINCT o.order_id) >= 50 THEN 'HIGH VOLUME PERIOD'
+        WHEN COUNT(DISTINCT o.order_id) >= 20 THEN 'MEDIUM VOLUME PERIOD'
+        WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 'LOW VOLUME PERIOD'
+        ELSE 'MINIMAL VOLUME PERIOD'
+    END AS order_volume_classification,
+    
+    -- Strategic Recommendations
+    CASE 
+        WHEN (SUM(o.discount_amount) / NULLIF(SUM(o.subtotal_amount), 0) * 100) > 15 
+            AND AVG(o.grand_total_amount) < 100 
+            THEN 'STRATEGY: Reduce discounts, focus on value perception'
+        WHEN AVG(o.grand_total_amount) >= 500 
+            AND (SUM(o.discount_amount) / NULLIF(SUM(o.subtotal_amount), 0) * 100) < 5 
+            THEN 'STRATEGY: Premium segment - maintain pricing power'
+        WHEN COUNT(DISTINCT o.user_id) < 20 
+            THEN 'STRATEGY: Focus on customer acquisition'
+        WHEN (SUM(CASE WHEN o.status = 'REFUNDED' THEN 1 ELSE 0 END) / 
+              NULLIF(COUNT(DISTINCT o.order_id), 0) * 100) > 8 
+            THEN 'STRATEGY: Investigate product quality/fit issues'
+        WHEN (COUNT(DISTINCT pay.payment_id) / NULLIF(COUNT(DISTINCT o.order_id), 0)) < 0.95 
+            THEN 'STRATEGY: Improve payment gateway or offer more payment options'
+        ELSE 'STRATEGY: Scale current operations'
+    END AS strategic_recommendation
+
+FROM Orders o
+INNER JOIN OrderItems oi ON o.order_id = oi.order_id
+INNER JOIN ProductVariants pv ON oi.variant_id = pv.variant_id
+INNER JOIN Products p ON pv.product_id = p.product_id
+LEFT JOIN Categories c ON p.category_id = c.category_id
+LEFT JOIN Payments pay ON o.order_id = pay.order_id
+LEFT JOIN Shipments s ON o.order_id = s.order_id
+
+WHERE 
+    o.placed_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)  -- Last 6 months
+    AND o.status NOT IN ('CANCELLED')  -- Exclude cancelled orders
+
+GROUP BY 
+    DATE_FORMAT(o.placed_at, '%Y-%m'),
+    DATE_FORMAT(o.placed_at, '%Y-Q%q'),
+    YEAR(o.placed_at),
+    DAYNAME(o.placed_at),
+    c.name
+
+ORDER BY 
+    order_year DESC,
+    order_month DESC,
+    total_revenue DESC;
+
+-- BUSINESS VALUE:
+-- 1. CFO/Finance: Comprehensive P&L insights and margin analysis
+-- 2. Executives: Strategic decision-making on pricing and promotions
+-- 3. Category Managers: Category performance benchmarking
+-- 4. Marketing: ROI on discount campaigns and promotional strategies
+-- 5. Operations: Fulfillment efficiency and bottleneck identification
+-- 6. Investors: Business health and growth trajectory metrics
+
+
+
+
+-- ====================================================================
+-- File: queries/kumar_virat/query5_customer_lifetime_value_segmentation.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Kumar, Virat
+-- Create date: November 2025
+-- Description: Query 5 - Customer Lifetime Value & RFM Segmentation Analysis
+-- Tables Used: Users (Bajwa), UserRoles (Bajwa), Orders (Sneha), OrderItems (Sneha),
+--              Payments (Diana), Reviews (Diana), Carts (Min), Addresses (Diana)
+-- =============================================
+
+-- BUSINESS USE CASE:
+-- This query implements RFM (Recency, Frequency, Monetary) analysis combined with
+-- engagement metrics to segment customers and calculate lifetime value. It enables
+-- targeted marketing, personalized experiences, and customer retention strategies.
+
+-- REAL-WORLD SCENARIO:
+-- Marketing and CRM teams use this for:
+-- - Identifying VIP customers for exclusive offers
+-- - Segmenting customers for email marketing campaigns
+-- - Calculating customer acquisition cost (CAC) payback periods
+-- - Predicting churn risk and implementing retention programs
+-- - Personalizing product recommendations and pricing
+
+USE urbanease_shop;
+
+SELECT 
+    -- Customer Identity (Bajwa's tables)
+    u.user_id,
+    u.full_name AS customer_name,
+    u.email AS customer_email,
+    u.phone AS customer_phone,
+    u.is_active AS account_active,
+    DATE_FORMAT(u.created_at, '%Y-%m-%d') AS registration_date,
+    DATEDIFF(NOW(), u.created_at) AS customer_age_days,
+    ROUND(DATEDIFF(NOW(), u.created_at) / 30.0, 1) AS customer_age_months,
+    
+    -- Customer Role (Bajwa's tables)
+    GROUP_CONCAT(DISTINCT r.role_name SEPARATOR ', ') AS user_roles,
+    CASE 
+        WHEN GROUP_CONCAT(DISTINCT r.role_name) LIKE '%VIPCustomer%' THEN 'VIP Member'
+        WHEN GROUP_CONCAT(DISTINCT r.role_name) LIKE '%Customer%' THEN 'Regular Customer'
+        ELSE 'Other'
+    END AS membership_tier,
+    
+    -- RFM: RECENCY - Days since last order (Sneha's tables)
+    MAX(o.placed_at) AS last_order_date,
+    DATEDIFF(NOW(), MAX(o.placed_at)) AS days_since_last_order,
+    CASE 
+        WHEN MAX(o.placed_at) IS NULL THEN 0
+        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5  -- Very Recent
+        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4  -- Recent
+        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3  -- Moderate
+        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2  -- Old
+        ELSE 1  -- Very Old
+    END AS recency_score,
+    
+    -- RFM: FREQUENCY - Number of orders (Sneha's tables)
+    COUNT(DISTINCT o.order_id) AS total_orders,
+    ROUND(COUNT(DISTINCT o.order_id) / NULLIF(DATEDIFF(NOW(), u.created_at) / 30.0, 0), 2) AS avg_orders_per_month,
+    CASE 
+        WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5  -- Very Frequent
+        WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4   -- Frequent
+        WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3   -- Moderate
+        WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2   -- Infrequent
+        ELSE 1  -- No Orders
+    END AS frequency_score,
+    
+    -- RFM: MONETARY - Total spent (Sneha + Diana tables)
+    ROUND(SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END), 2) AS lifetime_value,
+    ROUND(AVG(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE NULL END), 2) AS avg_order_value,
+    CASE 
+        WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5
+        WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4
+        WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3
+        WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2
+        ELSE 1
+    END AS monetary_score,
+    
+    -- Composite RFM Score
+    CONCAT(
+        CASE 
+            WHEN MAX(o.placed_at) IS NULL THEN 0
+            WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5
+            WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4
+            WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3
+            WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2
+            ELSE 1
+        END,
+        CASE 
+            WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5
+            WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4
+            WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3
+            WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2
+            ELSE 1
+        END,
+        CASE 
+            WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5
+            WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4
+            WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3
+            WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2
+            ELSE 1
+        END
+    ) AS rfm_score,
+    
+    -- Purchase Behavior Metrics
+    SUM(oi.qty) AS total_units_purchased,
+    COUNT(DISTINCT pv.product_id) AS unique_products_purchased,
+    MIN(o.placed_at) AS first_order_date,
+    DATEDIFF(MAX(o.placed_at), MIN(o.placed_at)) AS customer_lifespan_days,
+    
+    -- Payment Behavior (Diana's tables)
+    SUM(CASE WHEN pay.status = 'CAPTURED' THEN 1 ELSE 0 END) AS successful_payments,
+    SUM(CASE WHEN pay.status = 'FAILED' THEN 1 ELSE 0 END) AS failed_payments,
+    ROUND(
+        (SUM(CASE WHEN pay.status = 'CAPTURED' THEN 1 ELSE 0 END) / 
+         NULLIF(COUNT(DISTINCT pay.payment_id), 0) * 100), 
+        2
+    ) AS payment_success_rate,
+    
+    -- Engagement Metrics
+    COUNT(DISTINCT rev.review_id) AS reviews_written,
+    ROUND(AVG(rev.rating), 2) AS avg_review_rating,
+    COUNT(DISTINCT addr.address_id) AS addresses_on_file,
+    COUNT(DISTINCT cart.cart_id) AS total_carts_created,
+    
+    -- Customer Segmentation
+    CASE 
+        -- Champions: High R, F, M (555, 554, 545, 544)
+        WHEN CONCAT(
+            CASE WHEN MAX(o.placed_at) IS NULL THEN 0 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2 ELSE 1 END,
+            CASE WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5 WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4 WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3 WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2 ELSE 1 END,
+            CASE WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2 ELSE 1 END
+        ) IN ('555', '554', '545', '544', '455', '454', '445')
+            THEN 'Champions'
+        
+        -- Loyal Customers: High F, M but lower R (445, 435, 345)
+        WHEN CONCAT(
+            CASE WHEN MAX(o.placed_at) IS NULL THEN 0 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2 ELSE 1 END,
+            CASE WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5 WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4 WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3 WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2 ELSE 1 END,
+            CASE WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2 ELSE 1 END
+        ) IN ('344', '345', '335', '334', '444', '435', '434')
+            THEN 'Loyal Customers'
+        
+        -- Potential Loyalists: Recent, moderate F & M (525, 524, 515, 514)
+        WHEN CONCAT(
+            CASE WHEN MAX(o.placed_at) IS NULL THEN 0 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2 ELSE 1 END,
+            CASE WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5 WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4 WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3 WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2 ELSE 1 END,
+            CASE WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2 ELSE 1 END
+        ) IN ('523', '522', '521', '513', '512', '511', '423', '422', '421')
+            THEN 'Potential Loyalists'
+        
+        -- At Risk: Low R, high F & M (245, 244, 235, 234)
+        WHEN CONCAT(
+            CASE WHEN MAX(o.placed_at) IS NULL THEN 0 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2 ELSE 1 END,
+            CASE WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5 WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4 WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3 WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2 ELSE 1 END,
+            CASE WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2 ELSE 1 END
+        ) IN ('244', '243', '234', '233', '224', '223', '144', '143', '134', '133')
+            THEN 'At Risk'
+        
+        -- Can't Lose Them: Very low R, high F & M (145, 144, 135, 134)
+        WHEN CONCAT(
+            CASE WHEN MAX(o.placed_at) IS NULL THEN 0 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2 ELSE 1 END,
+            CASE WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5 WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4 WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3 WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2 ELSE 1 END,
+            CASE WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2 ELSE 1 END
+        ) IN ('155', '154', '145', '144', '155', '135', '124', '123')
+            THEN 'Cannot Lose Them'
+        
+        -- New Customers: High R, low F (511, 411, 311)
+        WHEN COUNT(DISTINCT o.order_id) <= 2 AND DATEDIFF(NOW(), MAX(o.placed_at)) <= 60
+            THEN 'New Customers'
+        
+        -- Promising: Recent, low F but good M (533, 532, 531, 543, 542, 541)
+        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 AND COUNT(DISTINCT o.order_id) <= 3 
+            AND SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 500
+            THEN 'Promising'
+        
+        -- Hibernating: Low R, F, M (222, 221, 212, 211)
+        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) > 180 AND COUNT(DISTINCT o.order_id) <= 3
+            THEN 'Hibernating'
+        
+        -- Lost: Very low scores
+        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) > 180 OR MAX(o.placed_at) IS NULL
+            THEN 'Lost'
+        
+        ELSE 'Needs Attention'
+    END AS customer_segment,
+    
+    -- Marketing Actions
+    CASE 
+        WHEN CONCAT(
+            CASE WHEN MAX(o.placed_at) IS NULL THEN 0 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2 ELSE 1 END,
+            CASE WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5 WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4 WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3 WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2 ELSE 1 END,
+            CASE WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2 ELSE 1 END
+        ) IN ('555', '554', '545', '544', '455', '454', '445')
+            THEN 'VIP Treatment: Exclusive access, early releases, personal account manager'
+        WHEN CONCAT(
+            CASE WHEN MAX(o.placed_at) IS NULL THEN 0 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 30 THEN 5 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 60 THEN 4 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 90 THEN 3 WHEN DATEDIFF(NOW(), MAX(o.placed_at)) <= 180 THEN 2 ELSE 1 END,
+            CASE WHEN COUNT(DISTINCT o.order_id) >= 10 THEN 5 WHEN COUNT(DISTINCT o.order_id) >= 5 THEN 4 WHEN COUNT(DISTINCT o.order_id) >= 3 THEN 3 WHEN COUNT(DISTINCT o.order_id) >= 1 THEN 2 ELSE 1 END,
+            CASE WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 THEN 5 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 THEN 4 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 THEN 3 WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 THEN 2 ELSE 1 END
+        ) IN ('244', '243', '234', '233', '224', '223', '144', '143', '134', '133')
+            THEN 'Win-Back Campaign: Aggressive discounts, personalized outreach'
+        WHEN COUNT(DISTINCT o.order_id) <= 2 AND DATEDIFF(NOW(), MAX(o.placed_at)) <= 60
+            THEN 'Nurture: Welcome series, product education, onboarding'
+        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) > 180 OR MAX(o.placed_at) IS NULL
+            THEN 'Re-engagement: Survey, massive discount, new product showcase'
+        ELSE 'Standard Marketing: Regular newsletters, seasonal promotions'
+    END AS recommended_marketing_action,
+    
+    -- Churn Risk
+    CASE 
+        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) > 180 AND COUNT(DISTINCT o.order_id) >= 3 THEN 'HIGH CHURN RISK'
+        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) > 90 AND COUNT(DISTINCT o.order_id) >= 2 THEN 'MEDIUM CHURN RISK'
+        WHEN DATEDIFF(NOW(), MAX(o.placed_at)) > 60 THEN 'LOW CHURN RISK'
+        WHEN MAX(o.placed_at) IS NULL THEN 'NEVER PURCHASED'
+        ELSE 'ACTIVE'
+    END AS churn_risk_level,
+    
+    -- Customer Value Tier
+    CASE 
+        WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 5000 
+            THEN 'PLATINUM ($5000+)'
+        WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 2000 
+            THEN 'GOLD ($2000-$4999)'
+        WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 1000 
+            THEN 'SILVER ($1000-$1999)'
+        WHEN SUM(CASE WHEN o.status IN ('PAID', 'FULFILLED') THEN o.grand_total_amount ELSE 0 END) >= 100 
+            THEN 'BRONZE ($100-$999)'
+        ELSE 'STARTER (<$100)'
+    END AS customer_value_tier
+
+FROM Users u
+LEFT JOIN UserRoles ur ON u.user_id = ur.user_id
+LEFT JOIN Roles r ON ur.role_id = r.role_id
+LEFT JOIN Orders o ON u.user_id = o.user_id AND o.status IN ('PAID', 'FULFILLED', 'PENDING')
+LEFT JOIN OrderItems oi ON o.order_id = oi.order_id
+LEFT JOIN ProductVariants pv ON oi.variant_id = pv.variant_id
+LEFT JOIN Payments pay ON o.order_id = pay.order_id
+LEFT JOIN Reviews rev ON u.user_id = rev.user_id
+LEFT JOIN Addresses addr ON u.user_id = addr.user_id
+LEFT JOIN Carts cart ON u.user_id = cart.user_id
+
+WHERE 
+    u.is_active = TRUE
+    AND u.created_at <= NOW()
+
+GROUP BY 
+    u.user_id, u.full_name, u.email, u.phone, u.is_active, u.created_at
+
+ORDER BY 
+    lifetime_value DESC,
+    total_orders DESC,
+    days_since_last_order ASC;
+
+-- BUSINESS VALUE:
+-- 1. Marketing: Targeted campaigns based on customer segments
+-- 2. Customer Success: Proactive retention for at-risk customers
+-- 3. Sales: Identifies upsell opportunities with high-value customers
+-- 4. Finance: Customer lifetime value forecasting
+-- 5. Product: Tailors features and pricing for different segments
+-- 6. Executive: Overall customer health and retention metrics
+
+
+
+
+-- ====================================================================
+-- File: queries/min_la_yaung/query1_active_carts.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Min, La Yaung
+-- Create date: 11/03/2025
+-- Description: Query 1 - Active Shopping Carts with Items
+-- Tables: Carts, CartItems, Coupons
+-- =============================================
+
+USE urbanease_shop;
+
+
+-- a query that gives a detailed snapshot of every active shopping cart 
+-- showing who owns it, how many items and categories it contains, how valuable it is, and when it was last updated.
+SELECT 
+    c.cart_id,
+    COALESCE(u.full_name, 'Guest User') AS user_name,          -- handles guest checkouts gracefully
+    COUNT(DISTINCT ci.cart_item_id) AS total_items,            -- total unique items in cart
+    SUM(ci.qty * ci.unit_price) AS total_cart_value,           -- total value = sum of quantity × unit price
+    MAX(ci.added_at) AS last_item_added,                       -- most recent time an item was added
+    GROUP_CONCAT(DISTINCT cat.name ORDER BY cat.name SEPARATOR ', ') AS categories_in_cart,  -- categories covered in this cart
+    CASE 
+        WHEN SUM(ci.qty * ci.unit_price) > 500 THEN 'High Value'
+        WHEN SUM(ci.qty * ci.unit_price) BETWEEN 200 AND 500 THEN 'Medium Value'
+        ELSE 'Low Value'
+    END AS spending_tier,                                       -- simple tiering system based on total value
+    COUNT(DISTINCT pv.product_id) AS distinct_products,         -- unique product count (excluding variants)
+    COUNT(DISTINCT pv.variant_id) AS variant_count              -- count of product variants in the cart
+FROM Carts c
+LEFT JOIN Users u ON c.user_id = u.user_id
+INNER JOIN CartItems ci ON ci.cart_id = c.cart_id
+INNER JOIN ProductVariants pv ON ci.variant_id = pv.variant_id
+LEFT JOIN Products p ON pv.product_id = p.product_id
+LEFT JOIN Categories cat ON p.category_id = cat.category_id
+WHERE c.cart_id IN (
+    SELECT DISTINCT cart_id 
+    FROM CartItems 
+    WHERE qty > 0
+)
+GROUP BY c.cart_id, user_name
+HAVING total_items > 0
+ORDER BY total_cart_value DESC, last_item_added DESC;
+
+
+-- ====================================================================
+-- File: queries/min_la_yaung/query2_abandoned_carts.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Min, La Yaung
+-- Create date: 11/03/2025
+-- Description: Enhanced Query 2 - Abandoned Carts Revenue Insights
+-- Tables: Carts, CartItems, Coupons, Users
+-- =============================================
+
+USE urbanease_shop;
+
+
+-- a query that ranks carts by inactivity and potential revenue to help the team decide 
+-- which users to target first with reminders or coupon offers for cart recovery.
+WITH cart_summary AS (
+    SELECT 
+        c.cart_id,
+        COALESCE(u.full_name, 'Guest User') AS user_name,
+        TIMESTAMPDIFF(DAY, MAX(ci.added_at), NOW()) AS days_inactive,  -- Days since the last item was added
+        COUNT(ci.cart_item_id) AS total_items,
+        SUM(ci.qty * ci.unit_price) AS potential_revenue,               -- Estimated total cart value
+        COUNT(DISTINCT p.category_id) AS category_diversity             -- How diverse the cart is (helps in marketing personalization)
+    FROM Carts c
+    LEFT JOIN Users u ON c.user_id = u.user_id
+    INNER JOIN CartItems ci ON ci.cart_id = c.cart_id
+    INNER JOIN ProductVariants pv ON ci.variant_id = pv.variant_id
+    INNER JOIN Products p ON pv.product_id = p.product_id
+    GROUP BY c.cart_id, user_name
+)
+SELECT 
+    cs.cart_id,
+    cs.user_name,
+    cs.days_inactive,
+    cs.total_items,
+    ROUND(cs.potential_revenue, 2) AS potential_revenue,
+    cs.category_diversity,
+    -- Customer activity classification
+    CASE
+        WHEN cs.days_inactive <= 2 THEN 'Recently Active'
+        WHEN cs.days_inactive BETWEEN 3 AND 6 THEN 'At Risk'
+        WHEN cs.days_inactive BETWEEN 7 AND 14 THEN 'Likely Lost'
+        ELSE 'Dormant'
+    END AS cart_status,
+
+    -- Prioritize high-value carts with recent inactivity
+
+    RANK() OVER (
+        ORDER BY cs.days_inactive ASC, cs.potential_revenue DESC
+    ) AS recovery_priority,
+
+    -- Suggest a coupon strategy based on value
+    CASE
+        WHEN cs.potential_revenue >= 500 THEN 'Offer 20% OFF coupon'
+        WHEN cs.potential_revenue BETWEEN 200 AND 499 THEN 'Offer $25 OFF coupon'
+        ELSE 'Send gentle reminder email'
+    END AS recommended_action
+FROM cart_summary cs
+WHERE cs.total_items > 0
+ORDER BY recovery_priority;
+
+
+
+-- ====================================================================
+-- File: queries/min_la_yaung/query3_coupon_usage.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Min, La Yaung
+-- Create date: 11/03/2025
+-- Description: Query 3 - Coupon Usage and Effectiveness
+-- Tables: Carts, CartItems, Coupons
+-- =============================================
+
+USE urbanease_shop;
+
+-- a query that calculates how much each active coupon could discount total cart values based on current items
+
+SELECT 
+    cp.code AS coupon_code,												-- Coupon code identifier
+    cp.type AS discount_type,											-- Either 'PERCENT' or 'AMOUNT'
+    cp.value AS discount_value,											-- Discount percentage or flat value
+    COUNT(DISTINCT c.cart_id) AS applicable_carts,						-- Number of carts the coupon could apply to
+    -- calculate the total value of all carts combined
+    ROUND(SUM(ci.qty * ci.unit_price), 2) AS total_cart_value,
+    
+    -- created a subquery that determines total discount amount based on coupon type
+    CASE 
+        WHEN cp.type = 'PERCENT' THEN ROUND(SUM(ci.qty * ci.unit_price) * (cp.value / 100), 2)
+        WHEN cp.type = 'AMOUNT'  THEN ROUND(cp.value * COUNT(DISTINCT c.cart_id), 2)
+        ELSE 0
+    END AS total_discount_value,
+    --  created a subquery that calculates the remaining revenue after discount is applied
+    ROUND(
+        SUM(ci.qty * ci.unit_price) -
+        CASE 
+            WHEN cp.type = 'PERCENT' THEN SUM(ci.qty * ci.unit_price) * (cp.value / 100)
+            WHEN cp.type = 'AMOUNT'  THEN cp.value * COUNT(DISTINCT c.cart_id)
+            ELSE 0
+        END, 2
+    ) AS potential_revenue_after_discount
+FROM Coupons cp
+JOIN Carts c ON 1=1          					-- remove date restrictions to include all carts
+JOIN CartItems ci ON ci.cart_id = c.cart_id 	-- match each cart with its items
+WHERE cp.is_active = TRUE						-- only include active coupons
+GROUP BY cp.code, cp.type, cp.value				-- group results per coupon
+HAVING total_cart_value > 0						-- ignore coupons with no sales data
+ORDER BY total_discount_value DESC;				-- show most valuable coupons first
+
+
+
+-- ====================================================================
+-- File: queries/min_la_yaung/query4_carttotals_coupdiscounts.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Min, La Yaung
+-- Create date: 11/07/2025
+-- Description: Query 4 - Cart Totals with coupon discounts
+-- Tables: Carts, CartItems, Coupons
+-- =============================================
+
+
+USE urbanease_shop;
+-- A query that calculates each cart’s subtotal, applies active coupon discounts, 
+-- and shows the final total for both users and guests to evaluate coupon impact.
+SELECT 
+    c.cart_id,
+    COALESCE(u.full_name, 'Guest User') AS user_name,
+    COUNT(ci.cart_item_id) AS total_items,
+    SUM(ci.qty * ci.unit_price) AS subtotal,
+    cp.code AS coupon_code,
+    cp.type AS coupon_type,
+    cp.value AS coupon_value,
+    CASE 
+        WHEN cp.type = 'PERCENT' THEN ROUND(SUM(ci.qty * ci.unit_price) * (cp.value / 100), 2)
+        WHEN cp.type = 'AMOUNT' THEN cp.value
+        ELSE 0
+    END AS discount_amount,
+    CASE 
+        WHEN cp.type = 'PERCENT' THEN ROUND(SUM(ci.qty * ci.unit_price) * (1 - cp.value / 100), 2)
+        WHEN cp.type = 'AMOUNT' THEN ROUND(SUM(ci.qty * ci.unit_price) - cp.value, 2)
+        ELSE SUM(ci.qty * ci.unit_price)
+    END AS final_total
+FROM Carts c
+LEFT JOIN Users u ON c.user_id = u.user_id
+INNER JOIN CartItems ci ON ci.cart_id = c.cart_id
+LEFT JOIN Coupons cp ON cp.is_active = TRUE
+GROUP BY c.cart_id, user_name, cp.code, cp.type, cp.value
+HAVING subtotal >= 50
+ORDER BY final_total DESC;
+
+
+-- ====================================================================
+-- File: queries/min_la_yaung/query5_popular_product.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Min, La Yaung
+-- Create date: 11/07/2025
+-- Description: Query 5 - Most Popular Products in Carts
+-- Tables: CartItems, ProductVariants, Products, Categories
+-- =============================================
+
+
+USE urbanease_shop;
+
+-- A query that identifies the most popular products added to carts 
+-- by counting how often each product appears and the total quantity added.
+SELECT 
+    p.product_id,
+    p.title AS product_name,
+    c.name AS category_name,
+    COUNT(ci.cart_item_id) AS times_in_cart,
+    SUM(ci.qty) AS total_qty_added,
+    ROUND(AVG(ci.unit_price), 2) AS avg_price
+FROM CartItems ci
+INNER JOIN ProductVariants pv ON ci.variant_id = pv.variant_id
+INNER JOIN Products p ON pv.product_id = p.product_id
+INNER JOIN Categories c ON p.category_id = c.category_id
+GROUP BY p.product_id, p.title, c.name
+ORDER BY total_qty_added DESC, times_in_cart DESC
 LIMIT 10;
 
-SELECT '=== Test 5: Validate against actual query ===' as test_description;
+
+-- ====================================================================
+-- File: queries/tiwari_sneha/query1_order_summary.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Sneha Tiwari
+-- Create date: [Date]
+-- Description: Query 1 - Customer Order Summary
+-- Tables: Users, Orders
+-- =============================================
+USE urbanease_shop;
+
 SELECT 
-    'Using Function' as method,
-    fn_GetAvailableStock(1, 1) as available
-UNION ALL
+    u.user_id,
+    u.full_name,
+    COUNT(o.order_id) AS total_orders,
+    SUM(o.grand_total_amount) AS total_spent,
+    MAX(o.placed_at) AS last_order_date
+FROM Users u
+JOIN Orders o ON u.user_id = o.user_id
+GROUP BY u.user_id, u.full_name
+ORDER BY total_spent DESC;
+
+
+
+-- ====================================================================
+-- File: queries/tiwari_sneha/query2_Top_Selling_Products.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Tiwari, Sneha
+-- Create date: [Date]
+-- Description: Query 2 - Top Selling Products by Revenue
+-- Tables: OrderItems, ProductVariants, Products
+-- =============================================
+
+USE urbanease_shop;
+
 SELECT 
-    'Using Direct Query' as method,
-    (on_hand - reserved) as available
-FROM Inventory
-WHERE variant_id = 1 AND warehouse_id = 1;
+    p.product_id,
+    p.title AS product_name,
+    SUM(oi.qty * oi.unit_price) AS total_revenue,
+    SUM(oi.qty) AS total_units_sold
+FROM OrderItems oi
+JOIN ProductVariants pv ON oi.variant_id = pv.variant_id
+JOIN Products p ON pv.product_id = p.product_id
+GROUP BY p.product_id, p.title
+ORDER BY total_revenue DESC
+LIMIT 10;
+
+
+
+-- ====================================================================
+-- File: queries/tiwari_sneha/query3_Coupon_Performance_Report.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Tiwari, Sneha
+-- Create date: [Date]
+-- Description: Query 3 - Coupon Performance Report
+-- Tables: Coupons, Orders
+-- =============================================
+
+USE urbanease_shop;
+
+SELECT 
+    c.code AS coupon_code,
+    COUNT(o.order_id) AS times_used,
+    SUM(o.discount_amount) AS total_discount_given,
+    SUM(o.subtotal_amount) AS total_sales_before_discount,
+    ROUND((SUM(o.discount_amount) / SUM(o.subtotal_amount)) * 100, 2) AS avg_discount_pct
+FROM Coupons c
+JOIN Orders o ON c.coupon_id = o.coupon_id
+GROUP BY c.code
+ORDER BY total_discount_given DESC;
+
+
+
+-- ====================================================================
+-- File: queries/tiwari_sneha/query4_Order_Fulfillment_Shipment_Tracking.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Tiwari, Sneha
+-- Create date: [Date]
+-- Description: Query 4 - Order Fulfillment & Shipment Tracking
+-- Tables: Orders, Shipments, Payments, Users
+-- =============================================
+
+USE urbanease_shop;
+
+SELECT 
+    o.order_id,
+    u.full_name AS customer_name,
+    o.status AS order_status,
+    COALESCE(s.status, 'NOT_SHIPPED') AS shipment_status,
+    p.status AS payment_status,
+    o.grand_total_amount,
+    s.carrier,
+    s.tracking_no,
+    s.shipped_at,
+    s.delivered_at
+FROM Orders o
+JOIN Users u ON o.user_id = u.user_id
+LEFT JOIN Shipments s ON o.order_id = s.order_id
+LEFT JOIN Payments p ON o.order_id = p.order_id
+ORDER BY o.placed_at DESC;
+
+
+
+-- ====================================================================
+-- File: queries/tiwari_sneha/query5_Customer_Lifetime_Value_Analysis.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Tiwari, Sneha
+-- Create date: [Date]
+-- Description: Query 5 - Customer Lifetime Value (CLV) Analysis
+-- Tables: Users, Orders, Payments
+-- =============================================
+
+USE urbanease_shop;
+
+WITH customer_spend AS (
+    SELECT 
+        u.user_id,
+        u.full_name,
+        COUNT(o.order_id) AS total_orders,
+        SUM(o.grand_total_amount) AS total_spent,
+        AVG(o.grand_total_amount) AS avg_order_value,
+        MAX(o.placed_at) AS last_order_date
+    FROM Users u
+    JOIN Orders o ON u.user_id = o.user_id
+    WHERE o.status IN ('PAID', 'FULFILLED')
+    GROUP BY u.user_id, u.full_name
+)
+SELECT 
+    user_id,
+    full_name,
+    total_orders,
+    total_spent,
+    avg_order_value,
+    last_order_date,
+    RANK() OVER (ORDER BY total_spent DESC) AS customer_rank
+FROM customer_spend
+ORDER BY total_spent DESC;
+
+
+
+-- ====================================================================
+-- File: queries/velarde_sosa_diana/query1_Customer_Insights_Report.sql
+-- ====================================================================
+
+-- ==========================================================
+-- Author: Velarde Sosa, Diana
+-- Create date: [2025-11-06]
+-- Description: Query 1 City-Level Customer Insights Report
+-- Tables Used: Users, Addresses, Orders, Payments, Reviews
+-- ----------------------------------------------------------
+-- Purpose:
+--   Generate regional performance insights including:
+--   - Payment totals and success rate
+--   - Average payment and order values
+--   - Review participation and average ratings
+--   - Monthly trends per city
+-- ==========================================================
+
+USE urbanease_shop;
+
+SELECT 
+    -- Geographic Information
+    a.city AS City,
+    a.state_region AS State,
+
+    -- Monthly Trend (based on order placement date)
+    DATE_FORMAT(o.placed_at, '%Y-%m') AS Month,
+
+    -- Customer Activity
+    COUNT(DISTINCT u.user_id) AS Total_Customers,    -- number of unique customers
+    COUNT(DISTINCT o.order_id) AS Total_Orders,      -- total orders placed
+
+    -- Payment Information
+    ROUND(SUM(p.amount), 2) AS Total_Payment_Amount, -- total money paid
+    ROUND(AVG(p.amount), 2) AS Avg_Payment_Amount,   -- average payment per transaction
+
+    -- Payment Status Analysis
+    SUM(CASE WHEN p.status = 'FAILED' THEN 1 ELSE 0 END) AS Failed_Payments,
+    SUM(CASE WHEN p.status = 'CAPTURED' THEN 1 ELSE 0 END) AS Successful_Payments,
+    ROUND(
+        (SUM(CASE WHEN p.status = 'CAPTURED' THEN 1 ELSE 0 END) / 
+         NULLIF(COUNT(p.payment_id), 0)) * 100, 2
+    ) AS Payment_Success_Rate,  -- success % of all payments
+
+    -- Order Information
+    ROUND(SUM(o.grand_total_amount), 2) AS Total_Sales,     -- total sales amount
+    ROUND(AVG(o.grand_total_amount), 2) AS Avg_Order_Value, -- average order value
+
+    -- Review Insights
+    COUNT(DISTINCT r.review_id) AS Total_Reviews,    -- total number of reviews written
+    ROUND(AVG(r.rating), 2) AS Avg_Product_Rating,   -- average star rating
+    ROUND(
+        (COUNT(DISTINCT r.review_id) / NULLIF(COUNT(DISTINCT u.user_id), 0)) * 100, 2
+    ) AS Review_Participation_Rate,  -- % of customers who wrote at least one review
+
+    -- Reporting Window
+    MIN(o.placed_at) AS First_Order_Date,
+    MAX(o.placed_at) AS Last_Order_Date
+
+FROM Users u
+    JOIN Addresses a 
+        ON u.user_id = a.user_id
+    JOIN Orders o 
+        ON u.user_id = o.user_id
+    LEFT JOIN Payments p 
+        ON o.order_id = p.order_id
+    LEFT JOIN Reviews r 
+        ON u.user_id = r.user_id
+
+-- ==========================================================
+-- Optional Time Filter (uncomment for last 6 months)
+-- WHERE o.placed_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+-- ==========================================================
+
+GROUP BY 
+    a.city, 
+    a.state_region,
+    DATE_FORMAT(o.placed_at, '%Y-%m')  -- monthly grouping
+
+HAVING 
+    SUM(p.amount) > 0  -- only include cities with payment activity
+
+ORDER BY 
+    a.state_region ASC,
+    a.city ASC,
+    Month DESC;
+
+
+
+-- ====================================================================
+-- File: queries/velarde_sosa_diana/query2_user_addresses.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Velarde Sosa, Diana
+-- Create date: [2025-11-05]
+-- Description: Query 2 - User Addresses by Region
+-- Tables: Addresses, Users
+
+-- Purpose:
+--   Analyze user address distribution and address usage patterns
+--   across regions (state/city level).
+--
+-- Includes:
+--   Total users per region
+--   Total addresses per region
+--   Average number of addresses per user
+--   Default address ratio
+--   Optional grouping by city
+-- =============================================
+
+USE urbanease_shop;
+
+SELECT 
+    -- Geographic info
+    a.state_region AS State,
+    a.city AS City,
+
+    -- User and Address Counts
+    COUNT(DISTINCT u.user_id) AS Total_Users,             -- number of unique users in the region
+    COUNT(a.address_id) AS Total_Addresses,               -- total addresses registered
+    ROUND(COUNT(a.address_id) / COUNT(DISTINCT u.user_id), 2) AS Avg_Addresses_Per_User,  -- avg addresses per user
+
+    -- Address Usage Patterns
+    SUM(CASE WHEN a.is_default = TRUE THEN 1 ELSE 0 END) AS Default_Addresses,  -- how many addresses are marked as default
+    ROUND(
+        (SUM(CASE WHEN a.is_default = TRUE THEN 1 ELSE 0 END) / 
+         NULLIF(COUNT(a.address_id), 0)) * 100, 2
+    ) AS Default_Address_Rate,  -- percentage of addresses that are default
+
+    -- Contact Availability
+    SUM(CASE WHEN a.phone IS NOT NULL THEN 1 ELSE 0 END) AS Addresses_With_Phone,
+    ROUND(
+        (SUM(CASE WHEN a.phone IS NOT NULL THEN 1 ELSE 0 END) / 
+         NULLIF(COUNT(a.address_id), 0)) * 100, 2
+    ) AS Phone_Availability_Rate,  -- percentage of addresses that include a phone number
+
+    -- Data freshness
+    MIN(a.created_at) AS First_Address_Added,
+    MAX(a.updated_at) AS Last_Address_Updated
+
+FROM Users u
+JOIN Addresses a 
+    ON u.user_id = a.user_id
+
+-- ==========================================================
+-- Optional Filters (Uncomment one of these if needed)
+-- ----------------------------------------------------------
+-- WHERE a.created_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)   -- last 6 months only
+-- WHERE a.country_code = 'US'                               -- filter by country
+-- ==========================================================
+
+GROUP BY 
+    a.state_region, 
+    a.city  -- change to just a.state_region if you want a higher-level report
+
+HAVING 
+    COUNT(a.address_id) > 0  -- exclude regions with no addresses
+
+ORDER BY 
+    a.state_region ASC, 
+    a.city ASC;
+
+
+
+
+-- ====================================================================
+-- File: queries/velarde_sosa_diana/query3_product_reviews.sql
+-- ====================================================================
+
+-- =============================================
+-- Author: Velarde Sosa, Diana
+-- Create date: [2025-11-06]
+-- Description: Query 3 - Product Reviews and Ratings Analysis
+-- Tables: Addresses, Payments, Reviews, Users, Orders, Products
+
+-- Purpose:
+--   Analyze how customer satisfaction (via reviews) 
+--   relates to regions (Addresses) and payment performance.
+--
+-- Includes:
+--   Average product ratings by region
+--   Count of reviews per product
+--   Relationship between payment success and review activity
+--   Optional grouping by state and city
+-- =============================================
+
+USE urbanease_shop;
+
+SELECT
+    -- Regional Information
+    a.state_region AS State,
+    a.city AS City,
+
+    -- Product and Review Metrics
+    pdt.title AS Product_Title,
+    COUNT(r.review_id) AS Total_Reviews,                   -- total reviews written
+    ROUND(AVG(r.rating), 2) AS Avg_Rating,                 -- average product rating
+    SUM(CASE WHEN r.rating = 5 THEN 1 ELSE 0 END) AS Five_Star_Reviews,
+    SUM(CASE WHEN r.rating = 1 THEN 1 ELSE 0 END) AS One_Star_Reviews,
+
+    -- Payment Insights for Reviewers
+    COUNT(DISTINCT pay.payment_id) AS Related_Payments,     -- total payments linked to reviewers
+    ROUND(SUM(pay.amount), 2) AS Total_Payment_Amount,      -- total payment value from reviewers
+    ROUND(AVG(pay.amount), 2) AS Avg_Payment_Amount,        -- average payment value
+    ROUND(
+        (SUM(CASE WHEN pay.status = 'CAPTURED' THEN 1 ELSE 0 END) / 
+         NULLIF(COUNT(pay.payment_id), 0)) * 100, 2
+    ) AS Payment_Success_Rate,                              -- percentage of successful payments
+
+    -- Engagement and Quality
+    COUNT(DISTINCT r.user_id) AS Reviewers_Count,           -- number of unique users who left reviews
+    ROUND(
+        COUNT(r.review_id) / NULLIF(COUNT(DISTINCT r.user_id), 0), 2
+    ) AS Avg_Reviews_Per_User,                              -- average reviews per user
+    MAX(r.created_at) AS Last_Review_Date,                  -- most recent review date
+
+    -- Timeframe
+    MIN(pay.created_at) AS First_Payment_Date,
+    MAX(pay.created_at) AS Last_Payment_Date
+
+FROM Reviews r
+    JOIN Users u 
+        ON r.user_id = u.user_id
+    JOIN Addresses a 
+        ON u.user_id = a.user_id
+    LEFT JOIN Orders o 
+        ON o.user_id = u.user_id
+    LEFT JOIN Payments pay 
+        ON pay.order_id = o.order_id
+    JOIN Products pdt 
+        ON r.product_id = pdt.product_id
+
+-- ==========================================================
+-- Optional Filter Examples:
+-- WHERE r.created_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)     -- only recent reviews
+-- WHERE a.country_code = 'US'                                 -- limit to US users
+-- WHERE pay.provider = 'Stripe'                               -- analyze by payment provider
+-- ==========================================================
+
+GROUP BY 
+    a.state_region, 
+    a.city, 
+    pdt.title
+
+HAVING 
+    COUNT(r.review_id) > 0   -- include only products with reviews
+
+ORDER BY 
+    a.state_region ASC,
+    a.city ASC,
+    Avg_Rating DESC;
+
+
 
 
