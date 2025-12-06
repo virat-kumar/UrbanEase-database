@@ -5,6 +5,20 @@
 -- Tables: Categories, Products, ProductImages
 -- =============================================
 
+--- BUSINESS USE CASE:
+This query lists all products within each category along with their images. It's used to:
+Validate visual completeness of the product catalog
+Support merchandising teams in reviewing product readiness
+Enable marketing to confirm image coverage for featured categories
+
+--- REAL-WORLD SCENARIO:
+Before launching a category-specific campaign (e.g., "Winter Jackets"), the team uses this query to ensure all listed products have the required number of images.
+
+--- Impact:
+ Improves product presentation, reduces visual gaps, and ensures high-quality listings across all categories.
+
+
+
 USE urbanease_shop;
 
 -- TODO: Write your complex query here
