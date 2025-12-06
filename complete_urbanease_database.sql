@@ -4561,17 +4561,17 @@ LIMIT 100;
 -- Tables: Categories, Products, ProductImages
 -- =============================================
 
---- BUSINESS USE CASE:
-This query lists all products within each category along with their images. It's used to:
-Validate visual completeness of the product catalog
-Support merchandising teams in reviewing product readiness
-Enable marketing to confirm image coverage for featured categories
+-- BUSINESS USE CASE:
+-- This query lists all products within each category along with their images. It's used to:
+-- Validate visual completeness of the product catalog
+-- Support merchandising teams in reviewing product readiness
+-- Enable marketing to confirm image coverage for featured categories
 
---- REAL-WORLD SCENARIO:
-Before launching a category-specific campaign (e.g., "Winter Jackets"), the team uses this query to ensure all listed products have the required number of images.
+-- REAL-WORLD SCENARIO:
+-- Before launching a category-specific campaign (e.g., "Winter Jackets"), the team uses this query to ensure all listed products have the required number of images.
 
---- Impact:
- Improves product presentation, reduces visual gaps, and ensures high-quality listings across all categories.
+-- Impact:
+-- Improves product presentation, reduces visual gaps, and ensures high-quality listings across all categories.
 
 
 
@@ -4608,17 +4608,17 @@ LIMIT 10;                                   -- Limit to 10 records
 -- Tables: Categories, Products, ProductImages
 -- =============================================
 
----BUSINESS USE CASE:
-This query gives a snapshot of the category structure, showing how many products and images exist per category. It helps teams identify:
-Underpopulated or image-deficient categories
-Readiness of product categories for campaigns
-Gaps in catalog coverage or merchandising focus
+-- BUSINESS USE CASE:
+-- This query gives a snapshot of the category structure, showing how many products and images exist per category. It helps teams identify:
+-- Underpopulated or image-deficient categories
+-- Readiness of product categories for campaigns
+-- Gaps in catalog coverage or merchandising focus
 
---- REAL-WORLD SCENARIO:
-Before a major sale, teams run this to check if all featured categories have enough products and visuals. If a category has products but no images, it's flagged for immediate content upload.
+-- REAL-WORLD SCENARIO:
+-- Before a major sale, teams run this to check if all featured categories have enough products and visuals. If a category has products but no images, it's flagged for immediate content upload.
 
---- Impact:
- Ensures catalog completeness, better customer experience, and supports campaign planning with accurate product distribution data.
+-- Impact:
+-- Ensures catalog completeness, better customer experience, and supports campaign planning with accurate product distribution data.
 
 
   
@@ -4660,17 +4660,17 @@ LIMIT 10;                                            -- Show 10 entries
 -- Tables: Categories, Products, ProductImages
 -- =============================================
 
---- BUSINESS USE CASE:
-This query identifies products that are missing images, helping teams quickly locate and fix incomplete listings. It's essential for:
-Catalog QA and content cleanup
-Preventing customer drop-offs due to missing visuals
-Ensuring all products meet listing standards
+-- BUSINESS USE CASE:
+-- This query identifies products that are missing images, helping teams quickly locate and fix incomplete listings. It's essential for:
+-- Catalog QA and content cleanup
+-- Preventing customer drop-offs due to missing visuals
+-- Ensuring all products meet listing standards
 
---- REAL-WORLD SCENARIO:
-Before a site-wide sale, this query flags 40 products with no images. The content team is alerted to upload missing visuals before the event goes live.
+-- REAL-WORLD SCENARIO:
+-- Before a site-wide sale, this query flags 40 products with no images. The content team is alerted to upload missing visuals before the event goes live.
 
---- Impact:
- Avoids lost conversions, improves product discoverability, and maintains professional catalog standards.
+-- Impact:
+-- Avoids lost conversions, improves product discoverability, and maintains professional catalog standards.
 
 
 

@@ -6,17 +6,17 @@
 -- Tables: Reviews, Products, Users
 -- =============================================
 
---- BUSINESS USE CASE:
-This query fetches the most recent product reviews along with user info and ratings. It’s used by:
-CX and QA teams to monitor customer sentiment
-Marketing to feature top-rated products
-Product teams to detect quality issues early
+-- BUSINESS USE CASE:
+-- This query fetches the most recent product reviews along with user info and ratings. It's used by:
+-- CX and QA teams to monitor customer sentiment
+-- Marketing to feature top-rated products
+-- Product teams to detect quality issues early
 
---- REAL-WORLD SCENARIO:
-After a new product launch, this query helps teams track early feedback and respond quickly to negative reviews.
+-- REAL-WORLD SCENARIO:
+-- After a new product launch, this query helps teams track early feedback and respond quickly to negative reviews.
 
---- Impact:
- Enhances customer trust, improves product quality feedback loops, and boosts marketing with real, high-rated testimonials.
+-- Impact:
+-- Enhances customer trust, improves product quality feedback loops, and boosts marketing with real, high-rated testimonials.
 
 
 
